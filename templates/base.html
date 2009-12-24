@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AS220 Jukebox Music</title>
+    <meta name="author" content="Brandon Edens">
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style>
+      article, aside, dialog, figure, footer, header,
+      hgroup, menu, nav, section { display: block; }
+    </style>
+    <link href="{{ MEDIA_URL }}css/base.css" rel="stylesheet" type="text/css" />
+    <link href="{{ MEDIA_URL }}css/layout.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/base.js"></script>
+  </head>
+  <body>
+    <header>
+      <img src="{{ MEDIA_URL }}images/AS220.png" alt="AS220" />
+      <img src="{{ MEDIA_URL }}images/title_bar.gif" alt="Caution stripes" />
+    </header>
+
+    <section id="wrapper">
+      <section id="content">
+        {% block content %}{% endblock %}
+      </section>
+    </section>
+
+    <nav>
+      <a href="">login</a><br />
+      <a href="">about</a><br />
+      <a href="">status</a><br />
+      <a href="">currently playing: </a>
+    </nav>
+
+    <aside>
+      aside
+    </aside>
+
+    <footer>
+      <hr />
+      <address>
+        <a href="mailto:brandon@as220.org">Brandon Edens</a>,
+        24 Dec 2009
+      </address>
+    </footer>
+  </body>
+</html>
