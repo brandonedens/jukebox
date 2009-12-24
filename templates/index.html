@@ -13,34 +13,35 @@
       hgroup, menu, nav, section { display: block; }
     </style>
     <link href="{{ MEDIA_URL }}css/base.css" rel="stylesheet" type="text/css" />
+    <link href="{{ MEDIA_URL }}css/layout.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="{{ MEDIA_URL }}js/base.js"></script>
   </head>
   <body>
-    <section>
+    <header>
+      <img src="{{ MEDIA_URL }}images/AS220.png" alt="AS220" />
+      <img src="{{ MEDIA_URL }}images/title_bar.gif" alt="Caution stripes" />
+    </header>
 
-      <header>
-        <h1>Test</h1>
-      </header>
-
-      <nav>
-      </nav>
-
-      <section>
-        <article>
-
-        </article>
+    <section id="wrapper">
+      <section id="content">
+        this is content
       </section>
-
-      <aside>
-      </aside>
-
-      <footer>
-        <address>
-          <a href="mailto:brandon@rocky">Brandon Edens</a>,
-          24 Dec 2009
-        </address>
-      </footer>
-
     </section>
+
+    <nav>
+      login
+    </nav>
+
+    <aside>
+      aside
+    </aside>
+
+    <footer>
+      <hr />
+      <address>
+        <a href="mailto:brandon@as220.org">Brandon Edens</a>,
+        24 Dec 2009
+      </address>
+    </footer>
   </body>
 </html>

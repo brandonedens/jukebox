@@ -1,10 +1,16 @@
 body {
     background-color: #fff; color: #333;
+    background:transparent url(http://as220.org/about/images/background2.gif) repeat scroll 0 0;
+    font-family:Georgia,serif;
+    font-size:13px;
+    line-height:18px;
+    margin:0;
+    padding:0;
 }
 
 body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
+    /* font-family: verdana, arial, helvetica, sans-serif; */
+    font-size:   13px;
 }
 
 pre {
@@ -24,3 +30,17 @@ a:visited {
 a:hover {
     color: #fff; background-color:#000;
 }
+
+hr {
+    border-top: 1px dashed #000;
+    height: 1px;
+}
+
+footer {
+    font-size: 80%;
+}
+
+section#content {
+    background:transparent url(http://as220.org/about/images/background2_flip.gif) repeat scroll 0 0;
+}
+
