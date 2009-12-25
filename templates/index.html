@@ -21,9 +21,10 @@
 <div id="login" class="panel">
   <img class="cover" src="{{ MEDIA_URL }}images/login.png" alt="login" />
   <p>
-    Login to upload and maintain your music.
+    Login or <a href="/accounts/register/">register</a> to upload and maintain
+    your music.
   </p>
-  <form action="{% url django.contrib.auth.views.login %}"
+  <form action="{# url django.contrib.auth.views.login #}"
         method="post">
     <label>username: </label>
     <input type="text" />
