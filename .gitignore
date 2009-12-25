@@ -1,2 +1,3 @@
 *.pyc
 jukebox.sqlite3
+static_media/songs/*
