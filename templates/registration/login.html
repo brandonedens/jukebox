@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% comment %}
+Login page
+
+Brandon Edens
+AS220
+2009-07-29
+Copyright (C) 2009 Brandon Edens <brandon@as220.org>
+
+This file is part of Jukebox.
+
+Jukebox is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Jukebox is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Jukebox.  If not, see <http://www.gnu.org/licenses/>.
+{% endcomment %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form action="{% url django.contrib.auth.views.login %}"
+      method="post">
+  <fieldset>
+    <legend>Login</legend>
+
+    {{ form.as_p }}
+
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+
+    <p>
+      Forgot your password? <a href="{% url django.contrib.auth.views.password_reset %}">Click here</a>.
+    </p>
+  </fieldset>
+</form>
+
+
+<p>
+  Need an account? Register an account <a href="{% url registration.views.register %}">here</a>.
+</p>
+
+{% endblock %}
+
