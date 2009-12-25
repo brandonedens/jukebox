@@ -1,3 +1,4 @@
 *.pyc
+fixtures/initial_data.json
 jukebox.sqlite3
 static_media/songs/*
