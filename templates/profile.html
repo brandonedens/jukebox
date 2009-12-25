@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+this is profile.
+
+<h1>Uploaded Music</h1>
+<ul>
+{% for song in songs %}
+<li>
+{{ song }}
+</li>
+{% endfor %}
+
+{% endblock %}
+
