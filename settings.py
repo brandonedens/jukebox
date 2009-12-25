@@ -54,7 +54,6 @@ SECRET_KEY = 'g^okellta-s4ohpjo-b$0-7%m0qe2*smw-4xr1#a_zdv9%0@u^'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -66,9 +65,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'jukebox.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     '/home/brandon/src/jukebox/templates',
 )
 
@@ -77,4 +73,24 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+
+    # Third party applications.
+    'registration',
+
+    # Local applications.
+    'jukebox',
+    'jukebox.music',
 )
+
+# URL to redirect to after successful login
+LOGIN_REDIRECT_URL="/profile/"
+
+# Days until registration activations expire
+ACCOUNT_ACTIVATION_DAYS=7
+
+# Email host
+DEFAULT_FROM_EMAIL = "jukebox@as220.org"
+EMAIL_HOST = "localhost"
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = True
+
