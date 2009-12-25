@@ -1,5 +1,57 @@
 {% extends "base.html" %}
 
+{% block css %}
+<link href="{{ MEDIA_URL }}css/front.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/layout_1_column.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/front.js"></script>
+{% endblock %}
+
 {% block content %}
-hello world
+
+<div id="about" class="panel">
+  <img class="cover" src="{{ MEDIA_URL }}images/about.png" alt="about" />
+  <p>
+    Learn about the creation of the jukebox and how to create your own.
+  </p>
+</div>
+
+<div id="login" class="panel">
+  <img class="cover" src="{{ MEDIA_URL }}images/login.png" alt="login" />
+  <p>
+    Login to upload and maintain your music.
+  </p>
+  <form action="{% url django.contrib.auth.views.login %}"
+        method="post">
+    <label>username: </label>
+    <input type="text" />
+    <label>password: </label>
+    <input type="password" />
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+</div>
+
+<div id="browse" class="panel">
+  <img class="cover" src="{{ MEDIA_URL }}images/browse.png" alt="browse" />
+  <p>
+    Browse audio in the jukebox.
+  </p>
+</div>
+
+<div id="stats" class="panel">
+  <img class="cover" src="{{ MEDIA_URL }}images/stats.png" alt="stats" />
+  See statistics regarding the jukebox and the music within it.
+</div>
+
+<div id="charts" class="panel">
+  <img class="cover" src="{{ MEDIA_URL }}images/charts.png" alt="charts" />
+  Look at charts and graphs of music played in the jukebox.
+</div>
+
+<div style="clear: both;">
+  &nbsp;
+</div>
 {% endblock %}
