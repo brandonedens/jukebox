@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load seconds_to_duration %}
+
+{% block content %}
+
+<p>
+  <a href="/music/">Back</a>
+</p>
+
+<h2>{{ object.title }}</h2><br/>
+
+Artist: {{ object.artist.name }}<br/>
+
+Album: {{ object.album.title }}<br/>
+
+bitrate: {{ object.bitrate }} kbps<br/>
+
+variable bitrate: {{ object.bitrate_variable }} <br/>
+
+duration: {{ object.duration|sec_to_dur }}<br/>
+
+sample frequency: {{ object.sample_frequency }}<br/>
+
+track number: {{ object.track_number }}<br/>
+
+genre: {{ object.genre }}<br/>
+
+created on: {{ object.created_on }}<br/>
+
+modified on: {{ object.created_on }}<br/>
+
+{% endblock %}
+

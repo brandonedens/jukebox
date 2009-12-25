@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action=""
+      enctype="multipart/form-data"
+      method="post">
+  <fieldset>
+    <legend>Upload a Song</legend>
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+  </fieldset>
+</form>
+
+{% endblock %}
+
