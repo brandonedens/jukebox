@@ -23,8 +23,7 @@
 ## Imports
 ###############################################################################
 
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.views.generic.simple import direct_to_template
 
 
 ###############################################################################
@@ -33,7 +32,10 @@ from django.template import RequestContext
 
 # Default index
 def index(request):
-    return render_to_response('index.html',
-                              context_instance=RequestContext(request))
+    return direct_to_template(request, 'index.html')
 
+# Default page after login
+def profile(request):
+    songs = request.user.song_set.all()
+    return direct_to_template(request, 'profile.html', {'songs': songs,})
 

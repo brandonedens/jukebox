@@ -17,26 +17,41 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Jukebox.  If not, see <http://www.gnu.org/licenses/>.
+"""
+"""
+
+###############################################################################
+## Imports
+###############################################################################
 
 from django.conf.urls.defaults import *
 from django.conf import settings
+from django.contrib import admin
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+
+###############################################################################
+## Statements
+###############################################################################
+
+admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
-    # (r'^jukebox/', include('jukebox.foo.urls')),
 
-    # Uncomment the admin/doc line below and add 'django.contrib.admindocs'
-    # to INSTALLED_APPS to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    # Administrative services.
+    (r'^admin/', include(admin.site.urls)),
 
-    # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
+    # Registration URLs.
+    (r'^accounts/', include('registration.urls')),
 
+    # Music application URLs.
+    (r'^music/', include('music.urls')),
+
+    # Browsing music URLs.
+    (r'^browse/', include('browse.urls')),
+
+    # Local URLS.
     (r'^$', 'jukebox.views.index'),
+    (r'^profile/$', 'jukebox.views.profile'),
 )
 
 if settings.DEBUG:
