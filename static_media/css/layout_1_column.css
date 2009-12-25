@@ -1,0 +1,71 @@
+body {
+}
+header {
+    position:relative;
+}
+
+body>section#wrapper {
+}
+body>section>section#content {
+}
+
+body>nav {
+    text-align: center;
+}
+
+body>nav {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size:   180%;
+    text-transform: uppercase;
+}
+
+body>nav>ul {
+	margin: 0;
+	padding: 0;
+	cursor: default;
+	list-style-type: none;
+    width: 100%;
+	display: table;
+	table-layout: fixed;
+}
+body>nav>ul>li {
+	display: table-cell;
+	position: relative;
+	padding: 2px 6px;
+}
+
+body>aside {
+}
+footer {
+    clear:left;
+    width:100%
+}
+
+
+/*** Nav bar styles ***/
+
+ul.nav,
+.nav ul{
+/*Remove all spacings from the list items*/
+	margin: 0;
+	padding: 0;
+	cursor: default;
+	list-style-type: none;
+	display: inline;
+}
+
+ul.nav{
+	display: table;
+/*Just add the following properties and values*/
+	width: 100%;
+	table-layout: fixed;
+
+}
+ul.nav>li{
+	display: table-cell;
+	position: relative;
+	padding: 2px 6px;
+}
+
+
+
