@@ -1,0 +1,39 @@
+People who have contributed to eyeD3:
+
+Ryan Finnie <ryan@finnie.org>
+  - Provided some useful functions for manipulating binary data in his
+    PyID3 project which eyeD3 forked from.
+Aubin Paul <aubin@punknews.org>
+  - Bug fixes and initial Debian package contributions.
+    Check out http://freevo.sourceforge.net/
+Gary Shao <gshao1@san.rr.com>
+  - Bug fixes and case-insensitive genre support.
+Rick Carter <Rick.Carter@umich.edu>
+  - Provided lot's of broken tags for the --relaxed testing.
+XMMS Author(s) <http://www.xmms.org>
+  - The cross platform multimedia library was an invaluable reference when
+    writing the mp3 header decoder.
+Alexander Wirt <formorer@debian.org>
+  - Author of the original eyeD3 man page and fixed Python 2.2 / Optik
+    compatibility.
+  - Debian package maintainer
+Henning Kiel <henning.kiel@rwth-aachen.de>
+  - Patches for bogus frame headers, Unicode bug fix
+Michal Čihař <mcihar@suse.cz>
+  - acsite.m4 patch for Python betas and release candidates
+laxori666@yahoo.com
+  - More relaxed genre support patch.
+Arkadiy Belousov <arkadiy@snet.net>
+  - Read support for ID3 v2.2
+Erik Osheim <erik@plastic-idolatry.com>
+  - TPOS frame support (Disc number in set), and numerous bug fixes
+Joe Wreschnig <piman@sacredchao.net>
+  - Bug fixes
+Jesper L. Nielsen <lyager@phunkbros.dk>
+  - File rename bug fix
+Andrew de Quincey <adq@lidskialf.net>
+  - Fixes for unicode display and file system encoding support
+Todd Zullinger <tmz@pobox.com>
+  - USLT frame support, and numerous great patches.
+Aaron VonderHaar <avh4@users.sourceforge.net>
+  - GEOB frame support

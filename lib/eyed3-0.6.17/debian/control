@@ -1,0 +1,31 @@
+Source: eyed3
+Section: sound
+Priority: optional
+Maintainer: Alexander Wirt <formorer@debian.org>
+Build-Depends: debhelper (>= 5.0.37.1), dpatch
+Build-Depends-Indep: python-support (>= 0.3), python
+Homepage: http://eyed3.nicfit.net/
+Standards-Version: 3.8.0
+XS-Python-Version: all
+
+Package: python-eyed3
+Architecture: all
+Section: python
+Depends: ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
+Replaces: python2.3-eyed3, python2.4-eyed3
+Conflicts: python2.3-eyed3, python2.4-eyed3
+Description: Python module for id3-tags manipulation
+ A Python module for the manipulation of ID3 tags. It supports versions
+ 1.0, 1.1, 2.3, and 2.4 of the ID3 standard. It can also retrieve
+ information such as length and bit rate from an MP3 file.
+
+Package: eyed3
+Architecture: all
+Depends: python-eyed3 (= ${source:Version}), ${python:Depends}
+Description: Display and manipulate id3-tags on the command-line
+ A command-line editor to add/edit/remove ID3-tags on mp3 files.
+ It supports version 1.0,1.1,2.3 and 2.4 of the ID3 standard.
+ Additionally it displays several informations about the file 
+ such as length and bitrate from an MP3 file.
