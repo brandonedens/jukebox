@@ -408,9 +408,9 @@ class Tag:
    # Constructor.  An empty tag is created and the link method is used
    # to read an mp3 file's v1.x or v2.x tag.  You can optionally set a
    # file name, but it will not be read, but may be written to.
-   def __init__(self, fileName = None):
-      if fileName:
-         self.linkedFile = LinkedFile(fileName);
+   def __init__(self, in_file = None):
+      if in_file:
+         self.linkedFile = LinkedFile(in_file);
       self.clear();
 
    def clear(self):
@@ -449,9 +449,9 @@ class Tag:
       self.clear();
 
       fileName = "";
-      if isinstance(f, file):
+      if hasattr(f, 'read'):
          fileName = f.name;
-      elif isinstance(f, str) or isinstance(f, unicode):
+      elif hasattr(f, 'split'):
          fileName = f;
       else:
          raise TagException("Invalid type passed to Tag.link: " +
@@ -1564,21 +1564,33 @@ class InvalidAudioFormatException(Exception):
 
 ################################################################################
 class TagFile:
-   fileName = str("");
-   fileSize = int(0);
-   tag      = None;
-   # Number of seconds required to play the audio file.
-   play_time = int(0);
 
-   def __init__(self, fileName):
-       self.fileName = fileName;
+   def __init__(self, in_file):
+      self.in_file = None
+      self.fileName = str("")
+      self.fileSize = int(0)
+      self.tag = None
+      # Number of seconds required to play the audio file.
+      self.play_time = int(0)
+
+      # Attempt to determine interface to in_file whether it is potentially a
+      # filename or some already open file stream.
+      if hasattr(in_file, 'split'):
+         self.filename = in_file
+         self.in_file = open(in_file, 'rb')
+      elif hasattr(in_file, 'read'):
+         self.in_file = in_file
+         self.filename = in_file.name
 
    def getTag(self):
       return self.tag;
 
    def getSize(self):
       if not self.fileSize:
-         self.fileSize = os.stat(self.fileName)[ST_SIZE];
+         try:
+            self.fileSize = os.stat(self.fileName)[ST_SIZE];
+         except OSError:
+            self.fileSize = self.in_file.size
       return self.fileSize;
 
    def rename(self, name, fsencoding):
@@ -1606,19 +1618,28 @@ class TagFile:
 ################################################################################
 class Mp3AudioFile(TagFile):
 
-   def __init__(self, fileName, tagVersion = ID3_ANY_VERSION):
-      TagFile.__init__(self, fileName)
+   def __init__(self, in_file, tagVersion = ID3_ANY_VERSION):
+      TagFile.__init__(self, in_file)
 
       self.tag        = None
       self.header     = None
       self.xingHeader = None
       self.lameTag    = None
 
-      if not isMp3File(fileName):
-         raise InvalidAudioFormatException("File is not mp3");
+      f = None
+      if hasattr(in_file, "split"):
+         # Input file is a string representing a filename.
+         if not isMp3File(in_file):
+            raise InvalidAudioFormatException("File is not mp3");
 
-      # Parse ID3 tag.
-      f = file(self.fileName, "rb");
+         # Parse ID3 tag.
+         f = file(self.in_file, "rb");
+      elif hasattr(in_file, "read"):
+         # Input file is an already open file. We assume that it is an MP3
+         # file.
+         f = in_file
+         f.seek(0)
+
       self.tag = Tag();
       hasTag = self.tag.link(f, tagVersion);
       # Find the first mp3 frame.
@@ -1673,7 +1694,7 @@ class Mp3AudioFile(TagFile):
             length -= 128;
          self.play_time = int((length / self.header.frameLength) * tpf);
 
-      f.close();
+      #f.close();
 
    # Returns a tuple.  The first value is a boolean which if true means the
    # bit rate returned in the second value is variable.
