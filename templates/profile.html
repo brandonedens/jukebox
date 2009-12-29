@@ -2,15 +2,55 @@
 
 {% block content %}
 
-this is profile.
+<script language="JavaScript"
+        src="http://actionspeaksradio.org/js/audio-player.js"></script>
 
+{% if songs %}
 <h1>Uploaded Music</h1>
-<ul>
 {% for song in songs %}
-<li>
-{{ song }}
-</li>
-{% endfor %}
+<div class="song">
+  <h2 class="title">{{ song }}</h2>
+
+  <object type="application/x-shockwave-flash"
+          data="http://actionspeaksradio.org/flash/player.swf"
+          id="audioplayer1" height="24" width="290">
+    <param name="movie" value="http://actionspeaksradio.org/flash/player.swf">
+    <param name="FlashVars"
+           value="playerID=audioplayer1&amp;soundFile={{ MEDIA_URL }}{{ song.file }}">
+    <param name="quality" value="high">
+    <param name="menu" value="false">
+    <param name="wmode" value="transparent">
+  </object>
+
+  <ul class="details">
+    <li>title: {{ song.title }}</li>
+    <li>artist: {{ song.artist }}</li>
+    <li>album: {{ song.album }}</li>
+    <li>track number: {{ song.track_number }}</li>
+    <li>genre: {{ song.genre }}</li>
+    <li>duration: {{ song.duration }}</li>
+    <li>bitrate/variable: {{ song.bitrate }} / {{ song.variable_bitrate }}</li>
+    <li>sample frequency: {{ song.sample_frequency }}</li>
+    <li>created on: {{ song.created_on }}</li>
+    <li>last modified on: {{ song.modified_on }}</li>
+  </ul>
+  {% endfor %}
+
+<h1>Upload Additional Music</h1>
+<p>
+Click <a href="{% url jukebox.music.views.song_upload %}">here to upload more
+music</a>.
+</p>
+
+{% else %}
+
+<h1>Upload Music</h1>
+<p>
+  You have not uploaded any songs. Click <a href="{% url
+  jukebox.music.views.song_upload %}">here to upload music</a>.
+</p>
+
+{% endif %}
 
 {% endblock %}
 
