@@ -28,6 +28,8 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 from django.contrib import admin
 
+from jukebox.views import index, profile
+
 
 ###############################################################################
 ## Statements
@@ -50,8 +52,8 @@ urlpatterns = patterns('',
     (r'^browse/', include('browse.urls')),
 
     # Local URLS.
-    (r'^$', 'jukebox.views.index'),
-    (r'^profile/$', 'jukebox.views.profile'),
+    (r'^$', index),
+    (r'^profile/$', profile),
 )
 
 if settings.DEBUG:
