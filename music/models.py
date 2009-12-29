@@ -129,11 +129,11 @@ class Song(models.Model):
 
     def save(self):
         import eyeD3
-        audio_file = eyeD3.Mp3AudioFile(settings.MEDIA_ROOT+'songs/'+self.file.name)
+        audio_file = eyeD3.Mp3AudioFile(self.file)
         tag = audio_file.getTag()
 
         # Set bitrate information.
-        (self.variable_bitrate, self.bitrate) = audio_file.getBitRate()
+        self.variable_bitrate, self.bitrate = audio_file.getBitRate()
         # Set duration of song in seconds.
         self.duration = audio_file.getPlayTime()
         # Set sample frequency.
@@ -146,13 +146,12 @@ class Song(models.Model):
                 self.title = tag.getTitle()
             # Gather track information
             if not self.track_number:
-                self.track_number = tag.getTrackNum()
+                self.track_number = tag.getTrackNum()[0]
 
             if not self.artist:
                 # Handle populating the artist field
                 artist_name = tag.getArtist()
                 try:
-                    print self.user
                     self.artist = Artist.objects.get(name=artist_name, user=self.user)
                 except Artist.DoesNotExist:
                     artist = Artist(name=artist_name, user=self.user)
@@ -179,9 +178,9 @@ class Song(models.Model):
                     genre = Genre(name=genre_name)
                     genre.save()
                     self.genre = genre
-
         super(Song, self).save()
 
     def __unicode__(self):
-        return self.title
+        complete_title = "%s - %s" % (self.artist, self.title)
+        return complete_title
 

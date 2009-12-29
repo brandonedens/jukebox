@@ -27,9 +27,7 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.formsets import formset_factory
 
-from jukebox.models import Artist
-from jukebox.models import Photo
-from jukebox.models import Song
+from jukebox.music.models import Artist, Photo, Song
 
 
 ###############################################################################
@@ -64,6 +62,9 @@ class SongCreateForm(ModelForm):
         fields = ('file',)
 
     def clean_file(self):
+        """
+        Check that the mime-type is mpeg a requirement for mp3 uploads.
+        """
         import eyeD3
         file = self.cleaned_data['file']
         if file.content_type != 'audio/mpeg':

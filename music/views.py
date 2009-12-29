@@ -10,22 +10,20 @@ from django.core.urlresolvers import reverse
 from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
 
-from jukebox.models import Song
-from jukebox.forms import SongCreateForm
+from jukebox.music.forms import SongCreateForm
+from jukebox.music.models import Song
 
 
 ###############################################################################
 ## Functions
 ###############################################################################
 
-@login_required
 def song_update(request):
     """
-    Update characteristics about a song.
+    Update an existing song.
     """
     pass
 
-@login_required
 def song_upload(request):
     """
     Upload a song.

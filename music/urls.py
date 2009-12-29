@@ -29,6 +29,7 @@ from django.views.generic.list_detail import object_detail
 
 from jukebox.music.forms import SongForm
 from jukebox.music.models import Song
+from jukebox.music.views import song_upload
 
 
 ###############################################################################
@@ -45,7 +46,7 @@ urlpatterns = patterns('jukebox.music.views',
      update_object,
      {'form_class': SongForm,}),
     # Song upload
-    (r'^song/upload/$', 'jukebox.views.song_upload'),
+    (r'^song/upload/$', song_upload),
 )
 
 
