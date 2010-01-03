@@ -116,13 +116,14 @@ class Song(models.Model):
     file = models.FileField(upload_to='songs/')
     title = models.CharField(max_length=200)
 
+    reviewed = models.BooleanField(default=False)
+
+    # Audio specific model settings
     # Bitrate information
     bitrate = models.PositiveIntegerField()
     variable_bitrate = models.BooleanField()
-
     duration = models.PositiveIntegerField()
     sample_frequency = models.PositiveIntegerField()
-
     track_number = models.PositiveSmallIntegerField(blank=True, null=True)
 
     created_on = models.DateTimeField(auto_now_add=True)
