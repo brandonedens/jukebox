@@ -1,0 +1,36 @@
+table {
+    border-collapse: collapse;
+}
+
+th {
+    color:#003399;
+    font-family:"Lucida Sans Unicode","Lucida Grande",Sans-Serif;
+    font-size:14px;
+    font-weight:normal;
+    padding:10px 8px;
+}
+
+td {
+    color: #666699;
+    font-family:"Lucida Sans Unicode","Lucida Grande",Sans-Serif;
+    padding:8px;
+    text-align: left;
+}
+
+tbody>tr.even {
+    background: #FFFFFF none repeat scroll 0 0;
+}
+
+tbody>tr.odd {
+    background: #E8EDFF none repeat scroll 0 0;
+}
+
+thead>tr {
+}
+
+thead>tr>th {
+    background:#B9C9FE none repeat scroll 0 0;
+    border-bottom:2px solid #6678B1;
+}
+
+
