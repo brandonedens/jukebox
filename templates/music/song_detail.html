@@ -8,27 +8,51 @@
   <a href="/music/">Back</a>
 </p>
 
-<h2>{{ object.title }}</h2><br/>
+<p>
+  <h1 class="song" id="song-{{ song.id }}">
+    <span class="title" id="title-{{ song.id }}">"{{ song.title }}"</span>
+    <span class="artist" id="artist-{{ song.artist.id }}">(by {{ song.artist }})</span>
+  </h1>
 
-Artist: {{ object.artist.name }}<br/>
+  <div class="controls">
+    <a href="{% url song_update song.id %}">edit</a><br/>
+    |
+    <a href="{% url song_delete song.id %}">delete</a><br/>
+    |
+    <object type="application/x-shockwave-flash"
+            data="http://actionspeaksradio.org/flash/player.swf"
+            id="audioplayer1" height="24" width="290">
+      <param name="movie" value="http://actionspeaksradio.org/flash/player.swf">
+      <param name="FlashVars"
+             value="playerID=audioplayer1&amp;soundFile={{ MEDIA_URL }}{{ song.file }}">
+      <param name="quality" value="high">
+      <param name="menu" value="false">
+      <param name="wmode" value="transparent">
+    </object>
+  </span>
 
-Album: {{ object.album.title }}<br/>
+  Title: {{ song.title }}<br/>
 
-bitrate: {{ object.bitrate }} kbps<br/>
+  Artist: {{ song.artist }}<br/>
 
-variable bitrate: {{ object.bitrate_variable }} <br/>
+  Album: {{ song.album }}<br/>
 
-duration: {{ object.duration|sec_to_dur }}<br/>
+  Bitrate: {{ song.bitrate }} kbps<br/>
 
-sample frequency: {{ object.sample_frequency }}<br/>
+  Variable bitrate: {{ song.bitrate_variable }} <br/>
 
-track number: {{ object.track_number }}<br/>
+  Duration: {{ song.duration|sec_to_dur }}<br/>
 
-genre: {{ object.genre }}<br/>
+  Sample frequency: {{ song.sample_frequency }}<br/>
 
-created on: {{ object.created_on }}<br/>
+  Track number: {{ song.track_number }}<br/>
 
-modified on: {{ object.created_on }}<br/>
+  Genre: {{ song.genre }}<br/>
+
+  Created on: {{ song.created_on }}<br/>
+
+  Modified on: {{ song.created_on }}<br/>
+</p>
 
 {% endblock %}
 

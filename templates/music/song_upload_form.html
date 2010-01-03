@@ -2,13 +2,17 @@
 
 {% block content %}
 
+{% if form.has_errors %}
+<h2>Please correct the following error{{ form.errors|pluralize }}:</h2>
+{% endif %}
+
 <form action=""
       enctype="multipart/form-data"
       method="post">
   <fieldset>
     <legend>Upload a Song</legend>
     {{ form.as_p }}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Upload" />
   </fieldset>
 </form>
 
