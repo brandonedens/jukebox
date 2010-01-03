@@ -24,11 +24,23 @@
 ###############################################################################
 
 from django.conf.urls.defaults import *
+
+from django.views.generic.create_update import delete_object
 from django.views.generic.create_update import update_object
 from django.views.generic.list_detail import object_detail
+from django.views.generic.list_detail import object_list
 
-from jukebox.music.forms import SongForm
+from jukebox.music.models import Album
+from jukebox.music.models import Artist
+from jukebox.music.models import Genre
 from jukebox.music.models import Song
+
+from jukebox.music.forms import AlbumForm
+from jukebox.music.forms import ArtistForm
+from jukebox.music.forms import GenreForm
+from jukebox.music.forms import SongForm
+
+from jukebox.music.views import song_update
 from jukebox.music.views import song_upload
 
 
@@ -37,16 +49,35 @@ from jukebox.music.views import song_upload
 ###############################################################################
 
 urlpatterns = patterns('jukebox.music.views',
-    # Object detail
-    (r'song/(?P<object_id>\d+)/$',
-     object_detail,
-     {'queryset': Song.objects.all()}),
-    # Song update
-    (r'song/update/(?P<object_id>\d+)/$',
-     update_object,
-     {'form_class': SongForm,}),
-    # Song upload
-    (r'^song/upload/$', song_upload),
-)
 
+    # Song delete
+    url(r'song/delete/(?P<object_id>\d+)/$',
+        delete_object,
+        {'model': Song,
+         'post_delete_redirect': '/music/',
+         'template_object_name': 'song'},
+        name='song_delete'),
+
+    # Song detail
+    url(r'song/(?P<object_id>\d+)/$',
+        object_detail,
+        {'queryset': Song.objects.all(),
+         'template_object_name': 'song'},
+        name='song_details'),
+
+    # Song list
+    url(r'^$',
+        object_list,
+        {'queryset': Song.objects.all(),
+         'template_object_name': 'song'},
+        name='song_list'),
+
+    # Song update
+    url(r'^song/update/(?P<object_id>\d+)/$', 'song_update',
+        name='song_update'),
+
+    # Song upload
+    url(r'^song/upload/$', song_upload, name='song_upload'),
+
+)
 

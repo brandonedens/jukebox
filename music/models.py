@@ -37,7 +37,7 @@ from jukebox import settings
 class Artist(models.Model):
     user = models.ForeignKey(User)
     name = models.CharField(max_length=200, unique=True)
-    website = models.URLField(null=True)
+    website = models.URLField(blank=True, null=True)
 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -52,6 +52,9 @@ class Album(models.Model):
 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.title
 
 class Genre(models.Model):
     name = models.CharField(max_length=256, unique=True)
@@ -71,7 +74,8 @@ class Photo(models.Model):
     artist = models.ForeignKey(Artist)
     title = models.CharField(max_length=200)
     photo = models.ImageField(upload_to="images/artists/")
-    thumbnail = models.ImageField(upload_to="images/artist_thumbnails/", editable=False)
+    thumbnail = models.ImageField(upload_to="images/artist_thumbnails/",
+                                  editable=False)
 
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
@@ -106,7 +110,7 @@ class Photo(models.Model):
 class Song(models.Model):
     user = models.ForeignKey(User)
     artist = models.ForeignKey(Artist, null=True)
-    album = models.ForeignKey(Album, null=True)
+    album = models.ForeignKey(Album, blank=True, null=True)
     genre = models.ForeignKey(Genre, null=True )
 
     file = models.FileField(upload_to='songs/')
@@ -119,13 +123,14 @@ class Song(models.Model):
     duration = models.PositiveIntegerField()
     sample_frequency = models.PositiveIntegerField()
 
-    track_number = models.PositiveSmallIntegerField(null=True)
+    track_number = models.PositiveSmallIntegerField(blank=True, null=True)
 
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
 
+    @models.permalink
     def get_absolute_url(self):
-        return "/music/song/%i/" % self.id
+        return ('song_details', [str(self.id)])
 
     def save(self):
         import eyeD3
@@ -171,13 +176,14 @@ class Song(models.Model):
             if not self.genre:
                 # Gather genre information
                 eyeD3Genre = tag.getGenre()
-                genre_name = eyeD3Genre.getName()
-                try:
-                    self.genre = Genre.objects.get(name=genre_name)
-                except Genre.DoesNotExist:
-                    genre = Genre(name=genre_name)
-                    genre.save()
-                    self.genre = genre
+                if eyeD3Genre:
+                    genre_name = eyeD3Genre.getName()
+                    try:
+                        self.genre = Genre.objects.get(name=genre_name)
+                    except Genre.DoesNotExist:
+                        genre = Genre(name=genre_name)
+                        genre.save()
+                        self.genre = genre
         super(Song, self).save()
 
     def __unicode__(self):

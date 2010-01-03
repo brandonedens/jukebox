@@ -25,9 +25,8 @@
 
 from django import forms
 from django.forms import ModelForm
-from django.forms.formsets import formset_factory
 
-from jukebox.music.models import Artist, Photo, Song
+from jukebox.music.models import Album, Artist, Genre, Photo, Song
 
 
 ###############################################################################
@@ -39,10 +38,19 @@ from jukebox.music.models import Artist, Photo, Song
 ## Classes
 ###############################################################################
 
+class AlbumForm(ModelForm):
+    class Meta:
+        model = Album
+        exclude = ('user', 'artist')
+
 class ArtistForm(ModelForm):
     class Meta:
         model = Artist
         exclude = ('user')
+
+class GenreForm(ModelForm):
+    class Meta:
+        model = Genre
 
 class PhotoForm(ModelForm):
     class Meta:
@@ -52,9 +60,7 @@ class PhotoForm(ModelForm):
 class SongForm(ModelForm):
     class Meta:
         model = Song
-        fields = ('title',
-                  'file',
-                  )
+        fields = ('title',)
 
 class SongCreateForm(ModelForm):
     class Meta:
