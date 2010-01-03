@@ -1,8 +1,8 @@
 body {
     background-color: #fff; color: #333;
-    background:transparent url(http://as220.org/about/images/background2.gif) repeat scroll 0 0;
+    background:transparent url(../images/background_stripes_left_right.gif) repeat scroll 0 0;
     font-family:Georgia,serif;
-    font-size:13px;
+    font-size:15px;
     line-height:18px;
     margin:0;
     padding:0;
@@ -45,16 +45,19 @@ header>img {
 }
 
 section#content {
-    background:transparent url(http://as220.org/about/images/background2_flip.gif) repeat scroll 0 0;
+    background:transparent url(../images/background_stripes_right_left.gif) repeat scroll 0 0;
 }
 
 div.horizontal-bar-caution {
-    background:transparent url(/jukebox/static_media/images/caution_stripe.gif) repeat-x scroll 0 0;
+    background:transparent url(../images/caution_stripe.gif) repeat-x scroll 0 0;
     height:25px;
 }
 
 div.horizontal-bar-grey-caution {
-    background:transparent url(/jukebox/static_media/images/grey_caution_stripe.gif) repeat-x scroll 0 0;
+    background:transparent url(../images/grey_caution_stripe.gif) repeat-x scroll 0 0;
     height:25px;
 }
 
+.errorlist {
+    color:#FF0000;
+}
