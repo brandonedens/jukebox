@@ -40,6 +40,10 @@ footer {
     font-size: 80%;
 }
 
+header>img {
+    display:inline;
+}
+
 section#content {
     background:transparent url(http://as220.org/about/images/background2_flip.gif) repeat scroll 0 0;
 }
@@ -53,3 +57,4 @@ div.horizontal-bar-grey-caution {
     background:transparent url(/jukebox/static_media/images/grey_caution_stripe.gif) repeat-x scroll 0 0;
     height:25px;
 }
+
