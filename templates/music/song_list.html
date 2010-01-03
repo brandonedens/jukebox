@@ -7,8 +7,12 @@
 {% endblock %}
 
 {% block js %}
-<script language="JavaScript"
-        src="http://actionspeaksradio.org/js/audio-player.js"></script>
+<script language="javascript"
+        src="{{ MEDIA_URL }}js/audio-player.js"></script>
+<script language="javascript"
+        src="{{ MEDIA_URL }}js/jquery.tablesorter.min.js"></script>
+<script language="javascript"
+        src="{{ MEDIA_URL }}js/song_list.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -16,7 +20,7 @@
 <h1>Songs</h1>
 <a href="{% url song_upload %}">Upload a new song.</a>
 
-<table>
+<table class="tablesorter">
   <thead>
     <tr>
       <th>

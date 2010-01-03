@@ -33,4 +33,25 @@ thead>tr>th {
     border-bottom:2px solid #6678B1;
 }
 
+/* Table sortable */
+th.header {
+    background-image: url(../images/tablesorter/arrow_up_down.gif);
+    background-position: right center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+th.headerSortUp {
+    background-image: url(../images/tablesorter/arrow_asc.gif);
+    background-position: right center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+th.headerSortDown {
+    background-image: url(../images/tablesorter/arrow_desc.gif);
+    background-position: right center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
 
