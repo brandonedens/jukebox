@@ -27,8 +27,7 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 from django.contrib import admin
-
-from jukebox.views import index, profile
+from django.views.generic.simple import direct_to_template
 
 
 ###############################################################################
@@ -45,15 +44,17 @@ urlpatterns = patterns('',
     # Registration URLs.
     (r'^accounts/', include('registration.urls')),
 
-    # Music application URLs.
-    (r'^music/', include('music.urls')),
+    # Top level URLS.
+    url(r'^$', direct_to_template,
+        {'template': 'index.html',
+         }
+        name='index'),
 
-    # Browsing music URLs.
-    (r'^browse/', include('browse.urls')),
-
-    # Local URLS.
-    (r'^$', index),
-    (r'^profile/$', profile),
+    # Application URLs.
+    (r'^album/', include('album.urls')),
+    (r'^artist/', include('artist.urls')),
+    (r'^profile/', include('profile.urls')),
+    (r'^song/', include('song.urls')),
 )
 
 if settings.DEBUG:
