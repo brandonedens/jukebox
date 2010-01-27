@@ -1576,11 +1576,11 @@ class TagFile:
       # Attempt to determine interface to in_file whether it is potentially a
       # filename or some already open file stream.
       if hasattr(in_file, 'split'):
-         self.filename = in_file
+         self.fileName = in_file
          self.in_file = open(in_file, 'rb')
       elif hasattr(in_file, 'read'):
          self.in_file = in_file
-         self.filename = in_file.name
+         self.fileName = in_file.name
 
    def getTag(self):
       return self.tag;
@@ -1633,7 +1633,7 @@ class Mp3AudioFile(TagFile):
             raise InvalidAudioFormatException("File is not mp3");
 
          # Parse ID3 tag.
-         f = file(self.in_file, "rb");
+         f = open(in_file, "rb");
       elif hasattr(in_file, "read"):
          # Input file is an already open file. We assume that it is an MP3
          # file.
