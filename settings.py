@@ -1,5 +1,9 @@
 # Django settings for jukebox project.
 
+import os
+# Setup the directory name for this project.
+DIRNAME = os.path.dirname(__file__)
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -10,7 +14,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'jukebox.sqlite3'             # Or path to database file if using sqlite3.
+DATABASE_NAME = "%s/dev.db" % DIRNAME
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -35,7 +39,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/brandon/src/jukebox/static_media/'
+MEDIA_ROOT = os.path.join(DIRNAME, 'static_media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -54,6 +58,7 @@ SECRET_KEY = 'g^okellta-s4ohpjo-b$0-7%m0qe2*smw-4xr1#a_zdv9%0@u^'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
+    'django.template.loaders.eggs.load_template_source',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,12 +70,15 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'jukebox.urls'
 
 TEMPLATE_DIRS = (
-    '/home/brandon/src/jukebox/templates',
+    DIRNAME + '/templates',
 )
 
 INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.markup',
     'django.contrib.sessions',
     'django.contrib.sites',
 
