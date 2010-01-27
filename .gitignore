@@ -2,6 +2,7 @@
 dev.db
 fixtures/initial_data.json
 jukebox.sqlite3
+lib/*.gz
 lib/*.deb
 lib/eyed3-0.6.17/Makefile
 lib/eyed3-0.6.17/build-stamp
