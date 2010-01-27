@@ -1,4 +1,5 @@
 *.pyc
+dev.db
 fixtures/initial_data.json
 jukebox.sqlite3
 lib/*.deb
