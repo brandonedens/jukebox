@@ -88,6 +88,7 @@ INSTALLED_APPS = (
     # Local applications.
     'jukebox.album',
     'jukebox.artist',
+    'jukebox.profile',
     'jukebox.song',
 )
 
