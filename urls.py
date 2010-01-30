@@ -46,8 +46,7 @@ urlpatterns = patterns('',
 
     # Top level URLS.
     url(r'^$', direct_to_template,
-        {'template': 'index.html',
-         }
+        {'template': 'index.html',},
         name='index'),
 
     # Application URLs.
