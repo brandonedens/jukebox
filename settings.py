@@ -104,3 +104,9 @@ EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
 EMAIL_USE_TLS = True
 
+# Application specific settings
+
+# Artist settings
+ARTISTS_PER_PAGE = 10
+SONGS_PER_PAGE = 10
+
