@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{ title }}</title>
+    <title>AS220 Jukebox{% block title %}{% endblock %}</title>
     <meta name="author" content="Brandon Edens">
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,52 +12,73 @@
       article, aside, dialog, figure, footer, header,
       hgroup, menu, nav, section { display: block; }
     </style>
-    <link href="{{ MEDIA_URL }}css/base.css" rel="stylesheet" type="text/css" />
-    {% block css %}{% endblock %}
-    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.3.2.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.4.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.corner.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}js/base.js"></script>
     {% block js %}{% endblock %}
+
+    <link href="{{ MEDIA_URL }}css/base.css" rel="stylesheet" type="text/css" />
+    <link href="{{ MEDIA_URL }}css/button.css" rel="stylesheet" type="text/css" />
+    <link href="{{ MEDIA_URL }}css/layout.css" rel="stylesheet" type="text/css" />
+    {% block css %}{% endblock %}
   </head>
   <body>
-    <header>
-      <img src="{{ MEDIA_URL }}images/AS220.png" alt="AS220" />
-      <img src="{{ MEDIA_URL }}images/jukebox_music.png" alt="Jukebox Music" />
-      <div class="horizontal-bar-caution">&nbsp;</div>
-    </header>
+    <section id="page">
+      <header>
+        <img src="{{ MEDIA_URL }}images/AS220.png" alt="AS220" />
+        <img src="{{ MEDIA_URL }}images/jukebox_music.png" alt="Jukebox Music" />
+        <div class="horizontal-bar-caution">&nbsp;</div>
+      </header>
 
-    <nav>
-      <ul>
-        <li>
-          <a href="">login</a>
-        </li>
-        <li>
-          <a href="">about</a>
-        </li>
-        <li>
-          <a href="">status</a>
-        </li>
-        <li>
-          <a href="">currently playing</a>
-        </li>
-      </ul>
-    </nav>
+      <section id="wrapper">
+        <section id="content">
+          {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
 
-    <section id="wrapper">
-      <section id="content">
-        {% block content %}{% endblock %}
+          {% block content %}{% endblock %}
+        </section>
       </section>
+
+      <nav>
+        <ul>
+          <li>
+            <a href="">login</a>
+          </li>
+          <li>
+            <a href="">about</a>
+          </li>
+          <li>
+            <a href="">status</a>
+          </li>
+          <li>
+            <a href="">currently playing</a>
+          </li>
+          <li>
+            <a href="{% url artist_list %}">artists</a>
+          </li>
+          <li>
+            <a href="{% url song_list %}">song</a>
+          </li>
+        </ul>
+      </nav>
+
+      <aside>
+        {% block aside %}
+        {% endblock %}
+      </aside>
+
+      <footer>
+        <hr />
+        <address>
+          <a href="mailto:brandon@as220.org">Brandon Edens</a>,
+          30 Jan 2010
+        </address>
+      </footer>
     </section>
-
-    <aside>
-      aside
-    </aside>
-
-    <footer>
-      <hr />
-      <address>
-        <a href="mailto:brandon@as220.org">Brandon Edens</a>,
-        31 Dec 2009
-      </address>
-    </footer>
   </body>
 </html>
