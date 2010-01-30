@@ -1,5 +1,6 @@
 *.pyc
 dev.db
+fixtures
 fixtures/initial_data.json
 jukebox.sqlite3
 lib/*.gz
