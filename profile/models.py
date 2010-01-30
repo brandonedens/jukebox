@@ -15,6 +15,4 @@ from django.db import models
 ## Classes
 ###############################################################################
 
-class Model(models.Model):
-    pass
 
