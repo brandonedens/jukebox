@@ -19,6 +19,7 @@ from jukebox.artist.models import Artist
 
 class Album(models.Model):
     artist = models.ForeignKey(Artist)
+
     title = models.CharField(max_length=256)
 
     created_on = models.DateTimeField(auto_now_add=True)
