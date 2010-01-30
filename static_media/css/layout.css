@@ -1,0 +1,28 @@
+
+nav {
+    float: left;
+    margin-left: -100%;
+    width: 150px;
+}
+
+section#wrapper {
+    float: left;
+    width: 100%;
+}
+
+section#content {
+    margin: 0 150px;
+}
+
+aside {
+    float: left;
+    margin-left: -150px;
+    width: 150px;
+}
+
+footer {
+    clear: left;
+    width: 100%;
+}
+
+
