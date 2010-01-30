@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load markup %}
+
+{% block title %}AS220 Jukebox - Artist List{% endblock %}
+
+{% block content %}
+
+{% for album in album_list %}
+<div class="article" id="album-{{ album.id }}">
+  <a href="{{ album.get_absolute_url }}">
+    <h1 class="title">{{ album.title }}</h1>
+  </a>
+  <div class="timestamp">
+    added on: {{ album.added_on|date }}
+  </div>
+  <div class="description">
+    {{ album.description|markdown|truncatewords_html:100 }}
+    <a href="{% url album_detail album.id %}">more</a>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
