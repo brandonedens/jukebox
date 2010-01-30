@@ -1,0 +1,90 @@
+{% extends "artist/base.html" %}
+{% load markup %}
+
+
+{% block title %}{{ block.super }} - Artist: {{ artist.name }}{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/artist/artist_detail.js"></script>
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link href="{{ MEDIA_URL }}css/colorbox.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/artist/artist_detail.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<article>
+  button test
+  <div class="button grey">
+    Click Me!
+    <span></span>
+  </div>
+  <div class="button green">
+    Click Me!
+    <span></span>
+  </div>
+  <div class="button aqua">
+    Click Me!
+    <span></span>
+  </div>
+  <div class="button orange">
+    Click Me!
+    <span></span>
+  </div>
+</article>
+
+<article id="artist-{{ artist.id }}">
+  <h1 class="name">{{ artist.name }}</h1>
+
+  {% if artist.song_set.all %}
+  <div class="songs">
+    <h2>Songs</h2>
+    <ol>
+      {% for song in artist.song_set.all %}
+      <li>
+        <a href="{{ song.get_absolute_url }}">
+          {{ song.title }}
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+  {% endif %}
+
+  <div class="timestamp">
+    added on: {{ artist.added_on|date }} |
+    updated on: {{ artist.updated_on|date }}
+  </div>
+
+  {% if artist.photo_set.all %}
+  <div class="photos">
+    <h2>Photos</h2>
+    <div class="thumbnails">
+      {% for photo in artist.photo_set.all %}
+      <a href="{{ MEDIA_URL }}{{ photo.image }}"
+         rel="thumbnail" title="{{ photo.caption }}">
+        <img src="{{ MEDIA_URL }}{{ photo.image }}" alt="{{ photo.caption }}"
+             width="200" />
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="description">
+    <h2>Description</h2>
+    {{ artist.description|markdown }}
+  </div>
+
+  <a class="button grey" href="{% url artist_list %}#artist-{{ artist.id }}">
+    back
+    <span></span>
+  </a>
+
+</article>
+{% endblock %}
+
