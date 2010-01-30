@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load markup %}
+
+{% block title %}AS220 Jukebox - Song List{% endblock %}
+
+{% block content %}
+
+{% for song in song_list %}
+<div class="article" id="song-{{ song.id }}">
+  <a href="{{ song.get_absolute_url }}">
+    <h1 class="name">{{ song.name }}</h1>
+  </a>
+  <div class="timestamp">
+    added on: {{ song.uploaded_on|date }}
+  </div>
+  <div class="description">
+    {{ song.description|markdown|truncatewords_html:100 }}
+    <a href="{% url song_detail song.id %}">more</a>
+  </div>
+</div>
+{% endfor %}
+
+{% if is_paginated %}
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ page_obj.number }} of {{ paginator.num_pages }}.
+    </span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+    {% endif %}
+  </span>
+</div>
+{% endif %}
+
+{% endblock %}
+

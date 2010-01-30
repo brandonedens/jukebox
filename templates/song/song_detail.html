@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load markup %}
+
+{% block title %}AS220 Jukebox - {{ artist.title }}{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/song/song_detail.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="song" id="song-{{ song.id }}">
+  <h1 class="title">{{ artist.title }}</h1>
+</div>
+{% endblock %}
+
+
