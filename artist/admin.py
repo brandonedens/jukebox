@@ -25,7 +25,7 @@
 
 from django.contrib import admin
 
-from jukebox.artist.models import Artist
+from jukebox.artist.models import Artist, Photo
 
 
 ###############################################################################
@@ -33,4 +33,5 @@ from jukebox.artist.models import Artist
 ###############################################################################
 
 admin.site.register(Artist)
+admin.site.register(Photo)
 

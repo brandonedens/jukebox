@@ -24,7 +24,10 @@
 ###############################################################################
 
 from django.conf.urls.defaults import *
+from django.views.generic.list_detail import object_detail
+from django.views.generic.list_detail import object_list
 
+from jukebox import settings
 from jukebox.artist.models import Artist
 
 
@@ -35,7 +38,8 @@ from jukebox.artist.models import Artist
 urlpatterns = patterns('jukebox.artist.views',
     url(r'^$', object_list,
         {'queryset': Artist.objects.all(),
-         'template_object_name': 'artist'},
+         'template_object_name': 'artist',
+         'paginate_by': settings.ARTISTS_PER_PAGE,},
         name='artist_list',),
     url(r'^detail/(?P<object_id>\d+)/$', object_detail,
         {'queryset': Artist.objects.all(),
