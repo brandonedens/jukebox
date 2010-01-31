@@ -17,29 +17,7 @@
 {% endblock %}
 
 {% block content %}
-<article>
-  button test
-  <div class="button grey">
-    Click Me!
-    <span></span>
-  </div>
-  <div class="button green">
-    Click Me!
-    <span></span>
-  </div>
-  <div class="button aqua">
-    Click Me!
-    <span></span>
-  </div>
-  <div class="button orange">
-    Click Me!
-    <span></span>
-  </div>
-</article>
-
 <article id="artist-{{ artist.id }}">
-  <h1 class="name">{{ artist.name }}</h1>
-
   {% if artist.song_set.all %}
   <div class="songs">
     <h2>Songs</h2>
@@ -54,6 +32,8 @@
     </ol>
   </div>
   {% endif %}
+
+  <h1 class="name">{{ artist.name }}</h1>
 
   <div class="timestamp">
     added on: {{ artist.added_on|date }} |
@@ -75,16 +55,18 @@
   </div>
   {% endif %}
 
+  {% if artist.description %}
   <div class="description">
     <h2>Description</h2>
     {{ artist.description|markdown }}
   </div>
+  {% endif %}
 
   <a class="button grey" href="{% url artist_list %}#artist-{{ artist.id }}">
     back
-    <span></span>
   </a>
 
+  <div class="clear">&nbsp;</div>
 </article>
 {% endblock %}
 
