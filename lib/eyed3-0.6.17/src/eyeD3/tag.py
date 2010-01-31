@@ -1627,19 +1627,18 @@ class Mp3AudioFile(TagFile):
       self.lameTag    = None
 
       f = None
-      if hasattr(in_file, "split"):
+      if hasattr(in_file, 'capitalize'):
          # Input file is a string representing a filename.
          if not isMp3File(in_file):
             raise InvalidAudioFormatException("File is not mp3");
 
          # Parse ID3 tag.
-         f = open(in_file, "rb");
-      elif hasattr(in_file, "read"):
+         f = open(in_file, "rb")
+      else:
          # Input file is an already open file. We assume that it is an MP3
          # file.
          f = in_file
          f.seek(0)
-
       self.tag = Tag();
       hasTag = self.tag.link(f, tagVersion);
       # Find the first mp3 frame.
