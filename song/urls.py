@@ -36,10 +36,15 @@ from jukebox.song.models import Song
 ###############################################################################
 
 urlpatterns = patterns('jukebox.song.views',
-    url(r'^$', object_list,
+    url(r'^list/$', object_list,
         {'queryset': Song.objects.all(),
          'template_object_name': 'song',
          'paginate_by': settings.SONGS_PER_PAGE,},
         name='song_list',),
+
+    url(r'^detail/(?P<object_id>\d+)/$', object_detail,
+        {'queryset': Song.objects.all(),
+         'template_object_name': 'song'},
+        name='song_detail',),
 )
 
