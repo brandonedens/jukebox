@@ -88,6 +88,8 @@ INSTALLED_APPS = (
     # Local applications.
     'jukebox.album',
     'jukebox.artist',
+    'jukebox.artist.templatetags',
+    'jukebox.genre',
     'jukebox.profile',
     'jukebox.song',
 )
@@ -107,6 +109,6 @@ EMAIL_USE_TLS = True
 # Application specific settings
 
 # Artist settings
-ARTISTS_PER_PAGE = 10
-SONGS_PER_PAGE = 10
+ARTISTS_PER_PAGE = 6
+SONGS_PER_PAGE = 6
 
