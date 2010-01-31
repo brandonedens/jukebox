@@ -1,5 +1,6 @@
 {% extends "artist/base.html" %}
 {% load markup %}
+{% load digg_templatetag %}
 
 {% block title %}AS220 Jukebox - Artist List{% endblock %}
 
@@ -9,6 +10,8 @@
 {% endblock %}
 
 {% block content %}
+
+{% digg_paginator %}
 
 {% for artist in artist_list %}
 <article id="artist-{{ artist.id }}">
@@ -51,23 +54,7 @@
 </article>
 {% endfor %}
 
-{% if is_paginated %}
-<div class="pagination">
-  <span class="step-links">
-    {% if page_obj.has_previous %}
-    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-    {% endif %}
-
-    <span class="current">
-      Page {{ page_obj.number }} of {{ paginator.num_pages }}.
-    </span>
-
-    {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}">next</a>
-    {% endif %}
-  </span>
-</div>
-{% endif %}
+{% digg_paginator %}
 
 {% endblock %}
 
