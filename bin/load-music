@@ -1,0 +1,219 @@
+#!/usr/bin/python
+# Brandon Edens
+# AS220
+# 2009-08-12
+# Copyright (C) 2009 Brandon Edens <brandon@as220.org>
+#
+# This file is part of jukebox.
+#
+# jukebox is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# jukebox is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with jukebox. If not, see <http://www.gnu.org/licenses/>.
+"""
+Script for iterating over a directory loading all music found into the jukebox.
+"""
+
+import eyeD3
+import hashlib
+import logging
+import os
+import shutil
+import sys
+
+from glob import glob
+from optparse import OptionParser
+
+from django.contrib.auth.models import User
+
+from jukebox import settings
+from jukebox.artist.models import Artist
+from jukebox.album.models import Album
+from jukebox.song.models import Song
+from jukebox.song.models import upload_to
+from jukebox.genre.models import Genre
+
+
+###############################################################################
+## Global Variables
+###############################################################################
+
+LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+
+###############################################################################
+## Functions
+###############################################################################
+
+def load_file(filename):
+    user = User.objects.all()[0]
+
+    # Handle hash/digest information to determine if we already have song.
+    file = open(filename, "r")
+    m = hashlib.sha512()
+    m.update(file.read())
+    file.close()
+    song_digest = m.hexdigest()
+
+    song = None
+
+    try:
+        song = Song.objects.get(digest=song_digest)
+        logging.info("Filename %s already exists in database." % filename)
+    except Song.DoesNotExist:
+        # Song does not exist
+        song = Song()
+
+    song.digest = m.hexdigest()
+
+    try:
+        audio_file = eyeD3.Mp3AudioFile(filename)
+    except eyeD3.tag.InvalidAudioFormatException:
+        return
+    tag = audio_file.getTag()
+    if not tag:
+        # No ID3 information! Abort!
+        logging.info("Filename %s has no ID3 information." % filename)
+        return None
+
+    # Get the bitrate information
+    bitrate_tuple = audio_file.getBitRate()
+    if bitrate_tuple[0] == 1:
+        song.bitrate_variable = True
+    else:
+        song.bitrate_variable = False
+    song.bitrate = bitrate_tuple[1]
+
+
+    # Duration
+    song.duration = audio_file.getPlayTime()
+    # Sample frequency
+    song.sample_freq = audio_file.getSampleFreq()
+
+    # Name
+    song.title = tag.getTitle()
+    # Gather track information
+    track_tuple = tag.getTrackNum()
+    song.track_number = track_tuple[0]
+
+    # Gather genre information
+    try:
+        eyeD3Genre = tag.getGenre()
+        if eyeD3Genre:
+            genre_name = eyeD3Genre.getName()
+            # Search existing genres
+            try:
+                genre = Genre.objects.get(name=genre_name)
+                # Genre exists so assign it to song
+                song.genre = genre
+            except Genre.DoesNotExist:
+                # Genre does not exist so create new one
+                genre = Genre(name=genre_name)
+                song.genre = genre
+                genre.save()
+    except eyeD3.tag.GenreException:
+        logging.error("Cannot parse %s genre." % filename)
+
+
+    # Gather artist information
+    artist_name = tag.getArtist()
+    artist = None
+    if artist_name != None:
+        # Search existing artists
+        try:
+            artist = Artist.objects.get(name=artist_name)
+            # Artist exists so assign it to song
+            song.artist = artist
+        except Artist.DoesNotExist:
+            # Artist does not exist so create one
+            artist = Artist(name=artist_name)
+            song.artist = artist
+            artist.user = user
+            artist.save()
+    else:
+        logging.info("Cannot load song %s with filename %s without an artist." % (song.title, filename))
+        return None
+
+    # Gather album information
+    album_name = tag.getAlbum()
+    if album_name != None:
+        # Search existing albums
+        try:
+            album = Album.objects.get(title=album_name)
+            # Album exists so assign it to song
+            song.album = album
+        except Album.DoesNotExist:
+            # Album does not exist so create one
+            album = Album(title=album_name)
+            album.artist = artist
+            song.album = album
+            album.save()
+
+    # Copy the song file to its appropriate place
+    basename = os.path.basename(filename)
+    filename_destination = settings.MEDIA_ROOT+'/'+upload_to(song, basename)
+    try:
+        os.makedirs(os.path.dirname(filename_destination))
+    except OSError:
+        logging.debug("Directory %s already exists." % os.path.dirname(filename_destination))
+    shutil.copy(os.path.abspath(filename), filename_destination)
+    song.file = filename_destination
+
+    # Save the new song
+    song.save()
+
+def main(directory):
+    """
+    """
+
+    logging.debug("Music directory being processed is %s." % directory)
+
+    # Find all mp3 files
+    filenames = []
+    pattern = "*.mp3"
+    for dir,_,_ in os.walk(music_directory):
+        filenames.extend(glob(os.path.join(dir,pattern)))
+
+    # Use eyeD3 to parse through files adding information to database.
+    for filename in filenames:
+        logging.debug("Processing filename %s." % filename)
+        if eyeD3.isMp3File(filename):
+            load_file(filename)
+
+
+###############################################################################
+## Main
+###############################################################################
+
+if __name__ == '__main__':
+    usage = "usage: %prog some_directory/"
+    parser = OptionParser(usage)
+    parser.add_option('-v', '--verbose', action="store_true", dest="verbose",
+                      help="Enable verbose mode")
+    (options, args) = parser.parse_args()
+    if options.verbose:
+        VERBOSE = True
+
+    # Gather music directory information
+    music_directory="."
+    if len(args) == 0:
+        print "You must specify a music directory."
+        print parser.usage
+        sys.exit(1)
+    else:
+        music_directory = args[0]
+
+    # Setup logging.
+    logging.basicConfig(level=logging.DEBUG,
+                        format=LOG_FORMAT)
+
+    main(music_directory)
+
