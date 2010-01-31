@@ -18,10 +18,10 @@ from django.db import models
 
 def upload_to(instance, filename):
     """
-    Given an instance of a Photo as well as the filename, generate an
+    Given an instance of a Photo or Video as well as the filename, generate an
     appropriate storage location for this photo.
     """
-    return "artist/photos/%s/%s" % (instance.artist.name, filename)
+    return "artist/%s/%s" % (instance.artist.name, filename)
 
 
 ###############################################################################
@@ -34,10 +34,11 @@ class Artist(models.Model):
     name = models.CharField(max_length=256, unique=True)
     description = models.TextField()
 
-    website = models.URLField(blank=True, null=True)
-
     added_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('name',)
 
     def __unicode__(self):
         return self.name
@@ -57,9 +58,24 @@ class Artist(models.Model):
         else:
             return None
 
+class Website(models.Model):
+    artist = models.ForeignKey(Artist)
+    url = models.URLField()
+
 class Photo(models.Model):
     artist = models.ForeignKey(Artist)
     image = models.ImageField(upload_to=upload_to)
+    caption = models.CharField(max_length=256, blank=True, null=True)
+
+    uploaded_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return "%s - %s - %s" % (self.artist, self.image, self.caption)
+
+class Video(models.Model):
+    artist = models.ForeignKey(Artist)
+    video = models.FileField(upload_to=upload_to)
     caption = models.CharField(max_length=512)
 
     uploaded_on = models.DateTimeField(auto_now_add=True)
