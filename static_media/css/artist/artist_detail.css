@@ -32,6 +32,7 @@ div.thumbnails img {
 div.songs {
     float: right;
     border: 1px solid #888;
+    background-color: #fff;
     margin: 5px;
     padding: 5px;
     width: 200px;
