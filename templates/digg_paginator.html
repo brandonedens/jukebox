@@ -1,0 +1,41 @@
+
+{% spaceless %}
+
+{% if is_paginated %}
+<div class="paginator">
+  {% if page_obj.has_previous %}
+  <a class="prev button green" href="?page={{ page_obj.previous_page_number }}"
+     title="Previous Page">Previous</a>
+  {% endif %}
+
+  {% if not in_leading_range %}
+  {% for num in pages_outside_trailing_range %}
+  <a class="page button grey" href="?page={{ num }}" >{{ num }}</a>
+  {% endfor %}
+  ...
+  {% endif %}
+
+  {% for num in page_numbers %}
+  {% ifequal num page_obj.number %}
+  <span class="curr button aqua" title="Current Page">{{ num }}</span>
+  {% else %}
+  <a class="page button grey" href="?page={{ num }}"
+     title="Page {{ num }}">{{ num }}</a>
+  {% endifequal %}
+  {% endfor %}
+
+  {% if not in_trailing_range %}
+  ...
+  {% for num in pages_outside_leading_range reversed %}
+  <a class="page button grey" href="?page={{ num }}" >{{ num }}</a>
+  {% endfor %}
+  {% endif %}
+
+  {% if page_obj.has_next %}
+  <a class="next button orange" href="?page={{ page_obj.next_page_number }}" title="Next Page">Next</a>
+{% endif %}
+</div>
+{% endif %}
+
+{% endspaceless %}
+
