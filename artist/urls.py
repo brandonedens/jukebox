@@ -36,7 +36,7 @@ from jukebox.artist.models import Artist
 ###############################################################################
 
 urlpatterns = patterns('jukebox.artist.views',
-    url(r'^$', object_list,
+    url(r'^list/$', object_list,
         {'queryset': Artist.objects.all(),
          'template_object_name': 'artist',
          'paginate_by': settings.ARTISTS_PER_PAGE,},
