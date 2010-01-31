@@ -60,11 +60,6 @@ section#content h1 {
     border-bottom:1px solid #888888;
 }
 
-section#content a:hover h1 {
-    color: #ffffff;
-    background-color: #000000;
-}
-
 hr {
     border-top: 1px dashed #000;
     height: 1px;
@@ -143,4 +138,15 @@ nav ul {
     padding: 0;
 }
 
+div.paginator {
+    text-align: center;
+}
+
+div.clear {
+    clear: both;
+    margin: 0;
+    padding: 0;
+    height: 1px;
+    overflow: hidden;
+}
 
