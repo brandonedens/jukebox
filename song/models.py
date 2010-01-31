@@ -52,6 +52,9 @@ class Song(models.Model):
     duration = models.PositiveIntegerField()
     sample_frequency = models.PositiveIntegerField()
 
+    # File specific information
+    digest = models.CharField(max_length=128, unique=True)
+
     def __unicode__(self):
         return self.title
 
