@@ -1,2 +1,12 @@
+aside>article {
+    background: transparent url('../../images/background_stripes_left_right.gif');
+    padding: 5px;
+}
 
+aside>article>nav a {
+    font-family:Georgia,"Times New Roman",serif;
+    font-size: 400%;
+    text-decoration: none;
+    line-height: 1em;
+}
 
