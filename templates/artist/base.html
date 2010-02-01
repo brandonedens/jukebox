@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
 {% block css %}
+{{ block.super }}
+<link href="{{ MEDIA_URL }}css/artist/base.css" rel="stylesheet" type="text/css" />
 <link href="{{ MEDIA_URL }}css/artist/layout.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block aside %}
-<article>
-  asdf
-  asd
-</article>
 {% endblock %}
 
