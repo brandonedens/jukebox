@@ -126,13 +126,13 @@ section#content>article {
     -webkit-border-radius: 16px;
 }
 
-nav {
+section#page>nav {
     background:#ffffff url(../images/background_stripes_left_right.gif) repeat scroll 0 0;
     height: 100%;
     text-align: center;
 }
 
-nav ul {
+section#page>nav ul {
     list-style: none;
     margin: 0;
     padding: 0;

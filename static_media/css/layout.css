@@ -1,5 +1,5 @@
 
-nav {
+section#page>nav {
     float: left;
     margin-left: -100%;
     width: 150px;
