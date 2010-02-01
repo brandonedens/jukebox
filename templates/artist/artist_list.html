@@ -2,11 +2,46 @@
 {% load markup %}
 {% load digg_templatetag %}
 
-{% block title %}AS220 Jukebox - Artist List{% endblock %}
+{% block title %}{{ block.super }} - Artist List{% endblock %}
 
 {% block css %}
 {{ block.super }}
 <link href="{{ MEDIA_URL }}css/artist/artist_list.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block aside %}
+<article>
+  <nav>
+    <h1>By Alpha</h1>
+    <a href="">A</a>
+    <a href="">B</a>
+    <a href="">C</a>
+    <a href="">D</a>
+    <a href="">E</a>
+    <a href="">F</a>
+    <a href="">G</a>
+    <a href="">H</a>
+    <a href="">I</a>
+    <a href="">J</a>
+    <a href="">K</a>
+    <a href="">L</a>
+    <a href="">M</a>
+    <a href="">N</a>
+    <a href="">O</a>
+    <a href="">P</a>
+    <a href="">Q</a>
+    <a href="">R</a>
+    <a href="">S</a>
+    <a href="">T</a>
+    <a href="">U</a>
+    <a href="">V</a>
+    <a href="">W</a>
+    <a href="">X</a>
+    <a href="">Y</a>
+    <a href="">Z</a>
+  </nav>
+</article>
+{{ block.super }}
 {% endblock %}
 
 {% block content %}
