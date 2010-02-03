@@ -10,3 +10,7 @@ aside>article>nav a {
     line-height: 1em;
 }
 
+div.controls {
+    float: right;
+}
+
