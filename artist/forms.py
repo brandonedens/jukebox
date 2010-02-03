@@ -1,5 +1,5 @@
 # Brandon Edens
-# 2010-01-27
+# 2010-02-02
 # Copyright (C) 2010 Brandon Edens <brandon@as220.org>
 #
 # This file is part of jukebox.
@@ -23,35 +23,19 @@
 ## Imports
 ###############################################################################
 
-from django.conf.urls.defaults import *
-from django.views.generic.list_detail import object_detail
-from django.views.generic.list_detail import object_list
+from django import forms
+from django.contrib.localflavor.us.forms import USZipCodeField
 
-from jukebox import settings
 from jukebox.artist.models import Artist
-from jukebox.artist.views import list_by_letter
-from jukebox.artist.views import create, delete, update
 
 
 ###############################################################################
-## Constants
+## Classes
 ###############################################################################
 
-urlpatterns = patterns('jukebox.artist.views',
-    url(r'^list/$', object_list,
-        {'queryset': Artist.objects.all(),
-         'template_object_name': 'artist',
-         'paginate_by': settings.ARTISTS_PER_PAGE,},
-        name='artist_list',),
-    url(r'^list/startswith/(?P<letter>\w)/$', list_by_letter,
-        name='artist_list_by_letter',),
-    url(r'^detail/(?P<object_id>\d+)/$', object_detail,
-        {'queryset': Artist.objects.all(),
-         'template_object_name': 'artist'},
-        name='artist_detail',),
-
-    url(r'^create/$', create, name='artist_create'),
-    url(r'^update/(?P<object_id>\d+)/$', update, name='artist_update',),
-    url(r'^delete/(?P<object_id>\d+)/$', delete, name='artist_delete',),
-)
+class ArtistForm(forms.ModelForm):
+    zipcode = USZipCodeField()
+    class Meta:
+        model = Artist
+        exclude = ('user')
 
