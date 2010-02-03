@@ -1,0 +1,23 @@
+{% extends "profile/base.html" %}
+
+{% block css %}
+{{ super.block }}
+<link href="{{ MEDIA_URL }}css/form.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<article>
+  <h1>Create/Update Artist</h1>
+  <form action=""
+        method="post">
+    {{ form.as_p }}
+    <p>
+      <input id="submit"
+             class="button orange"
+             type="submit" value="Submit" />
+    </p>
+  </form>
+  <div class="clear">&nbsp;</div>
+</article>
+{% endblock %}
+
