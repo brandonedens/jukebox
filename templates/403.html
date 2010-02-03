@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ super.block }} - 403 Forbidden{% endblock %}
+
+
+{% block content %}
+
+<article>
+  <p>
+    You don't have permission to access this resource on this server. This is
+    most likely due to an attempt to update/delete an item that did not belong to
+    you. Regardless, use the back button on your browser to navigate to an
+    alternative page.
+  </p>
+  <p>
+    If you think this might be in error please
+    contact <a href="mailto:brandon@as220.org">Brandon Edens</a>.
+  </p>
+</article>
+
+{% endblock %}
+
