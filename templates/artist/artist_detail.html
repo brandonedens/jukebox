@@ -18,6 +18,16 @@
 
 {% block content %}
 <article id="artist-{{ artist.id }}">
+
+  {% ifequal user artist.user %}
+  <div class="controls">
+    <a class="button green"
+       href="{% url artist_update artist.id %}">edit</a>
+    <a class="button orange"
+       href="{% url artist_delete artist.id %}">delete</a>
+  </div>
+  {% endifequal %}
+
   {% if artist.song_set.all %}
   <div class="songs">
     <h2>Songs</h2>

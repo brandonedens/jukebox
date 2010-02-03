@@ -1,6 +1,8 @@
 {% extends "artist/base.html" %}
 {% load markup %}
 {% load digg_templatetag %}
+{% load is_registered_by %}
+
 
 {% block title %}{{ block.super }} - Artist List{% endblock %}
 
@@ -9,47 +11,26 @@
 <link href="{{ MEDIA_URL }}css/artist/artist_list.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 
-{% block aside %}
-<article>
-  <nav>
-    <h1>By Alpha</h1>
-    <a href="">A</a>
-    <a href="">B</a>
-    <a href="">C</a>
-    <a href="">D</a>
-    <a href="">E</a>
-    <a href="">F</a>
-    <a href="">G</a>
-    <a href="">H</a>
-    <a href="">I</a>
-    <a href="">J</a>
-    <a href="">K</a>
-    <a href="">L</a>
-    <a href="">M</a>
-    <a href="">N</a>
-    <a href="">O</a>
-    <a href="">P</a>
-    <a href="">Q</a>
-    <a href="">R</a>
-    <a href="">S</a>
-    <a href="">T</a>
-    <a href="">U</a>
-    <a href="">V</a>
-    <a href="">W</a>
-    <a href="">X</a>
-    <a href="">Y</a>
-    <a href="">Z</a>
-  </nav>
-</article>
-{{ block.super }}
-{% endblock %}
-
 {% block content %}
+
+{% if artist_list %}
 
 {% digg_paginator %}
 
 {% for artist in artist_list %}
+
+{% if artist.song_set.all or artist|is_registered_by:user %}
 <article id="artist-{{ artist.id }}">
+
+  {% ifequal user artist.user %}
+  <div class="controls">
+    <a class="button green"
+       href="{% url artist_update artist.id %}">edit</a>
+    <a class="button orange"
+       href="{% url artist_delete artist.id %}">delete</a>
+  </div>
+  {% endifequal %}
+
   <a href="{{ artist.get_absolute_url }}">
     <h1 class="name">{{ artist.name }}</h1>
   </a>
@@ -74,9 +55,11 @@
     ( No songs currently uploaded )
     {% endif %}
   </div>
+
   <div class="timestamp">
     added on: {{ artist.added_on|date }}
   </div>
+
   <div class="description">
     {{ artist.description|markdown|truncatewords_html:100 }}
     <a class="button grey more"
@@ -87,9 +70,23 @@
   </div>
   <div class="clear">&nbsp;</div>
 </article>
+
+{% endif %}
 {% endfor %}
 
 {% digg_paginator %}
+
+{% else %}
+
+<article>
+  <h1>Sorry! Can't find any artists!</h1>
+  <p>
+    I'm sorry but it seems that there aren't any artists that match the
+    criteria by which you were attempting to list them.
+  </p>
+</article>
+
+{% endif %}
 
 {% endblock %}
 
