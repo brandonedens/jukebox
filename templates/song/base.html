@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block css %}
+{{ block.super }}
+<link href="{{ MEDIA_URL }}css/song/base.css" rel="stylesheet"
+      type="text/css" />
+{% endblock %}
+
+{% block aside %}
+<article>
+  <a href="{% url song_list %}"><h1>All Songs</h1></a>
+</article>
+<article>
+  <h1>By Alpha</h1>
+  <nav>
+    <a href="{% url song_list_by_letter 'A' %}">A</a>
+    <a href="{% url song_list_by_letter 'B' %}">B</a>
+    <a href="{% url song_list_by_letter 'C' %}">C</a>
+    <a href="{% url song_list_by_letter 'D' %}">D</a>
+    <a href="{% url song_list_by_letter 'E' %}">E</a>
+    <a href="{% url song_list_by_letter 'F' %}">F</a>
+    <a href="{% url song_list_by_letter 'G' %}">G</a>
+    <a href="{% url song_list_by_letter 'H' %}">H</a>
+    <a href="{% url song_list_by_letter 'I' %}">I</a>
+    <a href="{% url song_list_by_letter 'J' %}">J</a>
+    <a href="{% url song_list_by_letter 'K' %}">K</a>
+    <a href="{% url song_list_by_letter 'L' %}">L</a>
+    <a href="{% url song_list_by_letter 'M' %}">M</a>
+    <a href="{% url song_list_by_letter 'N' %}">N</a>
+    <a href="{% url song_list_by_letter 'O' %}">O</a>
+    <a href="{% url song_list_by_letter 'P' %}">P</a>
+    <a href="{% url song_list_by_letter 'Q' %}">Q</a>
+    <a href="{% url song_list_by_letter 'R' %}">R</a>
+    <a href="{% url song_list_by_letter 'S' %}">S</a>
+    <a href="{% url song_list_by_letter 'T' %}">T</a>
+    <a href="{% url song_list_by_letter 'U' %}">U</a>
+    <a href="{% url song_list_by_letter 'V' %}">V</a>
+    <a href="{% url song_list_by_letter 'W' %}">W</a>
+    <a href="{% url song_list_by_letter 'X' %}">X</a>
+    <a href="{% url song_list_by_letter 'Y' %}">Y</a>
+    <a href="{% url song_list_by_letter 'Z' %}">Z</a>
+  </nav>
+</article>
+{% endblock %}
