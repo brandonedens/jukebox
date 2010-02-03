@@ -1,0 +1,15 @@
+h1.title {
+    font-size: 150%;
+    line-height: 1em;
+    margin-bottom: 0;
+}
+
+a h2.artist-name {
+    margin-left: 3em;
+    text-decoration: none;
+}
+
+h2.artist-name {
+    display: inline;
+}
+
