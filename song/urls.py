@@ -29,6 +29,7 @@ from django.views.generic.list_detail import object_list
 
 from jukebox import settings
 from jukebox.song.models import Song
+from jukebox.song.views import list_by_letter
 
 
 ###############################################################################
@@ -41,7 +42,8 @@ urlpatterns = patterns('jukebox.song.views',
          'template_object_name': 'song',
          'paginate_by': settings.SONGS_PER_PAGE,},
         name='song_list',),
-
+    url(r'^list/startswith/(?P<letter>\w)/$', list_by_letter,
+        name='song_list_by_letter',),
     url(r'^detail/(?P<object_id>\d+)/$', object_detail,
         {'queryset': Song.objects.all(),
          'template_object_name': 'song'},
