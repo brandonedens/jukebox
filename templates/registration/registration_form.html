@@ -23,7 +23,7 @@ along with Jukebox.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 {% block content %}
-
+<article>
 <form action="{% url registration.views.register %}"
       method="post">
   <fieldset>
@@ -34,6 +34,6 @@ along with Jukebox.  If not, see <http://www.gnu.org/licenses/>.
     <input type="submit" value="Submit">
   </fieldset>
 </form>
-
+</article>
 {% endblock %}
 

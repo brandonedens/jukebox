@@ -26,6 +26,7 @@ along with Jukebox.  If not, see <http://www.gnu.org/licenses/>.
 
 {% block content %}
 
+<article>
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
@@ -50,6 +51,6 @@ along with Jukebox.  If not, see <http://www.gnu.org/licenses/>.
 <p>
   Need an account? Register an account <a href="{% url registration.views.register %}">here</a>.
 </p>
-
+</article>
 {% endblock %}
 
