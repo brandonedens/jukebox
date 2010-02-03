@@ -22,10 +22,12 @@
 Script for iterating over a directory loading all music found into the jukebox.
 """
 
+import os
+os.putenv('DJANGO_SETTINGS_MODULE', 'jukebox.settings')
+
 import eyeD3
 import hashlib
 import logging
-import os
 import shutil
 import sys
 
@@ -124,20 +126,22 @@ def load_file(filename):
 
 
     # Gather artist information
-    artist_name = tag.getArtist()
+    artist_name = tag.getArtist().strip()
     artist = None
     if artist_name != None:
         # Search existing artists
         try:
             artist = Artist.objects.get(name=artist_name)
+            logging.debug("Found existing artist %s for song %s." % (artist, song))
             # Artist exists so assign it to song
             song.artist = artist
         except Artist.DoesNotExist:
             # Artist does not exist so create one
             artist = Artist(name=artist_name)
-            song.artist = artist
+            logging.debug("Did not find artist %s for song %s." % (artist, song))
             artist.user = user
             artist.save()
+            song.artist = artist
     else:
         logging.info("Cannot load song %s with filename %s without an artist." % (song.title, filename))
         return None
