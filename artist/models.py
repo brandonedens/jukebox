@@ -39,8 +39,8 @@ class Artist(models.Model):
     email_address = models.EmailField(help_text='Email address used to contact artist.')
     telephone_number = PhoneNumberField(help_text='Telephone number where the artist can be reached.')
 
-    first_and_lastname = models.CharField(max_length=128,
-                                          help_text='Name the check should be made out to.')
+    pay_to_the_order_of = models.CharField(max_length=128,
+                                           help_text='Name the check should be made out to.')
     address1 = models.CharField(max_length=512,
                                 help_text='Address line 1 to mail check to.')
     address2 = models.CharField(max_length=512,
