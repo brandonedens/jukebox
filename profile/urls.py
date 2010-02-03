@@ -25,8 +25,12 @@
 
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
+from django.views.generic.create_update import update_object
 
 from jukebox.profile.views import index
+from jukebox.profile.views import artist_create
+
+from jukebox.artist.forms import ArtistForm
 
 
 ###############################################################################
