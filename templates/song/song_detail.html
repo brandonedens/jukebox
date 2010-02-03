@@ -1,16 +1,41 @@
-{% extends "base.html" %}
+{% extends "song/base.html" %}
 {% load markup %}
 
-{% block title %}AS220 Jukebox - {{ artist.title }}{% endblock %}
+{% block title %}{{ block.super }} - Song: {{ song.title }}{% endblock %}
 
 {% block js %}
+{{ block.super }}
 <script type="text/javascript" src="{{ MEDIA_URL }}js/song/song_detail.js"></script>
 {% endblock %}
 
 {% block content %}
-<div class="song" id="song-{{ song.id }}">
-  <h1 class="title">{{ artist.title }}</h1>
-</div>
+<article id="song-{{ song.id }}">
+  <h1 class="title">{{ song.title }}</h1>
+
+  <div class="timestamp">
+    uploaded on: {{ song.uploaded_on }} |
+    updated on: {{ song.updated_on }}
+  </div>
+
+  <div class="play-information">
+    Plays: {{ song.number_of_plays }}
+    Random: {{ song.number_of_random_plays }}
+  </div>
+
+  <div class="file-information">
+    Bitrate: {{ song.bitrate }}
+    {% if song.variable_bitrate %}
+    VBR
+    {% else %}
+    CBR
+    {% endif %}
+
+    Duration: {{ song.duration }}
+    Sample frequency: {{ song.sample_frequency }}
+  </div>
+
+
+</article>
 {% endblock %}
 
 

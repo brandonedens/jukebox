@@ -1,14 +1,23 @@
-{% extends "base.html" %}
+{% extends "song/base.html" %}
 {% load markup %}
+{% load digg_templatetag %}
 
-{% block title %}AS220 Jukebox - Song List{% endblock %}
+
+{% block title %}{{ block.super }} - All Songs{% endblock %}
 
 {% block content %}
 
+{% if song_list %}
+
+{% digg_paginator %}
+
 {% for song in song_list %}
-<div class="article" id="song-{{ song.id }}">
+<article id="song-{{ song.id }}">
   <a href="{{ song.get_absolute_url }}">
-    <h1 class="name">{{ song.name }}</h1>
+    <h1 class="title">{{ song.title }}</h1>
+  </a>
+  <a href="{{ song.artist.get_absolute_url }}">
+    <h2 class="artist-name">by {{ song.artist.name }}</h2>
   </a>
   <div class="timestamp">
     added on: {{ song.uploaded_on|date }}
@@ -17,25 +26,22 @@
     {{ song.description|markdown|truncatewords_html:100 }}
     <a href="{% url song_detail song.id %}">more</a>
   </div>
-</div>
+</article>
 {% endfor %}
 
-{% if is_paginated %}
-<div class="pagination">
-  <span class="step-links">
-    {% if page_obj.has_previous %}
-    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-    {% endif %}
+{% digg_paginator %}
 
-    <span class="current">
-      Page {{ page_obj.number }} of {{ paginator.num_pages }}.
-    </span>
+{% else %}
 
-    {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}">next</a>
-    {% endif %}
-  </span>
-</div>
+<article>
+  <h1>Doh! I can't find any songs.</h1>
+
+  <p>
+    I'm sorry but it seems that there aren't any songs that match that criteria
+    by which you are attempting to list them.
+  </p>
+</article>
+
 {% endif %}
 
 {% endblock %}
