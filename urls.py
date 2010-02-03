@@ -48,6 +48,10 @@ urlpatterns = patterns('',
     url(r'^$', direct_to_template,
         {'template': 'index.html',},
         name='index'),
+    url(r'^$', direct_to_template,
+        {'template': 'about.html',},
+        name='about'),
+
 
     # Application URLs.
     (r'^album/', include('album.urls')),
