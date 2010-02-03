@@ -1,0 +1,32 @@
+
+form p {
+    clear: both;
+    font-size: 80%;
+    font-style: italic;
+    padding-top: 10px;
+    border-top: 1px dashed #ddd;
+}
+
+form p>label {
+    float: left;
+    font-size: 160%;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 1.25em;
+    width: 150px;
+    text-align: left;
+}
+
+form p>input,textarea,select {
+    float: right;
+    font-style: normal;
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    width: 470px;
+}
+
+form input#submit {
+    font-size: 150%;
+}
+
