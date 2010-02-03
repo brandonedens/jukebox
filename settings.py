@@ -65,6 +65,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django403.middleware.Django403Middleware',
 )
 
 ROOT_URLCONF = 'jukebox.urls'
@@ -86,6 +87,8 @@ INSTALLED_APPS = (
     'registration',
 
     # Local applications.
+    'jukebox.utils',
+    'jukebox.utils.templatetags',
     'jukebox.album',
     'jukebox.artist',
     'jukebox.artist.templatetags',
