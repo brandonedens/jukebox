@@ -90,7 +90,7 @@ class Website(models.Model):
 
 class Photo(models.Model):
     artist = models.ForeignKey(Artist)
-    image = models.ImageField(upload_to=upload_to)
+    photo = models.ImageField(upload_to=upload_to)
     caption = models.CharField(max_length=256, blank=True, null=True)
 
     thumbnail = models.ImageField(upload_to=upload_to)
@@ -99,22 +99,23 @@ class Photo(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return "%s - %s - %s" % (self.artist, self.image, self.caption)
+        return "%s - %s - %s" % (self.artist, self.photo, self.caption)
 
     def save(self):
+        import os
         from PIL import Image
         from cStringIO import StringIO
         from django.core.files.uploadedfile import SimpleUploadedFile
 
         THUMBNAIL_WIDTH = 300
 
-        image = Image.open(self.photo.image)
+        image = Image.open(self.photo)
 
         if image.mode not in ('L', 'RGB'):
             image = image.convert('RGB')
 
         # Compute thumbnail height
-        wpercent = (basewidth/float(image.size[0]))
+        wpercent = (THUMBNAIL_WIDTH / float(image.size[0]))
         hsize = int((float(image.size[1])*float(wpercent)))
 
         image.thumbnail((THUMBNAIL_WIDTH, hsize), Image.ANTIALIAS)
@@ -123,7 +124,7 @@ class Photo(models.Model):
         image.save(temp_handle, 'png')
         temp_handle.seek(0)
 
-        suf = SimpleUploadedFile(os.path.split(self.image.name)[-1],
+        suf = SimpleUploadedFile(os.path.split(self.photo.name)[-1],
                                  temp_handle.read(), content_type='image/png')
         self.thumbnail.save(suf.name+'_thumbnail.png', suf, save=False)
 
