@@ -28,6 +28,8 @@
        href="{% url artist_update artist.id %}">edit</a>
     <a class="button orange"
        href="{% url artist_delete artist.id %}">delete</a>
+    <a class="button aqua"
+       href="{% url song_create artist.id %}">upload song</a>
   </div>
   {% endifequal %}
 
