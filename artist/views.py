@@ -14,12 +14,15 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.views.generic.list_detail import object_list
 from django.views.generic.create_update import update_object
-from django.views.generic.create_update import create_object
 from django.views.generic.create_update import delete_object
+from django.views.generic.simple import direct_to_template
+from django.views.generic.simple import redirect_to
 
 from jukebox import settings
 from jukebox.artist.forms import ArtistForm
+from jukebox.artist.forms import PhotoForm
 from jukebox.artist.models import Artist
+from jukebox.artist.models import Photo
 
 
 ###############################################################################
@@ -81,4 +84,27 @@ def update(request, object_id):
             message="You do not have permission to update this artist."
             )
         return HttpResponseForbidden()
+
+@login_required
+def photo_upload(request, artist_id):
+    """
+    Create a new photo.
+    """
+    artist = get_object_or_404(Artist, pk=artist_id)
+    photo = Photo(artist=artist)
+    if request.user == artist.user:
+        if request.method == 'POST':
+            form = PhotoForm(request.POST, request.FILES, instance=photo)
+            if form.is_valid():
+                photo = form.save()
+                return redirect_to(request, reverse('artist_detail', args=[artist.id]))
+        else:
+            form = PhotoForm(instance=photo)
+        return direct_to_template(request, 'artist/photo_form.html', {'form': form,})
+    else:
+        request.user.message_set.create(
+            message="You do not have permission to upload photos for this artist."
+            )
+        return HttpResponseForbidden()
+
 
