@@ -27,6 +27,7 @@ from django import forms
 from django.contrib.localflavor.us.forms import USZipCodeField
 
 from jukebox.artist.models import Artist
+from jukebox.artist.models import Photo
 
 
 ###############################################################################
@@ -35,7 +36,14 @@ from jukebox.artist.models import Artist
 
 class ArtistForm(forms.ModelForm):
     zipcode = USZipCodeField()
+
     class Meta:
         model = Artist
         exclude = ('user')
+
+class PhotoForm(forms.ModelForm):
+
+    class Meta:
+        model = Photo
+        fields = ('photo', 'caption')
 
