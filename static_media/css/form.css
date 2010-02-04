@@ -18,7 +18,7 @@ form p>label {
 }
 
 form p>input,textarea,select {
-    float: right;
+    float: left;
     font-style: normal;
     text-align: left;
     margin-left: 20px;
@@ -27,6 +27,7 @@ form p>input,textarea,select {
 }
 
 form input#submit {
+    float: right;
     font-size: 150%;
 }
 
