@@ -30,7 +30,7 @@ from django.views.generic.list_detail import object_list
 from jukebox import settings
 from jukebox.song.models import Song
 from jukebox.song.views import list_by_letter
-
+from jukebox.song.views import create, delete, update
 
 ###############################################################################
 ## Constants
@@ -48,5 +48,7 @@ urlpatterns = patterns('jukebox.song.views',
         {'queryset': Song.objects.all(),
          'template_object_name': 'song'},
         name='song_detail',),
+
+    url(r'^create/(?P<artist_id>\d+)/$', create, name='song_create'),
 )
 
