@@ -25,6 +25,10 @@
        href="{% url artist_update artist.id %}">edit</a>
     <a class="button orange"
        href="{% url artist_delete artist.id %}">delete</a>
+    <a class="button aqua"
+       href="{% url song_create artist.id %}">upload song</a>
+    <a class="button purple"
+       href="{% url photo_upload artist.id %}">upload photo</a>
   </div>
   {% endifequal %}
 
@@ -55,9 +59,9 @@
     <h2>Photos</h2>
     <div class="thumbnails">
       {% for photo in artist.photo_set.all %}
-      <a href="{{ MEDIA_URL }}{{ photo.image }}"
+      <a href="{{ MEDIA_URL }}{{ photo.photo }}"
          rel="thumbnail" title="{{ photo.caption }}">
-        <img src="{{ MEDIA_URL }}{{ photo.image }}" alt="{{ photo.caption }}"
+        <img src="{{ MEDIA_URL }}{{ photo.photo }}" alt="{{ photo.caption }}"
              width="200" />
       </a>
       {% endfor %}
