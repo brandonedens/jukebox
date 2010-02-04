@@ -1,12 +1,31 @@
+# Digg Paginator
+# Courtesy of:
+#  http://blog.localkinegrinds.com/2007/09/06/digg-style-pagination-in-django/
+# with modifications by Brandon Edens
+
+
+###############################################################################
+## Imports
+###############################################################################
 
 from django import template
 
 register = template.Library()
 
+
+###############################################################################
+## Constants
+###############################################################################
+
 LEADING_PAGE_RANGE_DISPLAYED = TRAILING_PAGE_RANGE_DISPLAYED = 3
 LEADING_PAGE_RANGE = TRAILING_PAGE_RANGE = 2
 NUM_PAGES_OUTSIDE_RANGE = 2
 ADJACENT_PAGES = 1
+
+
+###############################################################################
+## Functions
+###############################################################################
 
 def digg_paginator(context):
     if (context["is_paginated"]):
