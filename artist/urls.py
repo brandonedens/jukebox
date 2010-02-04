@@ -31,6 +31,7 @@ from jukebox import settings
 from jukebox.artist.models import Artist
 from jukebox.artist.views import list_by_letter
 from jukebox.artist.views import create, delete, update
+from jukebox.artist.views import photo_upload
 
 
 ###############################################################################
@@ -53,5 +54,7 @@ urlpatterns = patterns('jukebox.artist.views',
     url(r'^create/$', create, name='artist_create'),
     url(r'^update/(?P<object_id>\d+)/$', update, name='artist_update',),
     url(r'^delete/(?P<object_id>\d+)/$', delete, name='artist_delete',),
+
+    url(r'^photo_upload/(?P<artist_id>\d+)/$', photo_upload, name='photo_upload',),
 )
 
