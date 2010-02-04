@@ -14,3 +14,7 @@ div.controls {
     float: right;
 }
 
+div.songs {
+    clear: right;
+}
+
