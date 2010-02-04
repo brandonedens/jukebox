@@ -35,5 +35,7 @@ from jukebox.song.models import Song
 class SongForm(ModelForm):
     class Meta:
         model = Song
-        exclude = ('bitrate', 'variable_bitrate', 'duration', 'sample_frequency'),
+        fields = ('title',
+                  'file',
+                  )
 
