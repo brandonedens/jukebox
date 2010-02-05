@@ -23,9 +23,11 @@
 ## Imports
 ###############################################################################
 
-from django.forms import ModelForm
+from django import forms
+from django.core.urlresolvers import reverse
 
 from jukebox.song.models import Song
+from jukebox.utils.forms import ModelForm
 
 
 ###############################################################################
@@ -38,4 +40,24 @@ class SongForm(ModelForm):
         fields = ('title',
                   'file',
                   )
+
+    def clean_file(self):
+        """
+        Check that the digest is unique.
+        """
+        file = self.cleaned_data['file']
+        # Check that file was mp3
+        if file.content_type != 'audio/mpeg':
+            raise forms.ValidationError('File uploaded is not a valid MP3 file.')
+        # Check that the file's digest was unique
+        digest = Song.digest_compute(file)
+        try:
+            song = Song.objects.get(digest=digest)
+            if song:
+                artist = song.artist
+                txt = "The song \"%s\" by artist \"%s\" was already uploaded by user %s." % (song.title, artist.name, artist.user)
+                raise forms.ValidationError(txt)
+        except Song.DoesNotExist:
+            pass
+        return self.cleaned_data['file']
 
