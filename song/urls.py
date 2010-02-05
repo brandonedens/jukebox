@@ -31,6 +31,7 @@ from jukebox import settings
 from jukebox.song.models import Song
 from jukebox.song.views import list_by_letter
 from jukebox.song.views import create, delete, update
+from jukebox.song.views import play
 
 ###############################################################################
 ## Constants
@@ -50,5 +51,7 @@ urlpatterns = patterns('jukebox.song.views',
         name='song_detail',),
 
     url(r'^create/(?P<artist_id>\d+)/$', create, name='song_create'),
+
+    url(r'^play/(?P<object_id>\d+)/$', play, name='song_play'),
 )
 
