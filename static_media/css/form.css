@@ -1,5 +1,5 @@
 
-form p {
+form div.field {
     clear: both;
     font-size: 80%;
     font-style: italic;
@@ -7,7 +7,7 @@ form p {
     border-top: 1px dashed #ddd;
 }
 
-form p>label {
+form div.field>label {
     float: left;
     font-size: 160%;
     font-style: normal;
@@ -17,8 +17,8 @@ form p>label {
     text-align: left;
 }
 
-form p>input,textarea,select {
-    float: left;
+form div.field>input,textarea,select {
+    float: right;
     font-style: normal;
     text-align: left;
     margin-left: 20px;
@@ -26,8 +26,18 @@ form p>input,textarea,select {
     width: 470px;
 }
 
+form div.field>p {
+}
+
 form input#submit {
     float: right;
-    font-size: 150%;
+    font-size: 100%;
+}
+
+form p.required {
+    color: #639b60;
+    font-size: 95%;
+    margin: 0;
+    padding: 0;
 }
 
