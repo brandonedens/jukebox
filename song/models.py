@@ -32,8 +32,13 @@ def upload_to(instance, filename):
 class Song(models.Model):
     artist = models.ForeignKey(Artist)
 
-    title = models.CharField(max_length=200)
-    file = models.FileField(upload_to=upload_to)
+    title = models.CharField(
+        max_length=200,
+        help_text='The title of the song.'
+        )
+    file = models.FileField(
+        upload_to=upload_to,
+        help_text='File must be an MP3 and of reasonably high quality.')
 
     # Whether or not the song was reviewed.
     reviewed = models.BooleanField(default=False)
@@ -76,4 +81,13 @@ class Song(models.Model):
 
         # Call parent save()
         super(Song, self).save()
+
+    @classmethod
+    def digest_compute(cls, file):
+        """
+        """
+        import hashlib
+        m = hashlib.sha512()
+        m.update(file.read())
+        return m.hexdigest()
 
