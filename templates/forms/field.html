@@ -1,0 +1,23 @@
+
+<div class="field">
+  <label for="id_{{ field.name }}">{{ field.label }}:</label>
+  {{ field }}
+  {% if field.help_text %}
+  <p class="helptext">
+    {% autoescape off %}
+    {{ field.help_text }}
+    {% endautoescape %}
+  </p>
+  {% endif %}
+  {% if field.field.required %}
+  <p class="required">
+    (field is required)
+  </p>
+  {% endif %}
+  {% if field.errors %}
+  <p class="errors">
+    {{ field.errors }}
+  </p>
+  {% endif %}
+</div>
+
