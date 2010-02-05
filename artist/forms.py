@@ -23,11 +23,11 @@
 ## Imports
 ###############################################################################
 
-from django import forms
 from django.contrib.localflavor.us.forms import USZipCodeField
 
 from jukebox.artist.models import Artist
 from jukebox.artist.models import Photo
+from jukebox.utils import forms
 
 
 ###############################################################################
