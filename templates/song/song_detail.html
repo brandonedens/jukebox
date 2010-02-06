@@ -1,40 +1,75 @@
 {% extends "song/base.html" %}
 {% load markup %}
+{% load seconds_to_duration %}
 
-{% block title %}{{ block.super }} - Song: {{ song.title }}{% endblock %}
+{% block title %}{{ block.super }} - Song: {{ song }}{% endblock %}
 
 {% block js %}
 {{ block.super }}
 <script type="text/javascript" src="{{ MEDIA_URL }}js/song/song_detail.js"></script>
 {% endblock %}
 
+{% block css %}
+{{ block.super }}
+<link href="{{ MEDIA_URL }}css/song/song_detail.css" rel="stylesheet"
+      type="text/css" />
+{% endblock %}
+
 {% block content %}
 <article id="song-{{ song.id }}">
-  <h1 class="title">{{ song.title }}</h1>
-
-  <div class="timestamp">
-    uploaded on: {{ song.uploaded_on }} |
-    updated on: {{ song.updated_on }}
-  </div>
 
   <div class="play-information">
-    Plays: {{ song.number_of_plays }}
-    Random: {{ song.number_of_random_plays }}
+    <div class="plays">
+      <span class="value">{{ song.number_of_plays }}</span> plays
+    </div>
+  </div>
+
+  <h1 class="title">{{ song }}
+    <span class="artist">(by <a href="{% url artist_detail song.artist.id %}">
+        {{ song.artist }})
+      </a>
+  </h1>
+
+  <div class="timestamp">
+    uploaded on: {{ song.uploaded_on|date }} |
+    updated on: {{ song.updated_on|date }}
   </div>
 
   <div class="file-information">
-    Bitrate: {{ song.bitrate }}
-    {% if song.variable_bitrate %}
-    VBR
-    {% else %}
-    CBR
-    {% endif %}
+    <div class="duration">
+      Duration: {{ song.duration|sec_to_dur }}
+    </div>
 
-    Duration: {{ song.duration }}
-    Sample frequency: {{ song.sample_frequency }} Hz
+    <h2>File Characteristics</h2>
+    <div class="bitrate">
+      Bitrate: {{ song.bitrate }}
+      {% if song.variable_bitrate %}
+      VBR
+      {% else %}
+      CBR
+      {% endif %}
+    </div>
+    <div class="sample-frequency">
+      Sample frequency: {{ song.sample_frequency }} Hz
+    </div>
   </div>
 
+  {% if song.get_previous %}
+  <a class="prev button green"
+     href="{% url song_detail song.get_previous.id %}">
+    prev song
+  </a>
+  {% endif %}
 
+  {% if song.get_next %}
+  <a class="next button orange"
+     href="{% url song_detail song.get_next.id %}">
+    next song
+  </a>
+  {% endif %}
+
+
+  <div clear="clear">&nbsp;</div>
 </article>
 {% endblock %}
 
