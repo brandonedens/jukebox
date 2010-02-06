@@ -2,7 +2,7 @@
 {% load markup %}
 
 
-{% block title %}{{ block.super }} - Artist: {{ artist.name }}{% endblock %}
+{% block title %}{{ block.super }} - Artist: {{ artist }}{% endblock %}
 
 {% block js %}
 {{ block.super }}
@@ -47,7 +47,7 @@
   </div>
   {% endif %}
 
-  <h1 class="name">{{ artist.name }}</h1>
+  <h1 class="name">{{ artist }}</h1>
 
   <div class="timestamp">
     added on: {{ artist.added_on|date }} |
