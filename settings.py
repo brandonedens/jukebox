@@ -95,6 +95,7 @@ INSTALLED_APPS = (
     'jukebox.genre',
     'jukebox.profile',
     'jukebox.song',
+    'jukebox.song.templatetags',
 )
 
 # URL to redirect to after successful login
