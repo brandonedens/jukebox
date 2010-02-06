@@ -23,67 +23,46 @@
 ## Imports
 ###############################################################################
 
-import os
-import yaml
+import logging
+
+import clutter
+
+from jukebox.client.config import config
 
 
 ###############################################################################
 ## Constants
 ###############################################################################
 
-# User's home directory.
-USER_HOME_DIR = os.getenv("HOME")
-
-# Directories where configuration file might be stored.
-CONFIG_DIRECTORIES = (USER_HOME_DIR,
-                      '/etc/jukebox/',
-                      )
-
-# Configuration filename.
-CONFIG_FILENAME = '/.jukebox.rc'
-
 
 ###############################################################################
 ## Classes
 ###############################################################################
 
-class Config:
+class GUI:
 
     def __init__(self):
-        # Logging settings
-        self.log_filename = '/var/tmp/jukebox.log'
-        self.log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        # Bring up clutter
+        self.stage = clutter.Stage()
+        # Hide the mouse cursor
+        self.stage.hide_cursor()
 
-        # GUI window settings
-        self.fullscreen = False
-        self.screen_width = 800
-        self.screen_height = 600
+        # Enable/disable fullscreen mode.
+        if config.fullscreen:
+            logging.debug('Setting gui to fullscreen.')
+            self.stage.set_fullscreen(True)
+        else:
+            logging.debug("Setting gui to windowed mode with %d x %d."
+                          % (config.screen_width, config.screen_height))
+            self.stage.set_size(config.screen_width, config.screen_height)
 
-    def load(self):
-        config_filename = self._find_config_file()
-        if config_filename:
-            config_file = open(config_filename, 'r')
-            options = yaml.load(config_file)
-            self.log_filename = options['log_filename']
-            self.log_format = options['log_format']
-
-            self.fullscreen = options['fullscreen']
-            self.screen_width = options['screen_width']
-            self.screen_height = options['screen_height']
-
-    def _find_config_file(self):
-        absolute_path = None
-        for directory in CONFIG_DIRECTORIES:
-            path = directory+CONFIG_FILENAME
-            if os.path.isfile(path):
-                absolute_path = path
-        return absolute_path
+    def run(self):
+        self.stage.show()
+        clutter.main()
 
 
 ###############################################################################
-## Statements
+## Functions
 ###############################################################################
 
-config = Config()
-config.load()
 
