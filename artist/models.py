@@ -33,25 +33,34 @@ class Artist(models.Model):
     user = models.ForeignKey(User)
 
     name = models.CharField(max_length=256, unique=True)
-    description = models.TextField(help_text='Description of the artist. This field uses Markdown to render the description. See: <a href="http://en.wikipedia.org/wiki/Markdown">Markdown on Wikipedia</a>.')
+    description = models.TextField(
+        help_text="""Description of the artist. This field uses Markdown to
+ render the description. See: <a href="http://en.wikipedia.org/wiki/Markdown">
+ Markdown on Wikipedia</a>.""")
 
+    email_address = models.EmailField(
+        help_text='Email address used to contact artist.')
+    telephone_number = PhoneNumberField(
+        help_text='Telephone number where the artist can be reached.')
 
-    email_address = models.EmailField(help_text='Email address used to contact artist.')
-    telephone_number = PhoneNumberField(help_text='Telephone number where the artist can be reached.')
-
-    pay_to_the_order_of = models.CharField(max_length=128,
-                                           help_text='Name the check should be made out to.')
-    address1 = models.CharField(max_length=512,
-                                help_text='Address line 1 to mail check to.')
-    address2 = models.CharField(max_length=512,
-                                blank=True,
-                                null=True,
-                                help_text='Address line 2 to mail check to.')
-    city = models.CharField(max_length=128,
-                            help_text='The city portion of the address to mail check to.')
+    pay_to_the_order_of = models.CharField(
+        max_length=128,
+        help_text='Name the check should be made out to.')
+    address1 = models.CharField(
+        max_length=512,
+        help_text='Address line 1 to mail check to.')
+    address2 = models.CharField(
+        max_length=512,
+        blank=True,
+        null=True,
+        help_text='Address line 2 to mail check to.')
+    city = models.CharField(
+        max_length=128,
+        help_text='The city portion of the address to mail check to.')
     state = USStateField(help_text='The state to mail check to.')
-    zipcode = models.CharField(max_length=10,
-                               help_text='The zipcode that the check should be mailed to.')
+    zipcode = models.CharField(
+        max_length=10,
+        help_text='The zipcode that the check should be mailed to.')
 
     added_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -60,7 +69,13 @@ class Artist(models.Model):
         ordering = ('name',)
 
     def __unicode__(self):
-        return self.name
+        lower_name = self.name.lower()
+        if lower_name.endswith(', the'):
+            basename = self.name[:-5]
+            the = self.name[-3:]
+            return the+' '+basename
+        else:
+            return self.name
 
     @models.permalink
     def get_absolute_url(self):
@@ -77,11 +92,17 @@ class Artist(models.Model):
         else:
             return None
 
-#     def save(self):
-#         """
-#         """
-#         name = self.name.lower()
-#         if name.starswith('the'):
+    def save(self):
+        """
+        """
+        lower_name = self.name.lower()
+        if lower_name.startswith('the '):
+            name = self.name
+            basename = name[4:].strip()
+            the = name[:3]
+            name = basename + ', ' + the
+            self.name = name
+        super(Artist, self).save()
 
 
 class Website(models.Model):
