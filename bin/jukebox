@@ -1,0 +1,70 @@
+#!/usr/bin/env python
+# Brandon Edens
+# AS220
+# 2009-12-24
+# Copyright (C) 2009 Brandon Edens <brandon@as220.org>
+#
+# This file is part of jukebox.
+#
+# jukebox is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# jukebox is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with jukebox.  If not, see <http://www.gnu.org/licenses/>.
+"""
+Implementation of executable used to start the jukebox software.
+"""
+
+###############################################################################
+## Imports
+###############################################################################
+
+import os
+os.putenv('DJANGO_SETTINGS_MODULE', 'jukebox.settings')
+import logging
+import sys
+
+from jukebox.client.config import config
+from jukebox.song.models import Song
+
+
+###############################################################################
+## Functions
+###############################################################################
+
+def main():
+    """
+    Main function.
+    """
+    # Setup logging for audio interface.
+    logging.basicConfig(filename=config.log_filename,
+                        level=logging.DEBUG,
+                        format=config.log_format)
+    consolehandler = logging.StreamHandler()
+    consolehandler.setLevel( logging.DEBUG )
+    formatter = logging.Formatter(config.log_format)
+    consolehandler.setFormatter(formatter)
+    logging.getLogger( '' ).addHandler( consolehandler )
+
+    logging.info("Starting Jukebox.")
+    #jukebox = Jukebox()
+    #jukebox.run()
+    logging.info("Stopping Jukebox.")
+    return 0
+
+
+###############################################################################
+## Statements
+###############################################################################
+
+if __name__ == '__main__':
+    sys.exit(main())
+
+
