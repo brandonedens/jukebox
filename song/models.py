@@ -61,13 +61,22 @@ class Song(models.Model):
     digest = models.CharField(max_length=128, unique=True)
 
     def __unicode__(self):
-        return self.title
+        lower_title = self.title.lower()
+        if lower_title.endswith(', the'):
+            basetitle = self.title[:-5]
+            the = self.title[-3:]
+            return the+' '+basetitle
+        else:
+            return self.title
 
     @models.permalink
     def get_absolute_url(self):
         return ('song_detail', [str(self.id)])
 
     def save(self):
+        """
+        """
+        # Fix song characteristics.
         import eyeD3
         audio_file = eyeD3.Mp3AudioFile(self.file)
         tag = audio_file.getTag()
@@ -79,8 +88,39 @@ class Song(models.Model):
         # Set sample frequency.
         self.sample_frequency = audio_file.getSampleFreq()
 
+        self.digest = self.digest_compute(self.file)
+
+        # Correct the title.
+        lower_title = self.title.lower()
+        if lower_title.startswith('the '):
+            title = self.title
+            basetitle = title[4:].strip()
+            the = title[:3]
+            title = basetitle + ', ' + the
+            self.title = title
+
         # Call parent save()
         super(Song, self).save()
+
+    def get_previous(self):
+        """
+        Get the previous song by this song's artist.
+        """
+        song_list = list(self.artist.song_set.all())
+        index = song_list.index(self)
+        if index > 0:
+            return song_list[index - 1]
+        return None
+
+    def get_next(self):
+        """
+        Get the previous song by this song's artist.
+        """
+        song_list = list(self.artist.song_set.all())
+        index = song_list.index(self)
+        if index < len(song_list) - 1:
+            return song_list[index + 1]
+        return None
 
     @classmethod
     def digest_compute(cls, file):
