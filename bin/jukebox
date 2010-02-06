@@ -32,6 +32,7 @@ import logging
 import sys
 
 from jukebox.client.config import config
+from jukebox.client.gui import GUI
 from jukebox.song.models import Song
 
 
@@ -54,8 +55,8 @@ def main():
     logging.getLogger( '' ).addHandler( consolehandler )
 
     logging.info("Starting Jukebox.")
-    #jukebox = Jukebox()
-    #jukebox.run()
+    gui = GUI()
+    gui.run()
     logging.info("Stopping Jukebox.")
     return 0
 
