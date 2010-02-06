@@ -1,15 +1,30 @@
 h1.title {
-    font-size: 150%;
+    font-size: 250%;
     line-height: 1em;
     margin-bottom: 0;
 }
 
-a h2.artist-name {
-    margin-left: 3em;
+span.artist {
+    font-size: 60%;
+    padding-left: 1em;
+}
+
+span.artist a {
     text-decoration: none;
 }
 
-h2.artist-name {
-    display: inline;
+div.play-information {
+    border: 1px solid #888;
+    float: right;
+    font-size: 150%;
+    padding: 10px;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+    -moz-box-shadow: 5px 5px 8px #444;
+    -webkit-box-shadow: 5px 5px 8px #444;
 }
 
+div.play-information>div.plays>span.value {
+    color: #ff0000;
+    font-size: 200%;
+}
