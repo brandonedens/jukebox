@@ -42,21 +42,21 @@ def photo_upload_to(instance, filename):
     Given an instance of a Photo, generate an appropriate storage location for
     that photo.
     """
-    return "media/photos/%s/%s" % (instance.artist.name, filename)
+    return "music/photos/%s/%s" % (instance.artist.name, filename)
 
 def song_upload_to(instance, filename):
     """
     Given an instance of a Song, generate an appropriate storage location for
     that song.
     """
-    return "media/songs/%s/%s" % (instance.artist.name, filename)
+    return "music/songs/%s/%s" % (instance.artist.name, filename)
 
 def video_upload_to(instance, filename):
     """
     Given an instance of a Video, generate an appropriate storage location for
     that video.
     """
-    return "media/videos/%s/%s" % (instance.artist.name, filename)
+    return "music/videos/%s/%s" % (instance.artist.name, filename)
 
 
 ###############################################################################
