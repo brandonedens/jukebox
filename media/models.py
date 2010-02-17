@@ -138,6 +138,16 @@ class Artist(models.Model):
             self.name = name
         super(Artist, self).save()
 
+class Album(models.Model):
+    user = models.ForeignKey(User)
+    artist = models.ForeignKey(Artist)
+    title = models.CharField(max_length=256)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.title
+
 class Genre(models.Model):
     name = models.CharField(max_length=256)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -150,6 +160,7 @@ class Genre(models.Model):
         return self.name
 
 class Photo(models.Model):
+    user = models.ForeignKey(User)
     artist = models.ForeignKey(Artist)
     photo = models.ImageField(upload_to=photo_upload_to)
     caption = models.CharField(max_length=256, blank=True, null=True)
@@ -198,6 +209,7 @@ class Photo(models.Model):
         super(Photo, self).save()
 
 class Song(models.Model):
+    user = models.ForeignKey(User)
     artist = models.ForeignKey(Artist)
 
     title = models.CharField(
@@ -303,6 +315,7 @@ class Song(models.Model):
         return m.hexdigest()
 
 class Video(models.Model):
+    user = models.ForeignKey(User)
     artist = models.ForeignKey(Artist)
     video = models.FileField(upload_to=video_upload_to)
     caption = models.CharField(max_length=512)
