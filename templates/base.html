@@ -30,22 +30,8 @@
         <div class="horizontal-bar-caution">&nbsp;</div>
       </header>
 
-      <section id="wrapper">
-        <section id="content">
-          {% if messages %}
-          <article>
-            <ul class="messages">
-              {% for message in messages %}
-              <li>{{ message }}</li>
-              {% endfor %}
-            </ul>
-          </article>
-          {% endif %}
 
-          {% block content %}{% endblock %}
-        </section>
-      </section>
-
+      <section id="left">
       <nav>
         <ul>
           {% if user.is_authenticated %}
@@ -67,6 +53,9 @@
             <a href="{% url about %}">about</a>
           </li>
           <li>
+            <a href="{% url faq %}">faq</a>
+          </li>
+          <li>
             <a href="{% url artist_list %}">artists</a>
           </li>
           <li>
@@ -74,17 +63,37 @@
           </li>
         </ul>
       </nav>
+      </section>
 
-      <aside>
-        {% block aside %}
-        {% endblock %}
-      </aside>
+      <section id="wrapper">
+        <section id="content">
+          {% if messages %}
+          <article>
+            <ul class="messages">
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          </article>
+          {% endif %}
+
+          {% block content %}{% endblock %}
+        </section>
+      </section>
+
+
+      <section id="right">
+        <aside>
+          {% block aside %}
+          {% endblock %}
+        </aside>
+      </section>
 
       <footer>
         <hr />
         <address>
           <a href="mailto:brandon@as220.org">Brandon Edens</a>,
-          02 Feb 2010
+          11 Feb 2010
         </address>
       </footer>
     </section>
