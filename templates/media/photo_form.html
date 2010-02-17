@@ -1,4 +1,4 @@
-{% extends "artist/base.html" %}
+{% extends "media/song_base.html" %}
 
 {% block css %}
 {{ super.block }}
@@ -7,17 +7,17 @@
 
 {% block content %}
 <article>
-  <h1>Create/Update Artist</h1>
+  <h1>Upload Photo</h1>
   <form action=""
+        enctype="multipart/form-data"
         method="post">
-    {{ form }}
-    <div>
+    {{ form.as_p }}
+    <p>
       <input id="submit"
              class="button orange"
              type="submit" value="Submit" />
-    </div>
+    </p>
   </form>
   <div class="clear">&nbsp;</div>
 </article>
 {% endblock %}
-
