@@ -48,9 +48,12 @@ urlpatterns = patterns('',
     url(r'^$', direct_to_template,
         {'template': 'index.html',},
         name='index'),
-    url(r'^$', direct_to_template,
+    url(r'^about/$', direct_to_template,
         {'template': 'about.html',},
         name='about'),
+    url(r'^faq/$', direct_to_template,
+        {'template': 'faq.html',},
+        name='faq'),
 
 
     # Application URLs.
