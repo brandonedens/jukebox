@@ -27,13 +27,14 @@ Implementation of executable used to start the jukebox software.
 ###############################################################################
 
 import os
-os.putenv('DJANGO_SETTINGS_MODULE', 'jukebox.settings')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
+
 import logging
 import sys
 
 from jukebox.client.config import config
 from jukebox.client.gui import GUI
-from jukebox.song.models import Song
+from jukebox.media.models import Song
 
 
 ###############################################################################
