@@ -1,23 +1,35 @@
+section#page {
+    margin:0 auto;
+    padding:0 21px;
+    width:1000px;
+}
 
-section#page>nav {
+section#left {
     float: left;
-    margin-left: -100%;
+    overflow: hidden;
     width: 150px;
 }
+
+section#right {
+    float: right;
+    overflow: hidden;
+    width: 150px;
+}
+
 
 section#wrapper {
     float: left;
-    width: 100%;
+    width: 680px;
 }
 
 section#content {
-    margin: 0 150px;
+    /*margin: 0 150px;*/
 }
 
 aside {
-    float: left;
-    margin-left: -150px;
-    width: 150px;
+/*     float: left; */
+/*     margin-left: -150px; */
+/*     width: 150px; */
 }
 
 footer {

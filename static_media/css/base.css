@@ -1,5 +1,5 @@
 body {
-    background: #ffffff url('http://as220.org/front/images/front/BG.png') repeat scroll 0 0;
+    background: #ffffff url('../images/background.png') repeat scroll 0 0;
     color: #333;
     margin:0;
     padding:0;
@@ -101,10 +101,7 @@ ul.messages {
 }
 
 section#page {
-    background:transparent url(http://as220.org/front/images/front/pagewrapperBG.png) repeat scroll 0 0;
-    margin:0 auto;
-    padding:0 21px;
-    width:1000px;
+    background:transparent url('../images/page_wrapper_background.png') repeat scroll 0 0;
 }
 
 section#wrapper {
@@ -113,9 +110,6 @@ section#wrapper {
     border-left:1px solid #DBD7CB;
     border-right:1px solid #DBD7CB;
     padding-top: 10px;
-}
-
-section#content {
 }
 
 section#content>article {
@@ -127,13 +121,13 @@ section#content>article {
     -webkit-border-radius: 16px;
 }
 
-section#page>nav {
+section#left>nav {
     background:#ffffff url(../images/background_stripes_left_right.gif) repeat scroll 0 0;
     height: 100%;
     text-align: center;
 }
 
-section#page>nav ul {
+section#left>nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -149,5 +143,15 @@ div.clear {
     padding: 0;
     height: 1px;
     overflow: hidden;
+}
+
+p.question:first-letter {
+    font-family:Georgia,"Times New Roman",serif;
+    font-size : 200%;
+}
+
+p.answer:first-letter {
+    font-family:Georgia,"Times New Roman",serif;
+    font-size : 200%;
 }
 
