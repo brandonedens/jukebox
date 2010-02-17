@@ -44,14 +44,12 @@ class PhotoForm(forms.ModelForm):
 
     class Meta:
         model = Photo
-        fields = ('photo', 'caption')
+        fields = ('photo', 'caption',)
 
 class SongForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields = ('title',
-                  'file',
-                  )
+        fields = ('title', 'file',)
 
     def clean_file(self):
         """
