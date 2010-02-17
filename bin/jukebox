@@ -34,7 +34,7 @@ import sys
 
 from jukebox.client.config import config
 from jukebox.client.gui import GUI
-from jukebox.media.models import Song
+from jukebox.music.models import Song
 
 
 ###############################################################################

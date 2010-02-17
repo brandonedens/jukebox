@@ -89,8 +89,8 @@ INSTALLED_APPS = (
     # Local applications.
     'jukebox.utils',
     'jukebox.utils.templatetags',
-    'jukebox.media',
-    'jukebox.media.templatetags',
+    'jukebox.music',
+    'jukebox.music.templatetags',
     'jukebox.profile',
     'jukebox.review',
 )

@@ -25,7 +25,7 @@
 
 from django.contrib import admin
 
-from jukebox.media.models import Artist, Album, Genre, Photo, Song
+from jukebox.music.models import Artist, Album, Genre, Photo, Song
 
 
 ###############################################################################

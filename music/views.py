@@ -32,7 +32,7 @@ from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
 
 from jukebox import settings
-from jukebox.media.models import Artist, Photo, Song
+from jukebox.music.models import Artist, Photo, Song
 
 
 ###############################################################################

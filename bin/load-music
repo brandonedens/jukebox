@@ -37,8 +37,8 @@ from optparse import OptionParser
 from django.contrib.auth.models import User
 
 from jukebox import settings
-from jukebox.media.models import song_upload_to
-from jukebox.media.models import Artist, Album, Song, Genre
+from jukebox.music.models import song_upload_to
+from jukebox.music.models import Artist, Album, Song, Genre
 
 
 ###############################################################################
@@ -156,11 +156,12 @@ def load_file(filename):
             album = Album(title=album_name)
             album.artist = artist
             song.album = album
+            album.user = user
             album.save()
 
     # Copy the song file to its appropriate place
     basename = os.path.basename(filename)
-    filename_destination = settings.MEDIA_ROOT+'/'+upload_to(song, basename)
+    filename_destination = settings.MEDIA_ROOT+'/'+song_upload_to(song, basename)
     try:
         os.makedirs(os.path.dirname(filename_destination))
     except OSError:
@@ -169,6 +170,7 @@ def load_file(filename):
     song.file = filename_destination
 
     # Save the new song
+    song.user = user
     song.save()
 
 def main(directory):

@@ -25,7 +25,7 @@
 
 from django.contrib.localflavor.us.forms import USZipCodeField
 
-from jukebox.media.models import Artist, Photo, Song
+from jukebox.music.models import Artist, Photo, Song
 from jukebox.utils import forms
 
 

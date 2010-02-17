@@ -13,8 +13,8 @@ from django.core.urlresolvers import reverse
 from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
 
-from jukebox.artist.models import Artist
-from jukebox.artist.forms import ArtistForm
+from jukebox.music.models import Artist
+from jukebox.music.forms import ArtistForm
 
 
 ###############################################################################

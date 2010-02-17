@@ -26,7 +26,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from jukebox.media.models import Artist
+from jukebox.music.models import Artist
 
 
 ###############################################################################

@@ -28,18 +28,18 @@ from django.views.generic.list_detail import object_detail
 from django.views.generic.list_detail import object_list
 
 from jukebox import settings
-from jukebox.media.models import Artist, Photo, Song
-from jukebox.media.views import artist_list_by_letter, song_list_by_letter
-from jukebox.media.views import artist_create, artist_update, artist_delete
-from jukebox.media.views import photo_upload
-from jukebox.media.views import song_create, song_update, song_delete, song_play
+from jukebox.music.models import Artist, Photo, Song
+from jukebox.music.views import artist_list_by_letter, song_list_by_letter
+from jukebox.music.views import artist_create, artist_update, artist_delete
+from jukebox.music.views import photo_upload
+from jukebox.music.views import song_create, song_update, song_delete, song_play
 
 
 ###############################################################################
 ## Constants
 ###############################################################################
 
-urlpatterns = patterns('jukebox.media.views',
+urlpatterns = patterns('jukebox.music.views',
     url(r'^artist/list/$', object_list,
         {'queryset': Artist.objects.all(),
          'template_object_name': 'artist',
