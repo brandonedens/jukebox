@@ -23,7 +23,7 @@ Script for iterating over a directory loading all music found into the jukebox.
 """
 
 import os
-os.putenv('DJANGO_SETTINGS_MODULE', 'jukebox.settings')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
 
 import eyeD3
 import hashlib
@@ -37,11 +37,8 @@ from optparse import OptionParser
 from django.contrib.auth.models import User
 
 from jukebox import settings
-from jukebox.artist.models import Artist
-from jukebox.album.models import Album
-from jukebox.song.models import Song
-from jukebox.song.models import upload_to
-from jukebox.genre.models import Genre
+from jukebox.media.models import song_upload_to
+from jukebox.media.models import Artist, Album, Song, Genre
 
 
 ###############################################################################
