@@ -30,7 +30,7 @@ from django.views.generic.create_update import update_object
 from jukebox.profile.views import index
 from jukebox.profile.views import artist_create
 
-from jukebox.media.forms import ArtistForm
+from jukebox.music.forms import ArtistForm
 
 
 ###############################################################################
