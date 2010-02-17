@@ -57,10 +57,9 @@ urlpatterns = patterns('',
 
 
     # Application URLs.
-    (r'^album/', include('album.urls')),
-    (r'^artist/', include('artist.urls')),
+    (r'^media/', include('media.urls')),
     (r'^profile/', include('profile.urls')),
-    (r'^song/', include('song.urls')),
+    (r'^review/', include('review.urls')),
 )
 
 if settings.DEBUG:
