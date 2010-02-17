@@ -57,7 +57,7 @@ urlpatterns = patterns('',
 
 
     # Application URLs.
-    (r'^media/', include('media.urls')),
+    (r'^music/', include('music.urls')),
     (r'^profile/', include('profile.urls')),
     (r'^review/', include('review.urls')),
 )
