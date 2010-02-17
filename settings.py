@@ -49,7 +49,7 @@ MEDIA_URL = '/jukebox/static_media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/admin_media/'
+ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'g^okellta-s4ohpjo-b$0-7%m0qe2*smw-4xr1#a_zdv9%0@u^'
