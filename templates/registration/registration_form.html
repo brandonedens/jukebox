@@ -24,16 +24,16 @@ along with Jukebox.  If not, see <http://www.gnu.org/licenses/>.
 
 {% block content %}
 <article>
-<form action="{% url registration.views.register %}"
-      method="post">
-  <fieldset>
-    <legend>Register for an Account</legend>
+  <form action="{% url registration.views.register %}"
+        method="post">
+    <fieldset>
+      <legend>Register for an Account</legend>
 
-    {{ form.as_p }}
+      {{ form.as_p }}
 
-    <input type="submit" value="Submit">
-  </fieldset>
-</form>
+      <input type="submit" value="Submit">
+    </fieldset>
+  </form>
 </article>
 {% endblock %}
 
