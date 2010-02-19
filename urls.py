@@ -60,6 +60,9 @@ urlpatterns = patterns('',
     (r'^music/', include('music.urls')),
     (r'^profile/', include('profile.urls')),
     (r'^review/', include('review.urls')),
+    (r'^search/', include('search.urls')),
+
+
 )
 
 if settings.DEBUG:
