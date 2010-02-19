@@ -6,10 +6,6 @@
       type="text/css" />
 {% endblock %}
 
-{% block breadcrumb %}
-{{ block.super }} &raquo; <a href="{{ song.get_permanent_url }}">{{ song }}</a>
-{% endblock %}
-
 {% block aside %}
 <article>
   <a href="{% url song_list %}"><h1>All Songs</h1></a>
