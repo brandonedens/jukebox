@@ -33,6 +33,12 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
+# Site name
+SITE_NAME = 'AS220 Jukebox'
+
+# Site URL
+SITE_URL = 'http://as220.org/jukebox_dev/'
+
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
@@ -105,7 +111,7 @@ ACCOUNT_ACTIVATION_DAYS=7
 # Email host
 DEFAULT_FROM_EMAIL = "jukebox@as220.org"
 EMAIL_HOST = "localhost"
-EMAIL_PORT = 1025
+EMAIL_PORT = 25
 EMAIL_USE_TLS = True
 
 # Application specific settings
