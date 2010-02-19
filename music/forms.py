@@ -38,7 +38,7 @@ class ArtistForm(forms.ModelForm):
 
     class Meta:
         model = Artist
-        exclude = ('user')
+        exclude = ('user', 'slug')
 
 class PhotoForm(forms.ModelForm):
 
