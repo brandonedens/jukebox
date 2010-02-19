@@ -33,18 +33,17 @@
 
       <section id="left">
       <nav>
+          {% if user.is_authenticated %}
+          <p>
+            <a href="{% url django.contrib.auth.views.logout %}">logout</a>
+          </p>
           {% if perms.music.can_review_song %}
           <p>
             <a href="{% url review_songs %}">review</a>
           </p>
           {% endif %}
-
-          {% if user.is_authenticated %}
           <p>
             <a href="{% url profile_index %}">profile</a>
-          </p>
-          <p>
-            <a href="{% url django.contrib.auth.views.logout %}">logout</a>
           </p>
           {% else %}
           <p>
