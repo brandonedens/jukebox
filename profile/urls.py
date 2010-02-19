@@ -28,7 +28,9 @@ from django.views.generic.simple import direct_to_template
 from django.views.generic.create_update import update_object
 
 from jukebox.profile.views import index
-from jukebox.profile.views import artist_create
+from jukebox.profile.views import artist_create, artist_delete, artist_update
+from jukebox.profile.views import photo_upload
+from jukebox.profile.views import song_create, song_delete, song_update, song_play
 
 from jukebox.music.forms import ArtistForm
 
@@ -37,7 +39,22 @@ from jukebox.music.forms import ArtistForm
 ## Constants
 ###############################################################################
 
-urlpatterns = patterns('jukebox.album.views',
+urlpatterns = patterns('jukebox.profile.views',
     url(r'^$', index, name='profile_index'),
+
+    url(r'^artist/create/$', artist_create,
+        name='artist_create'),
+    url(r'^artist/update/(?P<object_id>\d+)/$', artist_update,
+        name='artist_update',),
+    url(r'^artist/delete/(?P<object_id>\d+)/$', artist_delete,
+        name='artist_delete',),
+
+    url(r'^photo/upload/(?P<artist_id>\d+)/$', photo_upload,
+        name='photo_upload',),
+
+    url(r'^song/create/(?P<artist_id>\d+)/$', song_create, name='song_create'),
+
+    url(r'^song/play/(?P<song_id>\d+).mp3$', song_play, name='song_play'),
+
 )
 
