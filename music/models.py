@@ -217,7 +217,7 @@ class Photo(models.Model):
 
 class Song(models.Model):
     artist = models.ForeignKey(Artist)
-    genre = models.ForeignKey(Genre)
+    genre = models.ForeignKey(Genre, null=True)
 
     title = models.CharField(
         max_length=200,
