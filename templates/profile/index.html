@@ -1,9 +1,15 @@
 {% extends "profile/base.html" %}
 
+{% block css %}
+{{ super.block }}
+<link href="{{ MEDIA_URL }}css/table.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
 {% block js %}
 {{ super.block }}
 <script language="JavaScript"
         src="http://actionspeaksradio.org/js/audio-player.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/profile/base.js"></script>
 {% endblock %}
 
 
@@ -16,12 +22,13 @@
        href="{% url artist_create %}">upload music</a>
   </p>
   <h1>You have uploaded the following music</h1>
-  <table style="clear: right">
+  <table class="sorted" style="clear: right">
     <thead>
       <tr>
         <th>Artist</th>
         <th>Song</th>
         <th>Number of plays</th>
+        <th>Controls</th>
       </tr>
     </thead>
     <tbody>
@@ -36,6 +43,8 @@
         </td>
         <td>
           {{ song.number_of_plays }}
+        </td>
+        <td>
         </td>
       </tr>
       {% endfor %}
