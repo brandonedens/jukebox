@@ -1,4 +1,4 @@
-{% extends "music/base.html" %}
+{% extends "music/artist_base.html" %}
 {% load markup %}
 {% load digg_templatetag %}
 {% load is_registered_by %}
@@ -40,7 +40,7 @@
   {% with artist.random_photo as photo %}
   {% if photo %}
   <div class="photo">
-    <img src="{{ MEDIA_URL }}{{ photo.image }}"
+    <img src="{{ MEDIA_URL }}{{ photo.thumbnail }}"
          alt="{{ photo.caption }}"
          width="200" />
   </div>
@@ -65,12 +65,13 @@
 
   <div class="description">
     {{ artist.description|markdown|truncatewords_html:100 }}
-    <a class="button grey more"
-       href="{% url artist_detail artist.id %}">
-      more
-      <span></span>
-    </a>
   </div>
+  <div class="clear">&nbsp;</div>
+  <a class="button grey more"
+     href="{% url artist_detail artist.id %}">
+    more
+    <span></span>
+  </a>
   <div class="clear">&nbsp;</div>
 </article>
 
