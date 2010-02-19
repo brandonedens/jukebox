@@ -98,6 +98,10 @@ def load_file(filename):
 
     # Name
     song.title = tag.getTitle().strip()
+    if song.title == "":
+        # This is an empty song title. Abort
+        return
+
     # Gather track information
     track_tuple = tag.getTrackNum()
     song.track_number = track_tuple[0]
@@ -123,6 +127,10 @@ def load_file(filename):
 
     # Gather artist information
     artist_name = tag.getArtist().strip()
+    if artist_name == "":
+        # This song has an empty artist name. Abort
+        return
+
     artist = None
     if artist_name != None:
         # Search existing artists
