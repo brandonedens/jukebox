@@ -1,0 +1,59 @@
+table {
+    border-collapse: collapse;
+}
+
+th {
+    color:#003399;
+    font-family:"Lucida Sans Unicode","Lucida Grande",Sans-Serif;
+    font-size:14px;
+    font-weight:normal;
+    padding:10px 8px;
+}
+
+td {
+    color: #666699;
+    font-family:"Lucida Sans Unicode","Lucida Grande",Sans-Serif;
+    padding:8px;
+    text-align: left;
+}
+
+tbody>tr.even {
+    background: #FFFFFF none repeat scroll 0 0;
+}
+
+tbody>tr.odd {
+    background: #E8EDFF none repeat scroll 0 0;
+}
+
+thead>tr {
+}
+
+thead>tr>th {
+    background-color:rgba(200, 200, 200, 0.25);
+/*     background-image: -webkit-gradient(linear, 0% 0%, 0% 95%, from(rgba(0, 0, 0, 0.7)), to(rgba(255, 255, 255, 0))); */
+/*     background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(0, 0, 0, 0) 95%); */
+    border-bottom:2px solid #6678B1;
+}
+
+/* Table sortable */
+th.header {
+    background-image: url(../images/tablesorter/arrow_up_down.gif);
+    background-position: right center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+th.headerSortUp {
+    background-image: url(../images/tablesorter/arrow_asc.gif);
+    background-position: right center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+th.headerSortDown {
+    background-image: url(../images/tablesorter/arrow_desc.gif);
+    background-position: right center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
