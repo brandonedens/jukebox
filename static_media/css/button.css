@@ -85,8 +85,23 @@ a.button {
 .grey {
     background: rgb(20, 20, 20);
     background: rgba(20, 20, 20, 0.8);
-    border-color: #AA6598 #97237A #8D3276 #AE0086;
-    -webkit-box-shadow: rgba(125, 10, 99, 0.5) 0px 10px 16px;
-    -moz-box-shadow: rgba(125, 10, 99, 0.5) 0px 10px 16px;
+    border-color: #808080 #505050 #303030 #505050;
+    -webkit-box-shadow: rgba(25, 25, 25, 0.5) 0px 10px 16px;
+    -moz-box-shadow: rgba(25, 25, 25, 0.5) 0px 10px 16px;
 }
 
+.yellow {
+    background: rgb(190, 190, 20);
+    background: rgba(190, 190, 20, 0.8);
+    border-color: #D7D771 #D7D771 #D7D771 #D7D771;
+    -webkit-box-shadow: rgba(195, 195, 25, 0.5) 0px 10px 16px;
+    -moz-box-shadow: rgba(195, 195, 25, 0.5) 0px 10px 16px;
+}
+
+.maroon {
+    background: rgb(123, 17, 19);
+    background: rgba(123, 17, 19, 0.8);
+    border-color: #B07071 #B07071 #954042 #B07071;
+    -webkit-box-shadow: rgba(129, 24, 25, 0.5) 0px 10px 16px;
+    -moz-box-shadow: rgba(129, 24, 25, 0.5) 0px 10px 16px;
+}
