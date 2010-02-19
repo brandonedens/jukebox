@@ -30,10 +30,10 @@ pre {
   font-size: 10px;
 }
 
-a:link {
+#content a:link {
     color: #000;
 }
-a:visited {
+#content a:visited {
     color: #000;
 }
 
@@ -47,7 +47,7 @@ a:hover img {
     border: 0px;
 }
 
-a:hover {
+#content a:hover {
     color: #333388;
 }
 
