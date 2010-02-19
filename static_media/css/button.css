@@ -44,7 +44,7 @@ a.button {
 
 .grey {
     background:rgb(128, 128, 128);
-    background-color:rgba(128, 128, 128, 0.75);
+    background:rgba(128, 128, 128, 0.75);
     border-color: #999999;
     text-shadow:1px 1px 3px rgba(0, 0, 0, 0.5);
     -moz-box-shadow:0 8px 24px rgba(192, 192, 192, 0.75);
@@ -60,7 +60,7 @@ a.button {
 
 .aqua {
     background: rgb(60, 132, 198);
-    background-color: rgba(60, 132, 198, 0.8);
+    background: rgba(60, 132, 198, 0.8);
     border-color: #8ba2c1 #5890bf #4f93ca #768fa5;
     -webkit-box-shadow: rgba(66, 140, 240, 0.5) 0px 10px 16px;
     -moz-box-shadow: rgba(66, 140, 240, 0.5) 0px 10px 16px;
@@ -68,7 +68,7 @@ a.button {
 
 .green {
     background: rgb(60, 132, 60);
-    background-color: rgba(60, 132, 60, 0.8);
+    background: rgba(60, 132, 60, 0.8);
     border-color: #639b60;
     -webkit-box-shadow: rgba(66, 140, 66, 0.5) 0px 10px 16px;
     -moz-box-shadow: rgba(66, 140, 66, 0.5) 0px 10px 16px;
@@ -76,7 +76,7 @@ a.button {
 
 .purple {
     background: rgb(113, 0, 88);
-    background-color: rgba(113, 0, 88, 0.8);
+    background: rgba(113, 0, 88, 0.8);
     border-color: #AA6598 #97237A #8D3276 #AE0086;
     -webkit-box-shadow: rgba(125, 10, 99, 0.5) 0px 10px 16px;
     -moz-box-shadow: rgba(125, 10, 99, 0.5) 0px 10px 16px;
@@ -84,7 +84,7 @@ a.button {
 
 .grey {
     background: rgb(20, 20, 20);
-    background-color: rgba(20, 20, 20, 0.8);
+    background: rgba(20, 20, 20, 0.8);
     border-color: #AA6598 #97237A #8D3276 #AE0086;
     -webkit-box-shadow: rgba(125, 10, 99, 0.5) 0px 10px 16px;
     -moz-box-shadow: rgba(125, 10, 99, 0.5) 0px 10px 16px;
