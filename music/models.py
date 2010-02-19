@@ -216,10 +216,11 @@ class Photo(models.Model):
         image.save(temp_handle, 'png')
         temp_handle.seek(0)
 
-        base_filename = os.path.basename(self.photo.name)
         suf = SimpleUploadedFile(os.path.split(self.photo.name)[-1],
                                  temp_handle.read(), content_type='image/png')
-        self.thumbnail.save(suf.name.split('.')[-1]+'_thumbnail.png', suf, save=False)
+        thumbnail_basename = os.path.splitext(suf.name)[0]
+        print "thumbnail basename = %s" % thumbnail_basename
+        self.thumbnail.save(thumbnail_basename+'_thumbnail.png', suf, save=False)
 
         super(Photo, self).save()
 
