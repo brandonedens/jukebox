@@ -1,3 +1,6 @@
+/* Audio Player from: http://www.1pixelout.net/
+ *
+ */
 var ap_instances = new Array();
 
 function ap_stopAll(playerID) {
