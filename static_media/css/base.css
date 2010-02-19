@@ -88,10 +88,6 @@ div.horizontal-bar-grey-caution {
     color:#FF0000;
 }
 
-div.description a.more {
-    display: block-inline;
-}
-
 ul.messages {
     display: none;
     font-size: 250%;

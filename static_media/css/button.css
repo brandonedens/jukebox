@@ -31,8 +31,9 @@ a.button {
 .button>span {
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 95%, from(rgba(255, 255, 255, 0.7)), to(rgba(255, 255, 255, 0)));
-    background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 95%);
+    /* This is throwing up errors. */
+    /*background-image: -webkit-gradient(linear, 0% 0%, 0% 95%, from(rgba(255, 255, 255, 0.7)), to(rgba(255, 255, 255, 0)));*/
+    /*background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 95%);*/
     background-color:rgba(255, 255, 255, 0.25);
     display:block;
     height:40%;
