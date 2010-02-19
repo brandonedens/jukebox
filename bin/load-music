@@ -29,6 +29,7 @@ import eyeD3
 import hashlib
 import logging
 import shutil
+import sqlite3
 import sys
 
 from glob import glob
@@ -63,15 +64,13 @@ def load_file(filename):
     song_digest = m.hexdigest()
 
     song = None
-
     try:
         song = Song.objects.get(digest=song_digest)
         logging.info("Filename %s already exists in database." % filename)
     except Song.DoesNotExist:
         # Song does not exist
         song = Song()
-
-    song.digest = m.hexdigest()
+        song.digest = song_digest
 
     try:
         audio_file = eyeD3.Mp3AudioFile(filename)
@@ -98,7 +97,7 @@ def load_file(filename):
     song.sample_freq = audio_file.getSampleFreq()
 
     # Name
-    song.title = tag.getTitle()
+    song.title = tag.getTitle().strip()
     # Gather track information
     track_tuple = tag.getTrackNum()
     song.track_number = track_tuple[0]
@@ -137,7 +136,11 @@ def load_file(filename):
             artist = Artist(name=artist_name)
             logging.debug("Did not find artist %s for song %s." % (artist, song))
             artist.user = user
-            artist.save()
+            try:
+                artist.save()
+            except sqlite3.IntegrityError as e:
+                logging.error("The artist %s had sqlite integrity errors." % artist)
+                logging.error(e)
             song.artist = artist
     else:
         logging.info("Cannot load song %s with filename %s without an artist." % (song.title, filename))
@@ -166,12 +169,20 @@ def load_file(filename):
         os.makedirs(os.path.dirname(filename_destination))
     except OSError:
         logging.debug("Directory %s already exists." % os.path.dirname(filename_destination))
-    shutil.copy(os.path.abspath(filename), filename_destination)
+    try:
+        shutil.copy(os.path.abspath(filename), filename_destination)
+    except IOError:
+        logging.warning("File already exists at %s." % filename_destination)
     song.file = filename_destination
 
     # Save the new song
     song.user = user
-    song.save()
+    try:
+        song.save()
+    except sqlite3.IntegrityError as e:
+        logging.error("Song %s had integrity errors." % song)
+        logging.error(e)
+        return
 
 def main(directory):
     """
