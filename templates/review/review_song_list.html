@@ -8,7 +8,6 @@
 
 {% block js %}
 {{ super.block }}
-<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.tablesorter.min.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/review/base.js"></script>
 {% endblock %}
 
@@ -20,23 +19,23 @@
 {% if song_list %}
 {% digg_paginator %}
 
-<table class="songs-sorted">
+<table class="sorted">
   <thead>
     <tr>
       <th>Artist</th>
       <th>Song</th>
       <th>Uploaded on</th>
-      <th>Approve</th>
+      <th>Review</th>
       <th>Play</th>
     </tr>
   </thead>
   <tbody>
     {% for song in song_list %}
-    <tr class="{% cycle odd,event %}">
+    <tr>
       <td><a href="{{ song.artist.get_absolute_url }}">{{ song.artist }}</a></td>
       <td><a href="{{ song.get_absolute_url }}">{{ song }}</a></td>
       <td>{{ song.uploaded_on|date }}</td>
-            <td style="font-size: 80%">
+      <td>
         <a class="button green" href="{% url song_accept song.id %}">Accept</a><a class="button orange" href="{% url song_reject song.id %}">Reject</a>
       </td>
       <td>
