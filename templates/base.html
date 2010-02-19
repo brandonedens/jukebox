@@ -33,40 +33,39 @@
 
       <section id="left">
       <nav>
-        <ul>
           {% if perms.music.can_review_song %}
-          <li>
-            <a class="button aqua" href="{% url review_songs %}">review</a>
-          </li>
+          <p>
+            <a href="{% url review_songs %}">review</a>
+          </p>
           {% endif %}
 
           {% if user.is_authenticated %}
-          <li>
-            <a class="button purple" href="{% url profile_index %}">profile</a>
-          </li>
-          <li>
-            <a class="button grey" href="{% url django.contrib.auth.views.logout %}">logout</a>
-          </li>
+          <p>
+            <a href="{% url profile_index %}">profile</a>
+          </p>
+          <p>
+            <a href="{% url django.contrib.auth.views.logout %}">logout</a>
+          </p>
           {% else %}
-          <li>
-            <a class="button green" href="{% url registration.views.register %}">register</a>
-          </li>
-          <li>
-            <a class="button orange" href="{% url django.contrib.auth.views.login %}">login</a>
-          </li>
+          <p>
+            <a href="{% url registration.views.register %}">register</a>
+          </p>
+          <p>
+            <a href="{% url django.contrib.auth.views.login %}">login</a>
+          </p>
           {% endif %}
-          <li>
-            <a class="button aqua" href="{% url about %}">about</a>
-          </li>
-          <li>
-            <a class="button purple" href="{% url faq %}">faq</a>
-          </li>
-          <li>
-            <a class="button green" href="{% url artist_list %}">artists</a>
-          </li>
-          <li>
-            <a class="button maroon" href="{% url song_list %}">song</a>
-          </li>
+          <p>
+            <a href="{% url about %}">about</a>
+          </p>
+          <p>
+            <a href="{% url faq %}">faq</a>
+          </p>
+          <p>
+            <a href="{% url artist_list %}">artists</a>
+          </p>
+          <p>
+            <a href="{% url song_list %}">song</a>
+          </p>
         </ul>
       </nav>
       </section>

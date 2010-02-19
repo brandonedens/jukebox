@@ -30,10 +30,10 @@ pre {
   font-size: 10px;
 }
 
-#content a:link {
+a:link {
     color: #000;
 }
-#content a:visited {
+a:visited {
     color: #000;
 }
 
@@ -47,7 +47,7 @@ a:hover img {
     border: 0px;
 }
 
-#content a:hover {
+a:hover {
     color: #333388;
 }
 
@@ -153,5 +153,18 @@ p.question:first-letter {
 p.answer:first-letter {
     font-family:Georgia,"Times New Roman",serif;
     font-size : 200%;
+}
+
+#left nav p {
+    border-bottom: 1px dotted #888888;
+    font-size: 150%;
+    margin: 0;
+}
+
+#left nav p:first-letter {
+    font-family:Georgia,"Times New Roman",serif;
+    font-size: 250%;
+    line-height: 1.2em;
+    text-transform: uppercase;
 }
 
