@@ -13,7 +13,7 @@ form div.field>label {
     font-style: normal;
     font-weight: bold;
     line-height: 1.25em;
-    width: 150px;
+    width: 30%;
     text-align: left;
 }
 
@@ -23,10 +23,11 @@ form div.field>input,textarea,select {
     text-align: left;
     margin-left: 20px;
     margin-bottom: 20px;
-    width: 470px;
+    width: 65%;
 }
 
 form div.field>p {
+    width: 30%;
 }
 
 form input#submit {

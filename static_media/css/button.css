@@ -78,3 +78,10 @@ a.button {
     -moz-box-shadow: rgba(125, 10, 99, 0.5) 0px 10px 16px;
 }
 
+.grey {
+    background-color: rgba(20, 20, 20, 0.8);
+    border-color: #AA6598 #97237A #8D3276 #AE0086;
+    -webkit-box-shadow: rgba(125, 10, 99, 0.5) 0px 10px 16px;
+    -moz-box-shadow: rgba(125, 10, 99, 0.5) 0px 10px 16px;
+}
+
