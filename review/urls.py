@@ -26,6 +26,10 @@
 from django.conf.urls.defaults import *
 
 from jukebox.review.views import index
+from jukebox.review.views import song_accept, song_reject
+from django.views.generic.list_detail import object_list
+
+from jukebox.music.models import Song, Photo
 
 
 ###############################################################################
@@ -34,6 +38,14 @@ from jukebox.review.views import index
 
 urlpatterns = patterns('jukebox.review.views',
     url(r'^$', index, name='review_index',),
+    url(r'^songs/$', object_list,
+        {'queryset': Song.objects.filter(reviewed=False).order_by('uploaded_on'),
+         'template_name': 'review/review_song_list.html',
+         'template_object_name': 'song',
+         'paginate_by': 10,},
+        name='review_songs',),
+    url(r'^song/accept/(?P<song_id>\d+)/$', song_accept, name='song_accept',),
+    url(r'^song/reject/(?P<song_id>\d+)/$', song_reject, name='song_reject',),
 )
 
 
