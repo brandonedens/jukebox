@@ -4,7 +4,7 @@ You are receiving this email because you have attempted to register an account
 with Jukebox.
 
 To complete the process please visit the webpage at:
-http://{{ site.domain }}{% url registration.views.activate activation_key %}
+http://as220.org{% url registration.views.activate activation_key %}
 
 Please note that this activation will expire after {{ expiration_days }} days.
 
