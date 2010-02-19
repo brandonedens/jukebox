@@ -1,0 +1,13 @@
+{% extends "music/base.html" %}
+
+{% block content %}
+
+{% for genre in genre_list %}
+{% ifnotequal genre.song_set.count 0 %}
+<article class="genre" id="{{ genre.id }}">
+  <a href="{{ genre.get_absolute_url }}">{{ genre }} - {{ genre.song_set.count }} songs</a>
+</article>
+{% endifnotequal %}
+{% endblock %}
+
+{% endblock %}

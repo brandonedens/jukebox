@@ -34,32 +34,38 @@
       <section id="left">
       <nav>
         <ul>
+          {% if perms.music.can_review_song %}
+          <li>
+            <a class="button aqua" href="{% url review_songs %}">review</a>
+          </li>
+          {% endif %}
+
           {% if user.is_authenticated %}
           <li>
-            <a href="{% url profile_index %}">profile</a>
+            <a class="button purple" href="{% url profile_index %}">profile</a>
           </li>
           <li>
-            <a href="{% url django.contrib.auth.views.logout %}">logout</a>
+            <a class="button grey" href="{% url django.contrib.auth.views.logout %}">logout</a>
           </li>
           {% else %}
           <li>
-            <a href="{% url registration.views.register %}">register</a>
+            <a class="button green" href="{% url registration.views.register %}">register</a>
           </li>
           <li>
-            <a href="{% url django.contrib.auth.views.login %}">login</a>
+            <a class="button orange" href="{% url django.contrib.auth.views.login %}">login</a>
           </li>
           {% endif %}
           <li>
-            <a href="{% url about %}">about</a>
+            <a class="button aqua" href="{% url about %}">about</a>
           </li>
           <li>
-            <a href="{% url faq %}">faq</a>
+            <a class="button purple" href="{% url faq %}">faq</a>
           </li>
           <li>
-            <a href="{% url artist_list %}">artists</a>
+            <a class="button green" href="{% url artist_list %}">artists</a>
           </li>
           <li>
-            <a href="{% url song_list %}">song</a>
+            <a class="button grey" href="{% url song_list %}">song</a>
           </li>
         </ul>
       </nav>
@@ -67,6 +73,10 @@
 
       <section id="wrapper">
         <section id="content">
+          <article id="breadcrumbs">
+            breadcrumbs: {% block breadcrumb %}<a href="{% url index %}">Home</a>{% endblock %}
+          </article>
+
           {% if messages %}
           <article>
             <ul class="messages">
@@ -93,7 +103,7 @@
         <hr />
         <address>
           <a href="mailto:brandon@as220.org">Brandon Edens</a>,
-          11 Feb 2010
+          18 Feb 2010
         </address>
       </footer>
     </section>

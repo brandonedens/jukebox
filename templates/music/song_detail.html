@@ -1,8 +1,13 @@
-{% extends "music/song_base.html" %}
+{% extends "music/base.html" %}
 {% load markup %}
 {% load seconds_to_duration %}
 
 {% block title %}{{ block.super }} - Song: {{ song }}{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }} &raquo; <a href="{{ song.artist.get_absolute_url }}">{{ song.artist }}</a>
+&raquo; <a href="{{ song.get_absolute_url }}">{{ song }}</a>
+{% endblock %}
 
 {% block js %}
 {{ block.super }}

@@ -1,0 +1,14 @@
+{% extends "music/genre_base.html" %}
+
+{% block breadcrumb %}
+{{ block.super }} &raquo; <a href="{{ genre.get_absolute_url }}">{{ genre }}</a>
+{% endblock %}
+
+{% block content %}
+<article>
+  <h1>Songs for genre {{ genre }}</h1>
+  {% for song in genre.song_set.all %}
+  <a href="{{ song.get_absolute_url }}">{{ song }}</a> by <a href="{{ song.artist.get_absolute_url }}">{{ song.artist }}</a><br />
+  {% endfor %}
+</article>
+{% endblock %}

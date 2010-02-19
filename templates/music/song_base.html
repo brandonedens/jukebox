@@ -1,9 +1,13 @@
-{% extends "base.html" %}
+{% extends "music/artist_base.html" %}
 
 {% block css %}
 {{ block.super }}
 <link href="{{ MEDIA_URL }}css/song/base.css" rel="stylesheet"
       type="text/css" />
+{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }} &raquo; <a href="{{ song.get_permanent_url }}">{{ song }}</a>
 {% endblock %}
 
 {% block aside %}

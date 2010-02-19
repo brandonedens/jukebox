@@ -1,8 +1,11 @@
 {% extends "music/artist_base.html" %}
 {% load markup %}
 
-
 {% block title %}{{ block.super }} - Artist: {{ artist }}{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }} &raquo; <a href="{{ artist.get_absolute_url }}">{{ artist }}</a>
+{% endblock %}
 
 {% block js %}
 {{ block.super }}
@@ -15,6 +18,8 @@
 <link href="{{ MEDIA_URL }}css/colorbox.css" rel="stylesheet" type="text/css" />
 <link href="{{ MEDIA_URL }}css/artist/artist_detail.css" rel="stylesheet" type="text/css" />
 {% endblock %}
+
+
 
 {% block content %}
 <article id="artist-{{ artist.id }}">

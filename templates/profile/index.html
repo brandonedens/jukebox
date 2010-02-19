@@ -9,32 +9,81 @@
 
 {% block content %}
 
-{% if artist_list %}
-
-{% for artist in artist_list %}
 <article>
-  <h1>{{ artist.name }}</h1>
-  <h2>Songs</h2>
-  <ul class="songs">
-    {% for song in artist.song_set.all %}
-    <li>{{ song }}</li>
-    {% endfor %}
-  </ul>
-</article>
-{% endfor %}
-
-{% else %}
-<article>
-  <p>
-    You have not uploaded any music.
-  </p>
-  <p>
+  {% if artist_list %}
+  <p style="float: right">
     <a class="button aqua"
-       href="{% url artist_create %}">Click here</a>
-    to get started.
+       href="{% url artist_create %}">upload music</a>
   </p>
+  <h1>You have uploaded the following music</h1>
+  <table style="clear: right">
+    <thead>
+      <tr>
+        <th>Artist</th>
+        <th>Song</th>
+        <th>Number of plays</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for artist in artist_list %}
+      {% for song in artist.song_set.all %}
+      <tr>
+        <td>
+          <a href="{% url artist_detail artist.id %}">{{ artist }}</a>
+        </td>
+        <td>
+          <a href="{% url song_detail song.id %}">{{ song }}</a>
+        </td>
+        <td>
+          {{ song.number_of_plays }}
+        </td>
+      </tr>
+      {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+  <p style="float: right">
+    <a class="button aqua"
+       href="{% url artist_create %}">upload music</a>
+  </p>
+
+  {% else %}
+  <h1>Welcome {{ first_name }}</h1>
+  <p>
+    Welcome to the AS220 Jukebox. Your profile is the location where you can
+    manage your uploaded music, photos, and videos.
+  </p>
+  <p>
+    The process for uploading music into the Jukebox proceeds in 3 steps.
+  </p>
+
+  <h2>Step 1</h2>
+  <p>
+    Create an artist that represents the music being uploaded. This includes
+    the artist details like name and description as well as critical
+    information like where payment should be directed.
+  </p>
+  <h2>Step 2</h2>
+  <p>
+    Upload mp3 audio files for that artist.
+  </p>
+  <h2>Step 3</h2>
+  <p>
+    Profit each time the song is played in AS220's Jukebox.
+  </p>
+  <h2>Optional Step(s)</h2>
+  <p>
+    Upload pictures and videos for the artist to provide incentive for users to
+    play your music.
+  </p>
+  <p style="float: right">
+    <a class="button aqua"
+       href="{% url artist_create %}">Create Artist</a>
+  </p>
+  {% endif %}
+
+  <div style="clear">&nbsp;</div>
 </article>
-{% endif %}
 
 {% endblock %}
 

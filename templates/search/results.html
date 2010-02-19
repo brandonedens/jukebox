@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block css %}
+{{ super.block }}
+<link href="{{ MEDIA_URL }}css/search.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+<article class="search">
+  <form action=""
+        method="post">
+    {{ form }}
+    <input id="submit"
+           class="button orange"
+           type="submit" value="Submit" />
+  </form>
+</article>
+
+{% if artist_list or song_list %}
+
+{% if artist_list %}
+<article>
+  <h1>Artists matching your search</h1>
+  <ul>
+    {% for artist in artist_list %}
+    <li><a href="{{ artist.get_absolute_url }}">{{ artist }}</a></li>
+    {% endfor %}
+  </ul>
+
+</article>
+{% endif %}
+
+{% if song_list %}
+<article>
+  <h1>Songs matching your search</h1>
+
+  <ul>
+    {% for song in song_list %}
+    <li><a href="{{ song.get_absolute_url }}">{{ song }}</a></li>
+    {% endfor %}
+  </ul>
+
+</article>
+{% endif %}
+
+{% else %}
+
+<article>
+  <p>No artists or songs match your search!</p>
+  <p>Try searching again.</p>
+</article>
+
+{% endif %}
+
+<article class="search">
+  <form action=""
+        method="post">
+    {{ form }}
+    <input id="submit"
+           class="button orange"
+           type="submit" value="Submit" />
+  </form>
+</article>
+
+{% endblock %}
+

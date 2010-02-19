@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block css %}
+{{ super.block }}
+<link href="{{ MEDIA_URL }}css/table.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+<article>
+
+{% if song_list %}
+<h1>Listing of songs that need review</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Artist</th>
+      <th>Song</th>
+      <th>Approve</th>
+      <th>Play</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for song in song_list %}
+    <tr class="{% cycle odd,event %}">
+      <td><a href="{{ song.artist.get_absolute_url }}">{{ song.artist }}</a></td>
+      <td><a href="{{ song.get_absolute_url }}">{{ song }}</a></td>
+      <td style="font-size: 80%">
+        <a class="button green" href="{% url song_accept song.id %}">Accept</a><a class="button orange" href="{% url song_reject song.id %}">Reject</a>
+      </td>
+      <td>
+        <script language="JavaScript" src="{{ MEDIA_URL }}js/audio-player.js"></script>
+        <object type="application/x-shockwave-flash" data="{{ MEDIA_URL }}flash/player.swf" id="audioplayer1" height="24" width="200">
+          <param name="movie" value="{{ MEDIA_URL }}flash/player.swf">
+          <param name="FlashVars" value="playerID=audioplayer1&soundFile={% url song_play song.id %}">
+          <param name="quality" value="high">
+          <param name="menu" value="false">
+          <param name="wmode" value="transparent">
+        </object>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endif %}
+
+{% if photo_list %}
+<h1>Listing of photos that need review</h1>
+
+<ul>
+  {% for photo in photo_list %}
+  <li>{{ photo }}</li>
+  {% endfor %}
+</ul1>
+{% endif %}
+
+{% if video_list %}
+<h1>Listing of videos that need review</h1>
+
+<ul>
+  {% for video in video_list %}
+  <li>{{ video }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+</article>
+
+{% endblock %}
+

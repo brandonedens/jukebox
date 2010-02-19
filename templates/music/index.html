@@ -1,0 +1,25 @@
+{% extends "music/base.html" %}
+
+{% block content %}
+
+<article>
+  <h1>Jukebox Music by Artist</h1>
+  {% for artist in artist_list %}
+  <a href="{{ artist.get_absolute_url }}">{{ artist }}</a><br />
+  {% endfor %}
+
+  <h1>Jukebox Music by Song</h1>
+  <p>
+  </p>
+
+  <h1>Jukebox Music by Genre</h1>
+  {% for genre in genre_list %}
+  {% ifnotequal genre.song_set.count 0 %}
+  <a href="{{ genre.get_absolute_url }}">{{ genre }}</a>
+  <br />
+  {% endifnotequal %}
+  {% endfor %}
+</article>
+
+{% endblock %}
+

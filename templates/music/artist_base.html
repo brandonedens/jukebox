@@ -1,4 +1,8 @@
-{% extends "base.html" %}
+{% extends "music/base.html" %}
+
+{% block breadcrumb %}
+{{ block.super }} &raquo; <a href="{% url artist_list %}">Artists</a>
+{% endblock %}
 
 {% block css %}
 {{ block.super }}
