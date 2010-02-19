@@ -43,7 +43,7 @@ def artist_create(request):
         form = ArtistForm(request.POST, instance=artist)
         if form.is_valid():
             artist = form.save()
-            return redirect_to(request, reverse('artist_update', args=[artist.id]))
+            return redirect_to(request, reverse('artist_detail', args=[artist.id]))
     else:
         form = ArtistForm(instance=artist)
     return direct_to_template(request, 'profile/artist_form.html', {'form': form,})
@@ -73,6 +73,7 @@ def artist_update(request, object_id):
         return update_object(request,
                              form_class=ArtistForm,
                              object_id=artist.id,
+                             template_name='profile/artist_form.html',
                              template_object_name='artist')
     else:
         request.user.message_set.create(
@@ -176,5 +177,6 @@ def song_update(request, object_id):
     return update_object(request,
                          form_class=SongForm,
                          object_id=song.id,
+                         template_name='profile/song_form.html',
                          template_object_name='song')
 
