@@ -84,7 +84,7 @@ def artist_list_by_letter(request, letter):
     """
     Produce list of artists that start with the given letter.
     """
-    artist_list = Artist.objects.filter(name__istartswith=letter)
+    artist_list = Artist.objects.filter(startswith=letter.lower())
     return object_list(request, queryset=artist_list,
                        template_object_name='artist',
                        paginate_by=settings.ARTISTS_PER_PAGE,)
@@ -93,7 +93,7 @@ def song_list_by_letter(request, letter):
     """
     Produce list of songs that have title starting with the given letter.
     """
-    song_list = Song.objects.filter(title__istartswith=letter)
+    song_list = Song.objects.filter(startswith=letter.lower())
     return object_list(request, queryset=song_list,
                        template_object_name='song',
                        paginate_by=settings.SONGS_PER_PAGE,)

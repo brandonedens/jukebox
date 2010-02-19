@@ -70,6 +70,7 @@ class Artist(models.Model):
 
     name = models.CharField(max_length=256, unique=True)
     slug = models.SlugField(unique=True)
+    startswith = models.CharField(max_length=1, db_index=True)
 
     description = models.TextField(
         help_text="""Description of the artist. This field uses Markdown to
@@ -133,14 +134,20 @@ class Artist(models.Model):
     def save(self):
         """
         """
+        # Setup artist slug.
         self.slug = slugify(self.name)
+
+        # Determine what letter the artist starts with and populate that
+        # information.
         lower_name = self.name.lower()
         if lower_name.startswith('the '):
             name = self.name
             basename = name[4:].strip()
             the = name[:3]
             name = basename + ', ' + the
-            self.name = name
+            self.startswith = name[0]
+        else:
+            self.startswith = lower_name[0]
         super(Artist, self).save()
 
 class Album(models.Model):
@@ -209,9 +216,10 @@ class Photo(models.Model):
         image.save(temp_handle, 'png')
         temp_handle.seek(0)
 
+        base_filename = os.path.basename(self.photo.name)
         suf = SimpleUploadedFile(os.path.split(self.photo.name)[-1],
                                  temp_handle.read(), content_type='image/png')
-        self.thumbnail.save(suf.name+'_thumbnail.png', suf, save=False)
+        self.thumbnail.save(suf.name.split('.')[-1]+'_thumbnail.png', suf, save=False)
 
         super(Photo, self).save()
 
@@ -223,6 +231,10 @@ class Song(models.Model):
         max_length=200,
         help_text='The title of the song.'
         )
+
+    slug = models.SlugField()
+    startswith = models.CharField(max_length=1, db_index=True)
+
     file = models.FileField(
         upload_to=song_upload_to,
         help_text='File must be an MP3 and of reasonably high quality.')
@@ -266,6 +278,21 @@ class Song(models.Model):
     def save(self):
         """
         """
+        # Setup song slug.
+        self.slug = slugify(self.title)
+
+        # Determine what letter the song title starts with and populate that
+        # information.
+        lower_title = self.title.lower()
+        if lower_title.startswith('the '):
+            title = self.title
+            basetitle = title[4:].strip()
+            the = title[:3]
+            title = basetitle + ', ' + the
+            self.startswith = title[0]
+        else:
+            self.startswith = lower_title[0]
+
         # Fix song characteristics.
         import eyeD3
         audio_file = eyeD3.Mp3AudioFile(self.file)
@@ -279,15 +306,6 @@ class Song(models.Model):
         self.sample_frequency = audio_file.getSampleFreq()
 
         self.digest = self.digest_compute(self.file)
-
-        # Correct the title.
-        lower_title = self.title.lower()
-        if lower_title.startswith('the '):
-            title = self.title
-            basetitle = title[4:].strip()
-            the = title[:3]
-            title = basetitle + ', ' + the
-            self.title = title
 
         # Call parent save()
         super(Song, self).save()
