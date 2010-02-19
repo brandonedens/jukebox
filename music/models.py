@@ -25,7 +25,9 @@
 
 from django.contrib.auth.models import User
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
+from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.defaultfilters import slugify
 
 
 ###############################################################################
@@ -67,6 +69,8 @@ class Artist(models.Model):
     user = models.ForeignKey(User)
 
     name = models.CharField(max_length=256, unique=True)
+    slug = models.SlugField(unique=True)
+
     description = models.TextField(
         help_text="""Description of the artist. This field uses Markdown to
  render the description. See: <a href="http://en.wikipedia.org/wiki/Markdown">
@@ -129,6 +133,7 @@ class Artist(models.Model):
     def save(self):
         """
         """
+        self.slug = slugify(self.name)
         lower_name = self.name.lower()
         if lower_name.startswith('the '):
             name = self.name
@@ -158,6 +163,10 @@ class Genre(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('genre_detail', [str(self.id)])
 
 class Photo(models.Model):
     user = models.ForeignKey(User)
@@ -211,6 +220,7 @@ class Photo(models.Model):
 class Song(models.Model):
     user = models.ForeignKey(User)
     artist = models.ForeignKey(Artist)
+    genre = models.ForeignKey(Genre)
 
     title = models.CharField(
         max_length=200,

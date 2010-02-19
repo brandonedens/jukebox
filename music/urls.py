@@ -25,14 +25,12 @@
 
 from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_detail
-from django.views.generic.list_detail import object_list
+from django.views.generic.list_detail import object_list\
 
 from jukebox import settings
-from jukebox.music.models import Artist, Photo, Song
+from jukebox.music.models import Artist, Genre, Photo, Song
+from jukebox.music.views import index
 from jukebox.music.views import artist_list_by_letter, song_list_by_letter
-from jukebox.music.views import artist_create, artist_update, artist_delete
-from jukebox.music.views import photo_upload
-from jukebox.music.views import song_create, song_update, song_delete, song_play
 
 
 ###############################################################################
@@ -40,42 +38,39 @@ from jukebox.music.views import song_create, song_update, song_delete, song_play
 ###############################################################################
 
 urlpatterns = patterns('jukebox.music.views',
-    url(r'^artist/list/$', object_list,
+    url(r'^$', index, name='music_index',),
+
+    url(r'^artist/$', object_list,
         {'queryset': Artist.objects.all(),
          'template_object_name': 'artist',
          'paginate_by': settings.ARTISTS_PER_PAGE,},
         name='artist_list',),
-    url(r'^artist/list/startswith/(?P<letter>\w)/$', artist_list_by_letter,
+    url(r'^artist/startswith/(?P<letter>\w)/$', artist_list_by_letter,
         name='artist_list_by_letter',),
-    url(r'^artist/detail/(?P<object_id>\d+)/$', object_detail,
+    url(r'^artist/(?P<object_id>\d+)/$', object_detail,
         {'queryset': Artist.objects.all(),
          'template_object_name': 'artist'},
         name='artist_detail',),
 
-    url(r'^artist/create/$', artist_create,
-        name='artist_create'),
-    url(r'^artist/update/(?P<object_id>\d+)/$', artist_update,
-        name='artist_update',),
-    url(r'^artist/delete/(?P<object_id>\d+)/$', artist_delete,
-        name='artist_delete',),
-
-    url(r'^photo/upload/(?P<artist_id>\d+)/$', photo_upload,
-        name='photo_upload',),
-
-    url(r'^song/list/$', object_list,
+    url(r'^song/$', object_list,
         {'queryset': Song.objects.all(),
          'template_object_name': 'song',
          'paginate_by': settings.SONGS_PER_PAGE,},
         name='song_list',),
-    url(r'^song/list/startswith/(?P<letter>\w)/$', song_list_by_letter,
+    url(r'^song/startswith/(?P<letter>\w)/$', song_list_by_letter,
         name='song_list_by_letter',),
-    url(r'^song/detail/(?P<object_id>\d+)/$', object_detail,
+    url(r'^song/(?P<object_id>\d+)/$', object_detail,
         {'queryset': Song.objects.all(),
          'template_object_name': 'song'},
         name='song_detail',),
 
-    url(r'^song/create/(?P<artist_id>\d+)/$', song_create, name='song_create'),
-
-    url(r'^song/play/(?P<object_id>\d+)/$', song_play, name='song_play'),
+    url(r'^genre/$', object_list,
+        {'queryset': Genre.objects.all(),
+         'template_object_name': 'genre',},
+        name='genre_list'),
+    url(r'^genre/(?P<object_id>\d+)/$', object_detail,
+        {'queryset': Genre.objects.all(),
+         'template_object_name': 'genre'},
+        name='genre_detail'),
 )
 
