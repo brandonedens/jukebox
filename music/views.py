@@ -99,4 +99,3 @@ def song_list_by_letter(request, letter):
                        paginate_by=settings.SONGS_PER_PAGE,)
 
 
-
