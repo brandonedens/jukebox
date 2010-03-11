@@ -89,9 +89,9 @@ class RegistrationForm(forms.Form):
         """
         new_user = RegistrationProfile.objects.create_inactive_user(username=self.cleaned_data['username'],
                                                                     password=self.cleaned_data['password1'],
-                                                                    email=self.cleaned_data['email'],
                                                                     first_name=self.cleaned_data['first_name'],
                                                                     last_name=self.cleaned_data['last_name'],
+                                                                    email=self.cleaned_data['email'],
                                                                     profile_callback=profile_callback)
         return new_user
 
