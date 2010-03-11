@@ -1,3 +1,4 @@
+{% load random_artist %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -30,6 +31,11 @@
         <img src="{{ MEDIA_URL }}images/jukebox_music.png" alt="Jukebox Music" />
         <div class="horizontal-bar-caution">&nbsp;</div>
       </header>
+
+      {% with random_artist as artist %}
+      <a href="{{ artist.get_absolute_url }}">{{ artist }}</a>
+      {% endwith %}
+
 
 
       <section id="left">
