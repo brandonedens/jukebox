@@ -1,0 +1,13 @@
+div.artist {
+    border: 1px solid #888888;
+    padding: 20px;
+    text-align: center;
+    -moz-box-shadow: 5px 5px 8px #444;
+    -webkit-box-shadow: 5px 5px 8px #444;
+}
+
+div.artist h2 {
+    font-size: 200%;
+    border-bottom:1px solid #888888;
+}
+
