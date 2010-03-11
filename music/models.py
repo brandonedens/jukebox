@@ -68,7 +68,7 @@ def video_upload_to(instance, filename):
 class Artist(models.Model):
     user = models.ForeignKey(User)
 
-    name = models.CharField(max_length=256, unique=True)
+    name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(unique=True)
     startswith = models.CharField(max_length=1, db_index=True)
 
@@ -152,7 +152,7 @@ class Artist(models.Model):
 
 class Album(models.Model):
     artist = models.ForeignKey(Artist)
-    title = models.CharField(max_length=256)
+    title = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -160,7 +160,7 @@ class Album(models.Model):
         return self.title
 
 class Genre(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
 
@@ -177,7 +177,7 @@ class Genre(models.Model):
 class Photo(models.Model):
     artist = models.ForeignKey(Artist)
     photo = models.ImageField(upload_to=photo_upload_to)
-    caption = models.CharField(max_length=256, blank=True, null=True)
+    caption = models.CharField(max_length=255, blank=True, null=True)
 
     thumbnail = models.ImageField(upload_to=photo_upload_to)
 
