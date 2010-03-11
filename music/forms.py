@@ -24,29 +24,30 @@
 ###############################################################################
 
 from django.contrib.localflavor.us.forms import USZipCodeField
+from django import forms
 
 from jukebox.music.models import Artist, Photo, Song
-from jukebox.utils import forms
+from jukebox.utils.forms import ModelForm
 
 
 ###############################################################################
 ## Classes
 ###############################################################################
 
-class ArtistForm(forms.ModelForm):
+class ArtistForm(ModelForm):
     zipcode = USZipCodeField()
 
     class Meta:
         model = Artist
         exclude = ('user', 'slug', 'startswith')
 
-class PhotoForm(forms.ModelForm):
+class PhotoForm(ModelForm):
 
     class Meta:
         model = Photo
         fields = ('photo', 'caption',)
 
-class SongForm(forms.ModelForm):
+class SongForm(ModelForm):
     class Meta:
         model = Song
         fields = ('title', 'file',)
