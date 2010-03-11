@@ -3,6 +3,7 @@
 {% block css %}
 {{ super.block }}
 <link href="{{ MEDIA_URL }}css/table.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/profile/base.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block js %}
@@ -15,12 +16,32 @@
 
 {% block content %}
 
+{% if artist_list %}
 <article>
-  {% if artist_list %}
-  <p style="float: right">
+  <h1>You represent the following artists</h1>
+  {% for artist in artist_list %}
+  <div class="artist" id="artist-{{ artist.id }}">
+    <h2>{{ artist }}</h2>
+    {% ifequal user artist.user %}
+    <div class="controls">
+      <a class="button green"
+         href="{% url artist_update artist.id %}">edit</a>
+      <a class="button orange"
+         href="{% url artist_delete artist.id %}">delete</a>
+      <a class="button aqua"
+         href="{% url song_create artist.id %}">upload song</a>
+      <a class="button purple"
+         href="{% url photo_upload artist.id %}">upload photo</a>
+    </div>
+    {% endifequal %}
+  </div>
+  {% endfor %}
+  <div style="clear">&nbsp;</div>
     <a class="button aqua"
-       href="{% url artist_create %}">upload music</a>
-  </p>
+       href="{% url artist_create %}">Add Another Artist</a>
+</article>
+
+<article>
   <h1>You have uploaded the following music</h1>
   <table class="sorted" style="clear: right">
     <thead>
@@ -45,18 +66,25 @@
           {{ song.number_of_plays }}
         </td>
         <td>
+          <script language="JavaScript" src="{{ MEDIA_URL }}js/audio-player.js"></script>
+          <object type="application/x-shockwave-flash" data="{{ MEDIA_URL }}flash/player.swf" id="audioplayer1" height="24" width="200">
+            <param name="movie" value="{{ MEDIA_URL }}flash/player.swf">
+            <param name="FlashVars" value="playerID=audioplayer1&soundFile={% url song_play song.id %}">
+            <param name="quality" value="high">
+            <param name="menu" value="false">
+            <param name="wmode" value="transparent">
+          </object>
         </td>
       </tr>
       {% endfor %}
       {% endfor %}
     </tbody>
   </table>
-  <p style="float: right">
-    <a class="button aqua"
-       href="{% url artist_create %}">upload music</a>
-  </p>
+  <div style="clear">&nbsp;</div>
+</article>
 
-  {% else %}
+{% else %}
+<article>
   <h1>Welcome {{ first_name }}</h1>
   <p>
     Welcome to the AS220 Jukebox. Your profile is the location where you can
@@ -85,14 +113,14 @@
     Upload pictures and videos for the artist to provide incentive for users to
     play your music.
   </p>
-  <p style="float: right">
+  <p>
     <a class="button aqua"
-       href="{% url artist_create %}">Create Artist</a>
+       href="{% url artist_create %}">Create Artist to Get Started</a>
   </p>
-  {% endif %}
-
   <div style="clear">&nbsp;</div>
 </article>
+  {% endif %}
+
 
 {% endblock %}
 
