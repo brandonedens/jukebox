@@ -34,6 +34,8 @@ from django.views.generic.simple import direct_to_template
 ## Statements
 ###############################################################################
 
+handler500 = 'jukebox.views.server_error'
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
