@@ -29,7 +29,6 @@ def index(request):
     """
     """
     artist_list = Artist.objects.filter(user=request.user)
-    request.user.message_set.create(message="Hello %s" % request.user.first_name)
     return direct_to_template(request, 'profile/index.html',
                               extra_context={'artist_list': artist_list},)
 
