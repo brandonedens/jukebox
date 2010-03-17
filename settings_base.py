@@ -96,7 +96,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'jukebox.urls'
 
 TEMPLATE_DIRS = (
-    DIRNAME + '/templates',
+    '/home/brandon/src/jukebox/templates',
 )
 
 INSTALLED_APPS = (
