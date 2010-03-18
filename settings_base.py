@@ -28,6 +28,7 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Brandon Edens', 'brandon@as220.org'),
+    ('Xander Marro', 'xander@as220.org'),
 )
 
 MANAGERS = ADMINS
@@ -129,6 +130,7 @@ ACCOUNT_ACTIVATION_DAYS=7
 
 # Email host
 DEFAULT_FROM_EMAIL = "jukebox@as220.org"
+SERVER_EMAIL = "jukebox-admin@as220.org"
 EMAIL_HOST = "localhost"
 EMAIL_PORT = 25
 EMAIL_USE_TLS = True
@@ -139,4 +141,6 @@ EMAIL_USE_TLS = True
 ARTISTS_PER_PAGE = 6
 SONGS_PER_PAGE = 6
 
+# Uploaded file settings
+#FILE_UPLOAD_MAX_MEMORY_SIZE = 0
 
