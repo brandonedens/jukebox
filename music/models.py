@@ -183,6 +183,7 @@ class Photo(models.Model):
 
     # Whether or not the photo was reviewed.
     reviewed = models.BooleanField(default=False)
+    approved = models.BooleanField(default=False)
 
     uploaded_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -242,6 +243,7 @@ class Song(models.Model):
 
     # Whether or not the song was reviewed.
     reviewed = models.BooleanField(default=False)
+    approved = models.BooleanField(default=False)
 
     # Number of times that the track was played.
     number_of_plays = models.PositiveIntegerField(default=0)
@@ -347,6 +349,7 @@ class Video(models.Model):
 
     # Whether or not the video was reviewed.
     reviewed = models.BooleanField(default=False)
+    approved = models.BooleanField(default=False)
 
     uploaded_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
