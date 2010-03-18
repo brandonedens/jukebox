@@ -146,13 +146,7 @@ def song_play(request, song_id):
     Return the song's data appropriate for playing.
     """
     song = get_object_or_404(Song, pk=song_id)
-    if request.user != song.artist.user:
-        # Song is not owned by this user; do not allow play.
-        request.user.message_set.create(
-            message='This song does not belong to you. You cannot play it.'
-            )
-        return HttpResponseForbidden()
-    else:
+    if request.user == song.artist.user or request.user.is_superuser:
         # Open the song file and return it as response.
         print 'returning audio file.'
         response = HttpResponse(song.file.read(), mimetype='audio/mpeg')
@@ -161,6 +155,12 @@ def song_play(request, song_id):
         response.status_code = 206
         #response.write(song.file.read())
         return response
+    else:
+        # Song is not owned by this user; do not allow play.
+        request.user.message_set.create(
+            message='This song does not belong to you. You cannot play it.'
+            )
+        return HttpResponseForbidden()
 
 @login_required
 def song_update(request, object_id):
