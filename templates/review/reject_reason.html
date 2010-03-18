@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block js %}
+{{ super.block }}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/review/reject_reason.js"></script>
+{% endblock %}
+
+{% block content %}
+<article>
+  <form action="{% url song_reject song.id %}" method="post">
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+  </form>
+  <a class="button aqua" id="copyrighted" href="">Known Song Copyrighted</a>
+  <a class="button grey" id="too-long" href="">Song Too Long</a>
+  <a class="button orange" id="poor-quality" href="">Song Poor Quality</a>
+</article>
+{% endblock %}
+
