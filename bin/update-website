@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rsync -auv --exclude *.deb --exclude settings.py --exclude static_media/music --exclude *.pyc /home/brandon/src/jukebox as220.org:./src/
+
