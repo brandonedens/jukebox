@@ -69,7 +69,7 @@ urlpatterns = patterns('',
 
 if settings.DEBUG:
     urlpatterns += patterns('django.views.static',
-    (r'^jukebox/static_media/(?P<path>.*)$', 'serve',
-     {'document_root': '/home/brandon/src/jukebox/static_media',
+    (r'^'+settings.MEDIA_URL[1:]+'(?P<path>.*)$', 'serve',
+     {'document_root': settings.MEDIA_ROOT,
       'show_indexes': True }),)
 
