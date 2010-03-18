@@ -57,6 +57,7 @@ class SongForm(ModelForm):
         Check that the digest is unique.
         """
         file = self.cleaned_data['file']
+
         # Check that file was mp3
         if file.content_type != 'audio/mpeg':
             raise forms.ValidationError('File uploaded is not a valid MP3 file.')
@@ -70,5 +71,6 @@ class SongForm(ModelForm):
                 raise forms.ValidationError(txt)
         except Song.DoesNotExist:
             pass
+
         return self.cleaned_data['file']
 
