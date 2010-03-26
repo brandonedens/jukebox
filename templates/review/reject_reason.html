@@ -7,6 +7,9 @@
 
 {% block content %}
 <article>
+  Artist: {{ song.artist }}<br />
+  Song: {{ song }}<br />
+  Submitted by: {{ song.artist.user.first_name }} {{ song.artist.user.last_name }} ({{ song.artist.user.username }})
   <form action="{% url song_reject song.id %}" method="post">
     {{ form.as_p }}
     <input type="submit" value="Submit" />
