@@ -12,6 +12,48 @@
         enctype="multipart/form-data"
         method="post">
     {{ form }}
+
+    <br /><br />
+
+    <h1>PLEASE READ:</h1>
+    <p>
+      I declare that I am the intellectual property rights owner for the
+      content that I am uploading to AS220. I authorize AS220 to exhibit and
+      collect money for this work in the periphery of AS220's Jukebox including
+      the bar, restaurant, and performance space (including audio spill-over
+      onto the street).
+    </p>
+
+    <p>
+      <input id="id_tos-agree" type="checkbox" name="tos-agree" />
+      I, {{ terms_of_service.first_name }} {{ terms_of_service.last_name }}
+      have read and agree to the terms above.
+    </p>
+    {% if terms_of_service.agree.errors %}
+    <div class="errorlist">
+      You must click the checkbox agreeing to the terms of service in order to
+      upload audio files.
+    </div>
+    {% endif %}
+    {% if terms_of_service.first_name.errors %}
+    <div class="errorlist">
+      The first name you specified does not match the first name you specified
+      when creating your user.
+    </div>
+    {% endif %}
+    {% if terms_of_service.last_name.errors %}
+    <div class="errorlist">
+      The last name you specified does not match the last name you specified
+      when creating your user
+    </div>
+    {% endif %}
+ 	<p style="font-size: 80%">
+      By checking this box, I am certifying that I am authorized to sign this
+      agreement. I affirm that my agreement here constitutes an electronic
+      signature and that this signature meets any and all requirements for an
+      original signature and is legally binding in all respects.
+    </p>
+
     <div>
       <input id="submit"
              class="button orange"

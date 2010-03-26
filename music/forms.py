@@ -47,6 +47,23 @@ class PhotoForm(ModelForm):
         model = Photo
         fields = ('photo', 'caption',)
 
+class TermsOfServiceForm(forms.Form):
+    agree = forms.BooleanField(required=True)
+    first_name = forms.CharField(min_length=1,
+                                 widget=forms.TextInput(attrs={'size':'10'}))
+    last_name = forms.CharField(min_length=1,
+                                widget=forms.TextInput(attrs={'size':'10'}))
+
+    def clean_agree(self):
+        """
+        Check that terms of service was checked.
+        """
+        print 'got to clean agree'
+        agree = self.cleaned_data['agree']
+        if agree == False:
+            raise forms.ValidationError("Cannot upload a file unless terms of service is agreed to.")
+        return self.cleaned_data['agree']
+
 class SongForm(ModelForm):
     class Meta:
         model = Song
@@ -61,6 +78,7 @@ class SongForm(ModelForm):
         # Check that file was mp3
         if file.content_type != 'audio/mpeg':
             raise forms.ValidationError('File uploaded is not a valid MP3 file.')
+
         # Check that the file's digest was unique
         digest = Song.digest_compute(file)
         try:

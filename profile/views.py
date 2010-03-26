@@ -17,7 +17,7 @@ from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
 
 from jukebox.music.models import Artist, Photo, Song
-from jukebox.music.forms import ArtistForm, PhotoForm, SongForm
+from jukebox.music.forms import ArtistForm, PhotoForm, SongForm, TermsOfServiceForm
 
 
 ###############################################################################
@@ -116,13 +116,26 @@ def song_create(request, artist_id):
         return HttpResponseForbidden()
     song = Song(artist=artist)
     if request.method == 'POST':
-        form = SongForm(request.POST, request.FILES, instance=song)
-        if form.is_valid():
-            song = form.save()
-            return redirect_to(request, reverse('song_detail', args=[song.id]))
+        form = SongForm(request.POST, request.FILES, instance=song, prefix='song')
+        tos = TermsOfServiceForm(request.POST, prefix='tos')
+        tos_valid = tos.is_valid()
+        if tos.is_valid() and form.is_valid():
+            first_name = tos.cleaned_data['first_name'].strip().lower()
+            last_name = tos.cleaned_data['last_name'].strip().lower()
+            if first_name != request.user.first_name.strip().lower():
+                tos.errors['first_name'] = "Firstname does not match user's firstname."
+            elif last_name != request.user.last_name.strip().lower():
+                tos.errors['last_name'] = "Lastname does not match user's lastname."
+            else:
+                song = form.save()
+                return redirect_to(request, reverse('song_detail', args=[song.id]))
     else:
-        form = SongForm(instance=song)
-    return direct_to_template(request, 'profile/song_form.html', {'form': form,})
+        tos = TermsOfServiceForm(initial={'first_name': 'first name',
+                                          'last_name': 'last name'},
+                                 prefix='tos')
+        form = SongForm(instance=song, prefix='song')
+    return direct_to_template(request, 'profile/song_form.html', {'form': form,
+                                                                  'terms_of_service': tos})
 
 @login_required
 def song_delete(request, object_id):
