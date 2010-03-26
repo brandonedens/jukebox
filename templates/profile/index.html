@@ -21,7 +21,7 @@
   <h1>You represent the following artists</h1>
   {% for artist in artist_list %}
   <div class="artist" id="artist-{{ artist.id }}">
-    <h2>{{ artist }}</h2>
+    <a href="{% url artist_detail artist.id %}"><h2>{{ artist }}</h2></a>
     {% ifequal user artist.user %}
     <div class="controls">
       <a class="button green"

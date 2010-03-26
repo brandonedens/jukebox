@@ -53,8 +53,9 @@ urlpatterns = patterns('jukebox.profile.views',
         name='photo_upload',),
 
     url(r'^song/create/(?P<artist_id>\d+)/$', song_create, name='song_create'),
-
     url(r'^song/play/(?P<song_id>\d+).mp3$', song_play, name='song_play'),
+    url(r'^song/delete/(?P<song_id>\d+)/$', song_delete,
+        name='song_delete'),
 
 )
 

@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
-from django.views.generic.create_update import create_object, update_object
+from django.views.generic.create_update import create_object, delete_object, update_object
 from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
 
@@ -56,7 +56,8 @@ def artist_delete(request, object_id):
         return delete_object(request,
                              model=Artist,
                              object_id=artist.id,
-                             post_delete_redirect=reverse('profile_index'))
+                             post_delete_redirect=reverse('profile_index'),
+                             template_object_name='artist',)
     else:
         request.user.message_set.create(
             message="You do not have permission to delete this artist."
@@ -138,20 +139,22 @@ def song_create(request, artist_id):
                                                                   'terms_of_service': tos})
 
 @login_required
-def song_delete(request, object_id):
+def song_delete(request, song_id):
     """
     """
-    song = get_object_or_404(Song, pk=object_id)
-    if request.user != song.artist.user:
+    song = get_object_or_404(Song, pk=song_id)
+    if request.user == song.artist.user:
+        return delete_object(request,
+                             model=Song,
+                             object_id=song.id,
+                             post_delete_redirect=reverse('artist_detail', args=[song.artist.id]),
+                             template_object_name='song',)
+    else:
         # Song is not owned by this user. Do not allow delete.
         request.user.message_set.create(
             message="This song does not belong to you. You do not have permission to delete it."
             )
         return HttpResponseForbidden()
-    return delete_object(request,
-                         model=Song,
-                         object_id=song.id,
-                         post_delete_redirect=reverse('song_detail', args=[song.artist.id]))
 
 @login_required
 def song_play(request, song_id):

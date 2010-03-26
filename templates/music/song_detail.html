@@ -30,6 +30,7 @@
   </div>
 
   <h1 class="title">{{ song }}
+    <br />
     <span class="artist">(by <a href="{% url artist_detail song.artist.id %}">
         {{ song.artist }})
       </a>
@@ -40,12 +41,19 @@
     updated on: {{ song.updated_on|date }}
   </div>
 
+  {% ifequal user song.artist.user %}
+  <div class="controls">
+    <a class="button orange"
+       href="{% url song_delete song.id %}">delete</a>
+  </div>
+  {% endifequal %}
+
+
   <div class="file-information">
+    <h2>File Characteristics</h2>
     <div class="duration">
       Duration: {{ song.duration|sec_to_dur }}
     </div>
-
-    <h2>File Characteristics</h2>
     <div class="bitrate">
       Bitrate: {{ song.bitrate }}
       {% if song.variable_bitrate %}
@@ -67,7 +75,7 @@
   {% endif %}
 
   {% if song.get_next %}
-  <a class="next button orange"
+  <a class="next button aqua"
      href="{% url song_detail song.get_next.id %}">
     next song
   </a>
