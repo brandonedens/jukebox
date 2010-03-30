@@ -1,0 +1,59 @@
+#!/usr/bin/python
+
+
+import serial
+import time
+
+
+DEFAULT_SERIAL = "/dev/ttyUSB0"
+
+
+def main():
+    """
+    """
+
+    usb_port = DEFAULT_SERIAL
+    ser = serial.Serial(usb_port, 115200, timeout=1)
+    ser.xonxoff = False
+    ser.rtscts = False
+
+    ring = '           '
+    try:
+        red_state = 0
+        blue_state = 0
+        green_state = 0
+        purple_state = 0
+        yellow_state = 0
+        last_tick = time.time()
+
+        while True:
+            c = ser.read(1)
+            if len(c) != 1:
+                continue
+            ring = ring[1:] + c
+            if ring[:4] != 'Juke':
+                continue
+            buttons = ring[4:]
+
+            try:
+                white = int(buttons[0])
+                blue = int(buttons[1])
+                green = int(buttons[2])
+                purple = int(buttons[3])
+                yellow = int(buttons[4])
+                red = int(buttons[5])
+            except IndexError:
+                continue
+            except ValueError:
+                continue
+
+            print buttons
+
+    finally:
+        ser.close()
+
+    ser.close()
+
+if __name__ == '__main__':
+    main()
+

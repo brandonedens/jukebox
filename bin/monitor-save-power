@@ -1,0 +1,12 @@
+#!/bin/bash
+
+STANDBY=30
+SUSPEND=60
+OFF=86400
+
+# Export the running X display.
+export DISPLAY=":0.0"
+
+# Set DPMS
+xset dpms $STANDBY $SUSPEND $OFF
+
