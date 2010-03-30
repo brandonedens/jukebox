@@ -50,7 +50,8 @@ VERSION=18
 ARDUINO = $(INSTALL_DIR)/hardware/arduino/cores/arduino
 #AVR_TOOLS_PATH = $(INSTALL_DIR)/hardware/tools/avr/bin
 AVR_TOOLS_PATH = /usr/bin
-AVRDUDE_PATH = $(INSTALL_DIR)/hardware/tools
+#AVRDUDE_PATH = $(INSTALL_DIR)/hardware/tools
+AVRDUDE_PATH = /usr/bin
 C_MODULES =  \
 $(ARDUINO)/wiring_pulse.c \
 $(ARDUINO)/wiring_analog.c \
@@ -119,10 +120,7 @@ LDFLAGS = -O$(OPT) -lm -Wl,--gc-sections
 # Programming support using avrdude. Settings and variables.
 AVRDUDE_PORT = $(PORT)
 AVRDUDE_WRITE_FLASH = -U flash:w:applet/$(TARGET).hex
-
-#AVRDUDE_FLAGS = -V -F -C $(INSTALL_DIR)/hardware/tools/avr/etc/avrdude.conf \
-
-AVRDUDE_FLAGS = -V -F -C $(INSTALL_DIR)/hardware/tools/avrdude.conf \
+AVRDUDE_FLAGS = -V -F -C /etc/avrdude.conf \
 -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) \
 -b $(UPLOAD_RATE)
 
