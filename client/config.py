@@ -42,6 +42,9 @@ CONFIG_DIRECTORIES = (USER_HOME_DIR,
 # Configuration filename.
 CONFIG_FILENAME = '/.jukebox.rc'
 
+# Directory this file lives in
+CLIENT_DIR = os.path.dirname(__file__)
+
 
 ###############################################################################
 ## Classes
@@ -55,9 +58,12 @@ class Config:
         self.log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
         # GUI window settings
-        self.fullscreen = False
-        self.screen_width = 800
-        self.screen_height = 600
+        self.fullscreen = True
+        self.screen_width = 1366
+        self.screen_height = 768
+        #self.fullscreen = False
+        #self.screen_width = 800
+        #self.screen_height = 600
 
     def load(self):
         config_filename = self._find_config_file()

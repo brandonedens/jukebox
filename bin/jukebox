@@ -29,12 +29,12 @@ Implementation of executable used to start the jukebox software.
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
 
+import clutter
 import logging
 import sys
 
 from jukebox.client.config import config
-from jukebox.client.gui import GUI
-from jukebox.music.models import Song
+from jukebox.client.main import Jukebox
 
 
 ###############################################################################
@@ -56,8 +56,22 @@ def main():
     logging.getLogger( '' ).addHandler( consolehandler )
 
     logging.info("Starting Jukebox.")
-    gui = GUI()
-    gui.run()
+    jukebox = Jukebox()
+    stage = clutter.Stage()
+    stage.hide_cursor()
+
+    if config.fullscreen:
+        logging.info('Setting GUI to fullscreen.')
+        stage.set_fullscreen(True)
+    stage.set_color(clutter.Color(0x00, 0x00, 0x00, 0xff))
+
+    # Connect listeners
+    stage.connect('destroy', clutter.main_quit)
+    stage.connect('key-press-event', jukebox.on_press)
+    stage.connect('key-release-event', jukebox.on_release)
+    stage.add(jukebox)
+    stage.show()
+    clutter.main()
     logging.info("Stopping Jukebox.")
     return 0
 

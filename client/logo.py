@@ -38,8 +38,6 @@ from jukebox.client.config import config
 ## Classes
 ###############################################################################
 
-FONT_AS220 = 'Helvetica75Outline Bold 70'
-FONT = 'Router Ultra-Bold Italic 30'
 FONT_COLOR = clutter.Color(255, 255, 255)
 
 
@@ -47,26 +45,51 @@ FONT_COLOR = clutter.Color(255, 255, 255)
 ## Functions
 ###############################################################################
 
-class Logo(clutter.Box):
+class LogoLarge(clutter.Box):
 
     def __init__(self):
-        super(Logo, self).__init__(clutter.BoxLayout())
+        super(LogoLarge, self).__init__(clutter.BoxLayout())
 
-        self.layout = self.get_layout_manager()
-        self.layout.set_vertical(False)
-        self.layout.set_spacing(30)
+        layout = self.get_layout_manager()
+        layout.set_vertical(False)
+        layout.set_spacing(40)
+        layout.set_use_animations(True)
 
-        self.set_color(clutter.Color(0, 0, 0, 230))
-
-        self.as220 = clutter.Text(FONT_AS220, 'AS22O')
+        self.as220 = clutter.Text('Helvetica75Outline Bold 120',
+                                  'AS22O')
         self.as220.set_color(FONT_COLOR)
-        self.jukebox = clutter.Text(FONT, 'Jukebox\nMusic')
+        self.jukebox = clutter.Text('Router Ultra-Bold Italic 55',
+                                    'Jukebox\nMusic')
         self.jukebox.set_color(FONT_COLOR)
         self.jukebox.set_line_alignment(ALIGN_CENTER)
-        self.layout.pack(self.as220, False, False, False,
-                         clutter.BOX_ALIGNMENT_CENTER,
-                         clutter.BOX_ALIGNMENT_CENTER)
-        self.layout.pack(self.jukebox, False, False, False,
-                         clutter.BOX_ALIGNMENT_CENTER,
-                         clutter.BOX_ALIGNMENT_CENTER)
+        layout.pack(self.as220, True, False, False,
+                    clutter.BOX_ALIGNMENT_CENTER,
+                    clutter.BOX_ALIGNMENT_CENTER)
+        layout.pack(self.jukebox, True, False, False,
+                    clutter.BOX_ALIGNMENT_CENTER,
+                    clutter.BOX_ALIGNMENT_CENTER)
+
+class LogoSmall(clutter.Box):
+
+    def __init__(self):
+        super(LogoSmall, self).__init__(clutter.BoxLayout())
+
+        layout = self.get_layout_manager()
+        layout.set_vertical(False)
+        layout.set_spacing(20)
+        layout.set_use_animations(True)
+
+        self.as220 = clutter.Text('Helvetica75Outline Bold 50',
+                                  'AS22O')
+        self.as220.set_color(FONT_COLOR)
+        self.jukebox = clutter.Text('Router Ultra-Bold Italic 20',
+                                    'Jukebox\nMusic')
+        self.jukebox.set_color(FONT_COLOR)
+        self.jukebox.set_line_alignment(ALIGN_CENTER)
+        layout.pack(self.as220, True, False, False,
+                    clutter.BOX_ALIGNMENT_CENTER,
+                    clutter.BOX_ALIGNMENT_CENTER)
+        layout.pack(self.jukebox, True, False, False,
+                    clutter.BOX_ALIGNMENT_CENTER,
+                    clutter.BOX_ALIGNMENT_CENTER)
 
