@@ -32,6 +32,11 @@ install: build
 
 	python setup.py install --no-compile --install-layout=deb --root $(PACKAGE_DIR)
 
+    # Install backgrounds
+	install -m 644 $(CURDIR)/jukebox/client/images/jukebox_wallpapers.xml $(PACKAGE_DIR)/usr/share/gnome-background-properties/jukebox_wallpapers.xml
+	install -m 644 $(CURDIR)/jukebox/client/images/jukebox_offline.svg $(PACKAGE_DIR)/usr/share/backgrounds/jukebox_offline.svg
+
+    # Install executables
 	install -m 755 $(CURDIR)/bin/jukebox $(PACKAGE_DIR)/usr/bin/jukebox
 	install -m 755 $(CURDIR)/bin/jukebox-buttons $(PACKAGE_DIR)/usr/bin/jukebox-buttons
 	install -m 755 $(CURDIR)/bin/jukebox-load-music $(PACKAGE_DIR)/usr/bin/jukebox-load-music
