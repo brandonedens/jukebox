@@ -1,0 +1,11 @@
+{% extends "music/artist_base.html" %}
+{% load markup %}
+
+{% block content %}
+<article>
+  <form method="post" action=".">
+    <p>Are you sure you want to delete artist "{{ artist }}"?</p>
+    <input type="submit" value="Delete" />
+  </form>
+</article>
+{% endblock %}
