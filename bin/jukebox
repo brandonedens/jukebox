@@ -29,11 +29,11 @@ Implementation of executable used to start the jukebox software.
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
 
+from django.conf import settings
 import clutter
 import logging
 import sys
 
-from jukebox.client.config import config
 from jukebox.client.main import Jukebox
 
 
@@ -46,12 +46,12 @@ def main():
     Main function.
     """
     # Setup logging for audio interface.
-    logging.basicConfig(filename=config.log_filename,
+    logging.basicConfig(filename=settings.LOG_FILENAME,
                         level=logging.DEBUG,
-                        format=config.log_format)
+                        format=settings.LOG_FORMAT)
     consolehandler = logging.StreamHandler()
     consolehandler.setLevel( logging.DEBUG )
-    formatter = logging.Formatter(config.log_format)
+    formatter = logging.Formatter(settings.LOG_FORMAT)
     consolehandler.setFormatter(formatter)
     logging.getLogger( '' ).addHandler( consolehandler )
 
@@ -60,7 +60,7 @@ def main():
     stage = clutter.Stage()
     stage.hide_cursor()
 
-    if config.fullscreen:
+    if settings.FULLSCREEN:
         logging.info('Setting GUI to fullscreen.')
         stage.set_fullscreen(True)
     stage.set_color(clutter.Color(0x00, 0x00, 0x00, 0xff))

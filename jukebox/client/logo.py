@@ -26,8 +26,6 @@
 import clutter
 from pango import ALIGN_CENTER
 
-from jukebox.client.config import config
-
 
 ###############################################################################
 ## Constants

@@ -3,7 +3,6 @@ dev.db
 fixtures
 fixtures/initial_data.json
 jukebox.sqlite3
-settings.py
 lib/*.gz
 lib/*.deb
 lib/eyed3-0.6.17/Makefile

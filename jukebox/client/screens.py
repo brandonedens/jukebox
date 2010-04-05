@@ -23,11 +23,10 @@
 ## Imports
 ###############################################################################
 
+from django.conf import settings
+from pango import ALIGN_CENTER
 import clutter
 import logging
-from pango import ALIGN_CENTER
-
-from config import config
 
 
 ###############################################################################
@@ -54,8 +53,10 @@ class Screen(clutter.Box):
     def __init__(self, layout_manager):
         super(Screen, self).__init__(layout_manager)
 
-        self.set_size(config.screen_width,
-                      config.screen_height)
+        print settings.SCREEN_WIDTH
+        print type(settings.SCREEN_WIDTH)
+        self.set_size(settings.SCREEN_WIDTH,
+                      settings.SCREEN_HEIGHT)
 
         self.desired_x = 0
 

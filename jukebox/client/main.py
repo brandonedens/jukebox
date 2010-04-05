@@ -28,7 +28,6 @@ import logging
 
 from jukebox.music.models import Song
 
-from config import config
 from front import FrontScreen
 
 
@@ -131,9 +130,9 @@ class Jukebox(clutter.Box):
         self.screens.append(screen)
         self.add(screen)
         if offscreen == 'right':
-            screen.set_x(config.screen_width)
+            screen.set_x(settings.SCREEN_WIDTH)
         elif offscreen == 'left':
-            screen.set_x(-config.screen_width)
+            screen.set_x(-settings.SCREEN_WIDTH)
         else:
             screen.set_position(0, 0)
         return screen

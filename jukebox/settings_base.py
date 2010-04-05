@@ -144,3 +144,16 @@ SONGS_PER_PAGE = 6
 # Uploaded file settings
 #FILE_UPLOAD_MAX_MEMORY_SIZE = 0
 
+
+
+################################################################################
+## Client related settings
+################################################################################
+
+FULLSCREEN = True
+SCREEN_WIDTH = 1366
+SCREEN_HEIGHT = 768
+
+LOG_FILENAME = '/tmp/jukebox.log'
+LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
