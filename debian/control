@@ -8,7 +8,7 @@ Homepage: http://as220.org/git/gitweb/?p=jukebox.git;a=summary
 
 Package: jukebox
 Architecture: any
-Depends: ${python:Depends}, python-yaml, python-django
+Depends: ${python:Depends}, python-yaml, python-django, xdotool
 Description: Jukebox software.
  Software for creating a jukebox.
 
