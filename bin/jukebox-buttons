@@ -25,10 +25,11 @@ def main():
     last_buttons = []
     ring = '           '
     try:
-        red_state = 0
         blue_state = 0
         green_state = 0
         purple_state = 0
+        red_state = 0
+        white_state = 0
         yellow_state = 0
         last_tick = time.time()
 
@@ -42,12 +43,12 @@ def main():
             buttons = ring[4:]
 
             try:
-                white = int(buttons[0])
                 blue = int(buttons[1])
                 green = int(buttons[2])
                 purple = int(buttons[3])
-                yellow = int(buttons[4])
                 red = int(buttons[5])
+                white = int(buttons[0])
+                yellow = int(buttons[4])
             except IndexError:
                 continue
             except ValueError:
@@ -57,56 +58,65 @@ def main():
                 print buttons
                 last_buttons = buttons
 
-            if red_state != red:
-                if red == 1:
-                    os.system("%s keydown a" % XDOTOOL)
+            if blue_state != blue:
+                if blue == 1:
+                    os.system("%s keydown Return" % XDOTOOL)
                 else:
-                    os.system("%s keyup a" % XDOTOOL)
+                    os.system("%s keyup Return" % XDOTOOL)
 
             if green_state != green:
                 if green == 1:
-                    os.system("%s keydown d" % XDOTOOL)
+                    os.system("%s keydown Right" % XDOTOOL)
                 else:
-                    os.system("%s keyup d" % XDOTOOL)
+                    os.system("%s keyup Right" % XDOTOOL)
 
             if purple_state != purple:
                 if purple == 1:
-                    os.system("%s keydown w" % XDOTOOL)
+                    os.system("%s keydown Up" % XDOTOOL)
                 else:
-                    os.system("%s keyup w" % XDOTOOL)
+                    os.system("%s keyup Up" % XDOTOOL)
+
+            if red_state != red:
+                if red == 1:
+                    os.system("%s keydown Left" % XDOTOOL)
+                else:
+                    os.system("%s keyup Left" % XDOTOOL)
+
+            if white_state != white:
+                if white == 1:
+                    os.system("%s keydown BackSpace" % XDOTOOL)
+                else:
+                    os.system("%s keyup BackSpace" % XDOTOOL)
 
             if yellow_state != yellow:
                 if yellow == 1:
-                    os.system("%s keydown s" % XDOTOOL)
+                    os.system("%s keydown Down" % XDOTOOL)
                 else:
-                    os.system("%s keyup s" % XDOTOOL)
+                    os.system("%s keyup Down" % XDOTOOL)
 
-            if blue_state != blue:
-                if blue == 1:
-                    os.system("%s keydown p" % XDOTOOL)
-                else:
-                    os.system("%s keyup p" % XDOTOOL)
 
-            red_state = red
             blue_state = blue
             green_state = green
             purple_state = purple
+            red_state = red
+            white_state = white
             yellow_state = yellow
-
 
             tick = time.time()
 
             if tick >= (last_tick + 0.03333333):
-                if red_state == 1:
-                    os.system("%s keydown a" % XDOTOOL)
                 if blue_state == 1:
-                    os.system("%s keydown a" % XDOTOOL)
+                    os.system("%s keydown Return" % XDOTOOL)
                 if green_state == 1:
-                    os.system("%s keydown d" % XDOTOOL)
+                    os.system("%s keydown Right" % XDOTOOL)
                 if purple_state == 1:
-                    os.system("%s keydown w" % XDOTOOL)
+                    os.system("%s keydown Up" % XDOTOOL)
+                if red_state == 1:
+                    os.system("%s keydown Left" % XDOTOOL)
+                if white_state == 1:
+                    os.system("%s keydown BackSpace" % XDOTOOL)
                 if yellow_state == 1:
-                    os.system("%s keydown s" % XDOTOOL)
+                    os.system("%s keydown Down" % XDOTOOL)
 
                 last_tick = tick
 
