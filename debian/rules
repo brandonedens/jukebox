@@ -1,0 +1,53 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+include /usr/share/python/python.mk
+
+PACKAGE_NAME=jukebox
+PACKAGE_DIR=$(CURDIR)/debian/$(PACKAGE_NAME)
+SITE_PACKAGES_DIR=$(PACKAGE_DIR)$(call py_libdir,$(shell pyversions -d))
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	touch configure-stamp
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	find . -name '*.py[co]' -delete
+	rm -rf build-stamp configure-stamp
+	rm -rf _build build
+	rm -rf c_src/laser-cutter
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_installdirs
+
+	python setup.py install --no-compile --install-layout=deb --root $(PACKAGE_DIR)
+
+	# Install executable scripts
+	install -m 700 $(CURDIR)/bin/jukebox $(PACKAGE_DIR)/usr/bin/jukebox
+
+binary-indep: install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_pysupport
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary-arch: install
+
+binary: binary-indep binary-arch
+
+.PHONY: build clean binary-indep binary-arch binary install configure
