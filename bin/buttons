@@ -1,19 +1,61 @@
 #!/usr/bin/python
 
+###############################################################################
+## Imports
+###############################################################################
+
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
+
+from django.conf import settings
+
 import os
 import serial
 import sys
 import time
 
 
+###############################################################################
+## Constants
+###############################################################################
+
+# Location of the xdotool command
 XDOTOOL = "/usr/bin/xdotool"
+
+# Default serial port to use
 DEFAULT_SERIAL = "/dev/ttyUSB0"
+
+# Coin drop debuce seconds
+COIN_DROP_DEBOUNCE_SECONDS = 0.2
+
+# Default credits file
+CREDITS_FILENAME = '/var/lib/jukebox/credits.txt'
+
+
+###############################################################################
+## Functions
+###############################################################################
 
 def coin_drop():
     """
     Function for handling a coin drop.
     """
-    print 'coin drop'
+    fh = None
+    current_credits = 0
+    if os.path.isfile(CREDITS_FILENAME):
+        fh = open(CREDITS_FILENAME, 'r+')
+        try:
+            current_credits = int(fh.readline())
+        except ValueError:
+            # Error reading the current credits value. Reset the system back to
+            # 0.
+            current_credits = 0
+    else:
+        fh = open(CREDITS_FILENAME, 'w')
+    current_credits += 1
+    fh.seek(0)
+    fh.write("%d\n" % current_credits)
+    fh.close()
 
 def main():
     try:
@@ -109,9 +151,11 @@ def main():
                     # Debounce the coin drop by checking to see if time between
                     # now and the last coin drop timestamp is greater than 200
                     # milliseconds
-                    if current_timestamp - last_coin_drop_timestamp > 0.2:
+                    if current_timestamp - last_coin_drop_timestamp > COIN_DROP_DEBOUNCE_SECONDS:
                         coin_drop()
                         last_coin_drop_timestamp = current_timestamp
+                        os.system("%s keydown space" % XDOTOOL)
+                        os.system("%s keyup space" % XDOTOOL)
 
             blue_state = blue
             green_state = green
