@@ -39,8 +39,10 @@ if config.get('media_root'):
 # Load client based settings from config file.
 
 # Logging settings
-if config.get('log_filename'):
-    LOG_FILENAME = config.get('log_filename')
+if config.get('log_jukebox_filename'):
+    LOG_JUKEBOX_FILENAME = config.get('log_jukebox_filename')
+if config.get('log_jukebox_buttons_filename'):
+    LOG_JUKEBOX_FILENAME = config.get('log_jukebox_buttons_filename')
 if config.get('log_format'):
     LOG_FORMAT = config.get('log_format')
 

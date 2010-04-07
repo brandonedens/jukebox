@@ -9,6 +9,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
 
 from django.conf import settings
 
+import logging
 import os
 import serial
 import sys
@@ -68,6 +69,7 @@ def coin_drop():
     fh.seek(0)
     fh.write("%d\n" % current_credits)
     fh.close()
+    logging.info("Coin drop registered. Credits now at: %d" % current_credits)
 
 def main():
     """
@@ -219,6 +221,8 @@ def xdotool(keystroke, button):
     button name which is one of: blue, green, purple, red, white, yellow, or
     coin, to its respective keyboard mapping.
     """
+    logging.debug("Button %s in state %s sending keyboard button %s"
+                  % (button, keystroke, KEYBOARD_MAPPINGS[button])
     os.system("%s %s %s" % (XDOTOOL, keystroke, KEYBOARD_MAPPINGS[button]))
 
 if __name__ == '__main__':

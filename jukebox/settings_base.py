@@ -150,7 +150,8 @@ SONGS_PER_PAGE = 6
 ## Client related settings
 ################################################################################
 
-LOG_FILENAME = '/tmp/jukebox.log'
+LOG_JUKEBOX_FILENAME = '/var/log/jukebox/jukebox.log'
+LOG_JUKEBOX_BUTTONS_FILENAME = '/var/log/jukebox/buttons.log'
 LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 FULLSCREEN = True
