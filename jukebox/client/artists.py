@@ -63,7 +63,8 @@ class ArtistListScreen(Screen):
         self.right_arrow = RightArrow()
 
         # Filter to all artists that have songs.
-        artists = Artist.objects.filter(song__isnull=False).distinct().order_by('name')
+        artists = Artist.objects.filter(song__isnull=False
+                                        ).distinct().order_by('name')
         self.artists = ScrollingText(map(BlinkingText, artists),
                                      items_on_screen=settings.ARTIST_LIST_ITEMS)
         self.artists.set_width(self.get_width() -
@@ -90,7 +91,9 @@ class ArtistListScreen(Screen):
         if event.keyval == clutter.keysyms.Left:
             self.get_parent().remove_screen(self)
         elif event.keyval == clutter.keysyms.Right:
-            self.get_parent().new_screen(ArtistDetailScreen(self.artists.selected.obj))
+            self.get_parent().new_screen(
+                ArtistDetailScreen(self.artists.selected.obj)
+                )
 
 class ArtistDetailScreen(Screen):
 
@@ -113,9 +116,11 @@ class ArtistDetailScreen(Screen):
         self.songs = None
         if len(songs) > 0:
             self.right_arrow = RightArrow()
-            self.songs = ScrollingText(map(BlinkingText,
-                                           artist.song_set.all().order_by('title')),
-                                       items_on_screen=settings.SONG_LIST_ITEMS)
+            self.songs = ScrollingText(
+                map(BlinkingText,
+                    artist.song_set.all().order_by('title')),
+                items_on_screen=settings.SONG_LIST_ITEMS
+                )
             self.songs.set_width(self.get_width() -
                                  (self.left_arrow.get_width() +
                                   self.right_arrow.get_width()))
@@ -149,6 +154,8 @@ class ArtistDetailScreen(Screen):
             self.get_parent().remove_screen(self)
         if event.keyval == clutter.keysyms.Right:
             if self.songs:
-                self.get_parent().new_screen(SongDetailScreen(self.songs.selected.obj))
+                self.get_parent().new_screen(
+                    SongDetailScreen(self.songs.selected.obj)
+                    )
 
 

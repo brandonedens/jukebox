@@ -44,8 +44,10 @@ FONT_COLOR = clutter.Color(150, 150, 255)
 class Header(clutter.Box):
 
     def __init__(self, title):
-        super(Header, self).__init__(clutter.BinLayout(clutter.BIN_ALIGNMENT_CENTER,
-                                                       clutter.BIN_ALIGNMENT_START,))
+        super(Header, self).__init__(
+            clutter.BinLayout(clutter.BIN_ALIGNMENT_CENTER,
+                              clutter.BIN_ALIGNMENT_START,)
+            )
         layout = self.get_layout_manager()
         #layout.set_vertical(False)
 

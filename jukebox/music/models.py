@@ -223,7 +223,9 @@ class Photo(models.Model):
                                  temp_handle.read(), content_type='image/png')
         thumbnail_basename = os.path.splitext(suf.name)[0]
         print "thumbnail basename = %s" % thumbnail_basename
-        self.thumbnail.save(thumbnail_basename+'_thumbnail.png', suf, save=False)
+        self.thumbnail.save(thumbnail_basename+'_thumbnail.png',
+                            suf,
+                            save=False)
 
         super(Photo, self).save()
 
@@ -309,10 +311,6 @@ class Song(models.Model):
         self.duration = audio_file.getPlayTime()
         # Set sample frequency.
         self.sample_frequency = audio_file.getSampleFreq()
-
-        # FIXME this is temporarily disabled until we can figure out why it
-        # will not properly compute digests.
-        #self.digest = self.digest_compute(self.file)
 
         # Call parent save()
         super(Song, self).save()

@@ -80,7 +80,8 @@ def sec_to_dur(value, arg = ''):
         # Subtract hours from seconds
         secs = secs - (hours * int(hourSecs))
 
-        # Calculate number of minutes from seconds (minus number of days and hours)
+        # Calculate number of minutes from seconds (minus number of days and
+        # hours)
         minutes = int(math.floor(secs / int(minSecs)))
 
         # Subtract days from seconds
@@ -93,7 +94,7 @@ def sec_to_dur(value, arg = ''):
         if days > 0:
 
             # Add multiple days to duration string
-            durationString += ' ' + str(days) + dayUnitName + (days > 1 and 's' or '')
+            durationString += ' '+str(days)+dayUnitName+(days > 1 and 's' or '')
 
         # Determine if next string is to be shown
         if hours > 0:

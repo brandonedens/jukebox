@@ -60,37 +60,14 @@ class TermsOfServiceForm(forms.Form):
         """
         print 'got to clean agree'
         agree = self.cleaned_data['agree']
-        if agree == False:
-            raise forms.ValidationError("Cannot upload a file unless terms of service is agreed to.")
+        if not agree:
+            raise forms.ValidationError(
+                "Cannot upload a file unless terms of service is agreed to."
+                )
         return self.cleaned_data['agree']
 
 class SongForm(ModelForm):
     class Meta:
         model = Song
         fields = ('title', 'file',)
-
-    # FIXME this is temporarily disabled until we can figure out why it will
-    # not properly compute digests.
-#     def clean_file(self):
-#         """
-#         Check that the digest is unique.
-#         """
-#         file = self.cleaned_data['file']
-
-#         # Check that file was mp3
-#         if file.content_type != 'audio/mpeg':
-#             raise forms.ValidationError('File uploaded is not a valid MP3 file.')
-
-#         # Check that the file's digest was unique
-#         digest = Song.digest_compute(file)
-#         try:
-#             song = Song.objects.get(digest=digest)
-#             if song:
-#                 artist = song.artist
-#                 txt = "The song \"%s\" by artist \"%s\" was already uploaded by user %s." % (song.title, artist.name, artist.user)
-#                 raise forms.ValidationError(txt)
-#         except Song.DoesNotExist:
-#             pass
-
-#         return self.cleaned_data['file']
 

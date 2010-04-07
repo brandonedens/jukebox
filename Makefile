@@ -7,7 +7,7 @@ export PYTHONPATH = $(shell echo "$$PYTHONPATH"):./jukebox
 all: clean-pyc check test
 
 check:
-	@$(PYTHON) utils/check_sources.py -i jukebox/manage.py -i jukebox/registration -i lib -i debian -i build -i tests/coverage.py .
+	@$(PYTHON) utils/check_sources.py -i jukebox/manage.py -i jukebox/registration -i jukebox/music/templatetags/seconds_to_duration.py -i jukebox/utils/templatetags/digg_templatetag.py -i lib -i debian -i build -i tests/coverage.py .
 
 clean: clean-pyc clean-patchfiles
 
@@ -21,7 +21,7 @@ clean-patchfiles:
 	find . -name '*.rej' -exec rm -f {} +
 
 pylint:
-	@pylint --rcfile utils/pylintrc cups_fab
+	@pylint --rcfile utils/pylintrc jukebox
 
 reindent:
 	@$(PYTHON) utils/reindent.py -r -B .

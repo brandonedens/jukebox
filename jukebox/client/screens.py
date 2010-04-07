@@ -82,7 +82,9 @@ class BlinkingText(clutter.Text):
     """
 
     def __init__(self, obj):
-        super(BlinkingText, self).__init__(settings.SCROLLING_TEXT_FONT, obj.__str__())
+        super(BlinkingText, self).__init__(
+            settings.SCROLLING_TEXT_FONT, obj.__str__()
+            )
         self.obj = obj
 
         # Setup text attributes
@@ -214,10 +216,12 @@ class ScrollingText(clutter.Box):
                     # add an object from later in the contents list.
                     layout = self.get_layout_manager()
                     try:
-                        obj = self.contents[self.contents.index(children[-1]) + 1]
+                        obj = self.contents[
+                            self.contents.index(children[-1]) + 1
+                            ]
                     except IndexError:
-                        # We have hit the very bottom of items in contents. So we
-                        # go ahead and start back at the top.
+                        # We have hit the very bottom of items in contents. So
+                        # we go ahead and start back at the top.
                         obj = self.contents[0]
                     self.selected = obj
                     layout.set_pack_start(False)

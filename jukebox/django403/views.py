@@ -42,8 +42,8 @@ def fallback_403(request):
 
 def access_denied(request, template_name='403.html'):
   """
-  Default 403 handler, which looks for the  which prints out a hard-coded string patterned
-  after the Apache default 403 page.
+  Default 403 handler, which looks for the which prints out a hard-coded string
+  patterned after the Apache default 403 page.
 
   Templates: `403.html`
   Context:

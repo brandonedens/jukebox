@@ -31,8 +31,12 @@ def search(request):
 
             # Partial matches
             for term in terms:
-                artist_list = artist_list | Artist.objects.filter(name__icontains=term)
-                song_list = song_list | Song.objects.filter(title__icontains=term)
+                artist_list = artist_list | Artist.objects.filter(
+                    name__icontains=term
+                    )
+                song_list = song_list | Song.objects.filter(
+                    title__icontains=term
+                    )
 
             genre_list = Genre.objects.filter(name__icontains=search)
             return direct_to_template(request, template='search/results.html',
@@ -44,5 +48,6 @@ def search(request):
                                           },)
     else:
         form = SearchForm()
-    return direct_to_template(request, 'search/search_form.html', {'form': form,})
+    return direct_to_template(request, 'search/search_form.html',
+                              {'form': form,})
 

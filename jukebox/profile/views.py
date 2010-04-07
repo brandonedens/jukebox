@@ -12,12 +12,15 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
-from django.views.generic.create_update import create_object, delete_object, update_object
+from django.views.generic.create_update import create_object
+from django.views.generic.create_update import delete_object
+from django.views.generic.create_update import update_object
 from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
 
 from jukebox.music.models import Artist, Photo, Song
-from jukebox.music.forms import ArtistForm, PhotoForm, SongForm, TermsOfServiceForm
+from jukebox.music.forms import ArtistForm, PhotoForm, SongForm
+from jukebox.music.forms import TermsOfServiceForm
 
 
 ###############################################################################
@@ -42,10 +45,12 @@ def artist_create(request):
         form = ArtistForm(request.POST, instance=artist)
         if form.is_valid():
             artist = form.save()
-            return redirect_to(request, reverse('artist_detail', args=[artist.id]))
+            return redirect_to(request, reverse('artist_detail',
+                                                args=[artist.id]))
     else:
         form = ArtistForm(instance=artist)
-    return direct_to_template(request, 'profile/artist_form.html', {'form': form,})
+    return direct_to_template(request, 'profile/artist_form.html',
+                              {'form': form,})
 
 @login_required
 def artist_delete(request, object_id):
@@ -93,10 +98,12 @@ def photo_upload(request, artist_id):
             form = PhotoForm(request.POST, request.FILES, instance=photo)
             if form.is_valid():
                 photo = form.save()
-                return redirect_to(request, reverse('artist_detail', args=[artist.id]))
+                return redirect_to(request, reverse('artist_detail',
+                                                    args=[artist.id]))
         else:
             form = PhotoForm(instance=photo)
-        return direct_to_template(request, 'profile/photo_form.html', {'form': form,})
+        return direct_to_template(request, 'profile/photo_form.html',
+                                  {'form': form,})
     else:
         request.user.message_set.create(
             message="You do not have permission to upload photos for this artist."
@@ -117,7 +124,10 @@ def song_create(request, artist_id):
         return HttpResponseForbidden()
     song = Song(artist=artist)
     if request.method == 'POST':
-        form = SongForm(request.POST, request.FILES, instance=song, prefix='song')
+        form = SongForm(request.POST,
+                        request.FILES,
+                        instance=song,
+                        prefix='song')
         tos = TermsOfServiceForm(request.POST, prefix='tos')
         tos_valid = tos.is_valid()
         if tos.is_valid() and form.is_valid():
@@ -129,14 +139,16 @@ def song_create(request, artist_id):
                 tos.errors['last_name'] = "Lastname does not match user's lastname."
             else:
                 song = form.save()
-                return redirect_to(request, reverse('song_detail', args=[song.id]))
+                return redirect_to(request, reverse('song_detail',
+                                                    args=[song.id]))
     else:
         tos = TermsOfServiceForm(initial={'first_name': 'first name',
                                           'last_name': 'last name'},
                                  prefix='tos')
         form = SongForm(instance=song, prefix='song')
-    return direct_to_template(request, 'profile/song_form.html', {'form': form,
-                                                                  'terms_of_service': tos})
+    return direct_to_template(request, 'profile/song_form.html',
+                              {'form': form,
+                               'terms_of_service': tos})
 
 @login_required
 def song_delete(request, song_id):
@@ -147,7 +159,9 @@ def song_delete(request, song_id):
         return delete_object(request,
                              model=Song,
                              object_id=song.id,
-                             post_delete_redirect=reverse('artist_detail', args=[song.artist.id]),
+                             post_delete_redirect=reverse('artist_detail',
+                                                          args=[song.artist.id]
+                                                          ),
                              template_object_name='song',)
     else:
         # Song is not owned by this user. Do not allow delete.

@@ -30,7 +30,8 @@ from django.views.generic.create_update import update_object
 from jukebox.profile.views import index
 from jukebox.profile.views import artist_create, artist_delete, artist_update
 from jukebox.profile.views import photo_upload
-from jukebox.profile.views import song_create, song_delete, song_update, song_play
+from jukebox.profile.views import song_create, song_delete, song_update
+from jukebox.profile.views import song_play
 
 from jukebox.music.forms import ArtistForm
 

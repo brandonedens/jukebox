@@ -85,7 +85,9 @@ class SongListScreen(Screen):
         if event.keyval == clutter.keysyms.Left:
             self.get_parent().remove_screen(self)
         elif event.keyval == clutter.keysyms.Right:
-            self.get_parent().new_screen(SongDetailScreen(self.songs.selected.obj))
+            self.get_parent().new_screen(
+                SongDetailScreen(self.songs.selected.obj)
+                )
 
 class SongDetailScreen(Screen):
 
@@ -114,7 +116,9 @@ class SongDetailScreen(Screen):
         text.set_line_wrap(True)
         text.set_color(clutter.Color(230, 230, 230, 0xff))
         self.box.add(text)
-        text = clutter.Text(settings.SONG_ARTIST_FONT, "by %s" % song.artist.name)
+        text = clutter.Text(
+            settings.SONG_ARTIST_FONT, "by %s" % song.artist.name
+            )
         text.set_line_alignment(ALIGN_CENTER)
         text.set_line_wrap(True)
         text.set_color(clutter.Color(210, 210, 210, 0xff))
