@@ -32,6 +32,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
 from django.conf import settings
 import clutter
 import logging
+import signal
 import sys
 
 from jukebox.client.main import Jukebox
@@ -40,6 +41,13 @@ from jukebox.client.main import Jukebox
 ###############################################################################
 ## Functions
 ###############################################################################
+
+def signal_handler(signum, frame):
+    """
+    Handler for incoming process signals.
+    """
+    if signum == signal.SIGINT:
+        clutter.main_quit()
 
 def main():
     """
@@ -57,6 +65,7 @@ def main():
 
     logging.info("Starting Jukebox.")
     jukebox = Jukebox()
+    signal.signal(signal.SIGINT, signal_handler)
     stage = clutter.Stage()
     stage.hide_cursor()
 
