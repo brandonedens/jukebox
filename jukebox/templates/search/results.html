@@ -42,14 +42,6 @@
   </ul>
 
 </article>
-{% endif %}
-
-{% else %}
-
-<article>
-  <p>No artists or songs match your search!</p>
-  <p>Try searching again.</p>
-</article>
 
 {% endif %}
 
@@ -62,6 +54,15 @@
            type="submit" value="Submit" />
   </form>
 </article>
+
+{% else %}
+
+<article>
+  <p>No artists or songs match your search!</p>
+  <p>Try searching again.</p>
+</article>
+
+{% endif %}
 
 {% endblock %}
 
