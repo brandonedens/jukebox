@@ -31,6 +31,16 @@ COIN_DROP_DEBOUNCE_SECONDS = 0.2
 # Default credits file
 CREDITS_FILENAME = '/var/lib/jukebox/credits.txt'
 
+# Mappings of buttons to keyboard commands.
+KEYBOARD_MAPPINGS = {'blue': 'Return',
+                     'green': 'Right',
+                     'purple': 'Up',
+                     'red': 'Left',
+                     'white': 'BackSpace',
+                     'yellow': 'Down',
+                     'coin': 'space',
+                     }
+
 
 ###############################################################################
 ## Functions
@@ -38,7 +48,9 @@ CREDITS_FILENAME = '/var/lib/jukebox/credits.txt'
 
 def coin_drop():
     """
-    Function for handling a coin drop.
+    Handle a coin drop. This function opens the credits.txt file or creates a
+    new one then reads in the current credits value and increments that value
+    by one. Finally this function writes the new credit value.
     """
     fh = None
     current_credits = 0
@@ -58,6 +70,23 @@ def coin_drop():
     fh.close()
 
 def main():
+    """
+    The main method. Open the serial port then begin listening for incoming
+    serial data which is composed of button presses or coin drops.
+
+    The serial data that is sent from the device attached to the buttons should
+    only be sent when a button or the coin system's state changes. Meaning that
+    only data is sent when a user presses one of the buttons.
+
+    The device monitoring the buttons should send a string similar to the following:
+    Juke1001001
+    which would be interpreted as:
+      * blue button pressed
+      * red button pressed
+
+    Note that the coin drop value goes low or 0 when a coin is inserted AND
+    that particular switch is debounced by this function.
+    """
     try:
         usb_port = sys.argv[1]
     except:
@@ -111,39 +140,39 @@ def main():
 
             if blue_state != blue:
                 if blue == 1:
-                    os.system("%s keydown Return" % XDOTOOL)
+                    xdotool_keydown('blue')
                 else:
-                    os.system("%s keyup Return" % XDOTOOL)
+                    xdotool_keyup('blue')
 
             if green_state != green:
                 if green == 1:
-                    os.system("%s keydown Right" % XDOTOOL)
+                    xdotool_keydown('green')
                 else:
-                    os.system("%s keyup Right" % XDOTOOL)
+                    xdotool_keyup('green')
 
             if purple_state != purple:
                 if purple == 1:
-                    os.system("%s keydown Up" % XDOTOOL)
+                    xdotool_keydown('purple')
                 else:
-                    os.system("%s keyup Up" % XDOTOOL)
+                    xdotool_keyup('purple')
 
             if red_state != red:
                 if red == 1:
-                    os.system("%s keydown Left" % XDOTOOL)
+                    xdotool_keydown('red')
                 else:
-                    os.system("%s keyup Left" % XDOTOOL)
+                    xdotool_keyup('red')
 
             if white_state != white:
                 if white == 1:
-                    os.system("%s keydown BackSpace" % XDOTOOL)
+                    xdotool_keydown('white')
                 else:
-                    os.system("%s keyup BackSpace" % XDOTOOL)
+                    xdotool_keyup('white')
 
             if yellow_state != yellow:
                 if yellow == 1:
-                    os.system("%s keydown Down" % XDOTOOL)
+                    xdotool_keydown('yellow')
                 else:
-                    os.system("%s keyup Down" % XDOTOOL)
+                    xdotool_keyup('yellow')
 
             if coin_state != coin:
                 if coin == 0:
@@ -154,8 +183,8 @@ def main():
                     if current_timestamp - last_coin_drop_timestamp > COIN_DROP_DEBOUNCE_SECONDS:
                         coin_drop()
                         last_coin_drop_timestamp = current_timestamp
-                        os.system("%s keydown space" % XDOTOOL)
-                        os.system("%s keyup space" % XDOTOOL)
+                        xdotool_keydown('coin')
+                        xdotool_keyup('coin')
 
             blue_state = blue
             green_state = green
@@ -170,6 +199,27 @@ def main():
         ser.close()
 
     ser.close()
+
+def xdotool_keydown(button):
+    """
+    Execute xdotool keydown for the given button
+    """
+    xdotool('keydown', button)
+
+def xdotool_keyup(button):
+    """
+    Execute xdotool keyup for the given button.
+    """
+    xdotool('keyup', button)
+
+def xdotool(keystroke, button):
+    """
+    Make a system call that executes xdotool with the given keystroke one of:
+    keydown or keyup. This function checks KEYBOARD_MAPPINGS to convert the given
+    button name which is one of: blue, green, purple, red, white, yellow, or
+    coin, to its respective keyboard mapping.
+    """
+    os.system("%s %s %s" % (XDOTOOL, keystroke, KEYBOARD_MAPPINGS[button]))
 
 if __name__ == '__main__':
     main()
