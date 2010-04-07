@@ -71,7 +71,6 @@ class FrontScreen(Screen):
         self.labels = (
             clutter.Text(FONT, 'songs'),
             clutter.Text(FONT, 'artists'),
-            clutter.Text(FONT, 'genres'),
             )
 
         self.selected = self.labels[0]
@@ -166,6 +165,4 @@ class FrontScreen(Screen):
                 self.get_parent().new_screen(SongListScreen())
             elif self.selected.get_text() == 'artists':
                 self.get_parent().new_screen(ArtistListScreen())
-            elif self.selected.get_text() == 'genres':
-                self.get_parent().new_screen(GenreListScreen())
 
