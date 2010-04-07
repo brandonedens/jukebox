@@ -40,9 +40,9 @@ install: build
 
     # Install executables
 	install -m 755 $(CURDIR)/bin/jukebox $(PACKAGE_DIR)/usr/bin/jukebox
-	install -m 755 $(CURDIR)/bin/jukebox-buttons $(PACKAGE_DIR)/usr/bin/jukebox-buttons
-	install -m 755 $(CURDIR)/bin/jukebox-load-music $(PACKAGE_DIR)/usr/bin/jukebox-load-music
-	install -m 755 $(CURDIR)/bin/jukebox-save-power $(PACKAGE_DIR)/usr/bin/jukebox-save-power
+	install -m 755 $(CURDIR)/bin/buttons $(PACKAGE_DIR)/usr/bin/jukebox-buttons
+	install -m 755 $(CURDIR)/bin/load-music $(PACKAGE_DIR)/usr/bin/jukebox-load-music
+	install -m 755 $(CURDIR)/bin/save-power $(PACKAGE_DIR)/usr/bin/jukebox-save-power
 
     # Install symlinks
 	chmod 755 $(PACKAGE_DIR)/usr/lib/$(shell pyversions -d)/dist-packages/$(PACKAGE_NAME)/manage.py
