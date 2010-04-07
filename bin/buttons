@@ -228,5 +228,21 @@ def xdotool(keystroke, button):
     os.system("%s %s %s" % (XDOTOOL, keystroke, KEYBOARD_MAPPINGS[button]))
 
 if __name__ == '__main__':
-    main()
+    # Setup logging.
+    logging.basicConfig(filename=settings.LOG_JUKEBOX_FILENAME,
+                        level=logging.DEBUG,
+                        format=settings.LOG_FORMAT)
+    consolehandler = logging.StreamHandler()
+    consolehandler.setLevel( logging.DEBUG )
+    formatter = logging.Formatter(settings.LOG_FORMAT)
+    consolehandler.setFormatter(formatter)
+    logging.getLogger( '' ).addHandler( consolehandler )
+    logging.info('Starting jukebox button interface software.')
+    try:
+        main()
+    except KeyboardInterrupt:
+        # Keyboard interrupt so its time to shutdown buttons software.
+        logging.debug('Keyboard interrupt so shut down the software.')
+    logging.info('Shutting down jukebox button interface software.')
+
 
