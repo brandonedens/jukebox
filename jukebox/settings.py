@@ -14,7 +14,7 @@ config_file = None
 config = {}#yaml.load("data: False")
 for filename in CONFIG_FILE_LOCATIONS:
     if os.path.isfile(filename):
-        config_file = open(CONFIG_FILENAME, 'r')
+        config_file = open(filename, 'r')
         break
 if config_file:
     config = yaml.load(config_file)
@@ -33,7 +33,18 @@ if config.get('database_host'):
 if config.get('database_port'):
     DATABASE_PORT = config.get('database_port')
 
+if config.get('media_root'):
+    MEDIA_ROOT = config.get('media_root')
+
 # Load client based settings from config file.
+
+# Logging settings
+if config.get('log_filename'):
+    LOG_FILENAME = config.get('log_filename')
+if config.get('log_format'):
+    LOG_FORMAT = config.get('log_format')
+
+# Screen settings
 if config.get('fullscreen'):
     FULLSCREEN = config.get('fullscreen')
 
@@ -43,9 +54,35 @@ if config.get('screen_width'):
 if config.get('screen_height'):
     SCREEN_HEIGHT = config.get('screen_height')
 
-if config.get('log_filename'):
-    LOG_FILENAME = config.get('log_filename')
+# Items list numbers
+if config.get('artist_list_items'):
+    ARTIST_LIST_ITEMS = config.get('artist_list_items')
+if config.get('song_list_items'):
+    SONG_LIST_ITEMS = config.get('song_list_items')
 
-if config.get('log_format'):
-    LOG_FORMAT = config.get('log_format')
+# Rate of blinking, moving, highlighting (in milliseconds)
+if config.get('blinking_text_rate'):
+    BLINKING_TEXT_RATE = config.get('blinking_text_rate')
+if config.get('highlight_rate'):
+    HIGHLIGHT_RATE = config.get('highlight_rate')
+if config.get('screen_slide_rate'):
+    SCREEN_SLIDE_RATE = config.get('screen_slide_rate')
+
+# Font settings
+if config.get('header_title_font'):
+    HEADER_TITLE_FONT = config.get('header_title_font')
+if config.get('logo_large_as220_font'):
+    LOGO_AS220_LARGE_FONT = config.get('logo_as220_large_font')
+if config.get('logo_large_jukebox_font'):
+    LOGO_JUKEBOX_LARGE_FONT = config.get('logo_jukebox_large_font')
+if config.get('logo_large_as220_font'):
+    LOGO_AS220_SMALL_FONT = config.get('logo_as220_small_font')
+if config.get('logo_large_jukebox_font'):
+    LOGO_JUKEBOX_SMALL_FONT = config.get('logo_jukebox_small_font')
+if config.get('scrolling_text_font'):
+    SCROLLING_TEXT_FONT = config.get('scrolling_text_font')
+if config.get('song_artist_font'):
+    SONG_ARTIST_FONT = config.get('song_artist_font')
+if config.get('song_title_font'):
+    SONG_TITLE_FONT = config.get('song_title_font')
 
