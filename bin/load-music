@@ -58,11 +58,9 @@ def load_file(filename):
     user = User.objects.all()[0]
 
     # Handle hash/digest information to determine if we already have song.
-    file = open(filename, "r")
-    m = hashlib.sha512()
-    m.update(file.read())
-    file.close()
-    song_digest = m.hexdigest()
+    fh = open(filename)
+    song_digest = Song.digest_compute(fh)
+    fh.seek(0)
 
     song = None
     try:
@@ -70,6 +68,7 @@ def load_file(filename):
         logging.info("Filename %s already exists in database." % filename)
     except Song.DoesNotExist:
         # Song does not exist
+        logging.debug("Song with filename %s does not already exist." % filename)
         song = Song()
         song.digest = song_digest
 
@@ -77,6 +76,7 @@ def load_file(filename):
         audio_file = eyeD3.Mp3AudioFile(filename)
     except eyeD3.tag.InvalidAudioFormatException:
         return
+
     tag = audio_file.getTag()
     if not tag:
         # No ID3 information! Abort!
@@ -158,6 +158,10 @@ def load_file(filename):
         logging.info("Cannot load song %s with filename %s without an artist." % (song.title, filename))
         return None
 
+    # Set the artist user to the first user found.
+    song.artist.user = user
+
+
     # Gather album information
     album_name = tag.getAlbum()
     if album_name != None:
@@ -182,13 +186,13 @@ def load_file(filename):
     except OSError:
         logging.debug("Directory %s already exists." % os.path.dirname(filename_destination))
     try:
+        logging.debug("Copying file from %s to %s." % (filename, filename_destination))
         shutil.copy(os.path.abspath(filename), filename_destination)
     except IOError:
         logging.warning("File already exists at %s." % filename_destination)
     song.file = filename_destination
 
     # Save the new song
-    song.user = user
     try:
         song.save()
     except sqlite3.IntegrityError as e:
