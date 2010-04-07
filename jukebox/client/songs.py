@@ -23,8 +23,10 @@
 ## Imports
 ###############################################################################
 
-import clutter
+from django.conf import settings
 from pango import ALIGN_CENTER
+import clutter
+import logging
 
 from jukebox.music.models import Song
 
@@ -57,10 +59,12 @@ class SongListScreen(Screen):
 
         self.songs = ScrollingText(map(BlinkingText,
                                        Song.objects.all().order_by('title')),
-                                   items_on_screen=7)
+                                   items_on_screen=settings.SONG_LIST_ITEMS)
         self.songs.set_width(self.get_width() -
                              (self.left_arrow.get_width() +
                               self.right_arrow.get_width()))
+        self.songs.set_height(self.get_height() - self.header.get_height())
+        logging.debug("Songs height = %s" % self.songs.get_height())
 
         layout.add(self.songs,
                    clutter.BIN_ALIGNMENT_CENTER,
@@ -104,12 +108,12 @@ class SongDetailScreen(Screen):
         box_layout = self.box.get_layout_manager()
         box_layout.set_vertical(True)
         box_layout.set_spacing(20)
-        text = clutter.Text('Router Bold 70', song.title)
+        text = clutter.Text(settings.SONG_TITLE_FONT, song.title)
         text.set_line_alignment(ALIGN_CENTER)
         text.set_line_wrap(True)
         text.set_color(clutter.Color(230, 230, 230, 0xff))
         self.box.add(text)
-        text = clutter.Text('Router Bold Italic 30', "by %s" % song.artist.name)
+        text = clutter.Text(settings.SONG_ARTIST_FONT, "by %s" % song.artist.name)
         text.set_line_alignment(ALIGN_CENTER)
         text.set_line_wrap(True)
         text.set_color(clutter.Color(210, 210, 210, 0xff))

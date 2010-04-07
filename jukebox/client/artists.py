@@ -23,6 +23,7 @@
 ## Imports
 ###############################################################################
 
+from django.conf import settings
 import clutter
 import logging
 
@@ -64,10 +65,11 @@ class ArtistListScreen(Screen):
         # Filter to all artists that have songs.
         artists = Artist.objects.filter(song__isnull=False).distinct().order_by('name')
         self.artists = ScrollingText(map(BlinkingText, artists),
-                                     items_on_screen=7)
+                                     items_on_screen=settings.ARTIST_LIST_ITEMS)
         self.artists.set_width(self.get_width() -
                                (self.left_arrow.get_width() +
                                 self.right_arrow.get_width()))
+        self.artists.set_height(self.get_height() - self.header.get_height())
 
         layout.add(self.artists,
                    clutter.BIN_ALIGNMENT_CENTER,
@@ -113,10 +115,11 @@ class ArtistDetailScreen(Screen):
             self.right_arrow = RightArrow()
             self.songs = ScrollingText(map(BlinkingText,
                                            artist.song_set.all().order_by('title')),
-                                       items_on_screen=7)
+                                       items_on_screen=settings.SONG_LIST_ITEMS)
             self.songs.set_width(self.get_width() -
                                  (self.left_arrow.get_width() +
                                   self.right_arrow.get_width()))
+            self.songs.set_height(self.get_height() - self.header.get_height())
             layout.add(self.songs,
                        clutter.BIN_ALIGNMENT_CENTER,
                        clutter.BIN_ALIGNMENT_CENTER)

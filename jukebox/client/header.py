@@ -23,8 +23,9 @@
 ## Imports
 ###############################################################################
 
-import clutter
+from django.conf import settings
 from pango import ALIGN_CENTER
+import clutter
 
 from logo import LogoSmall
 
@@ -33,7 +34,6 @@ from logo import LogoSmall
 ## Constants
 ###############################################################################
 
-FONT = 'Router Bold 50'
 FONT_COLOR = clutter.Color(150, 150, 255)
 
 
@@ -51,7 +51,7 @@ class Header(clutter.Box):
 
         # Setup default header elements.
         self.logo = LogoSmall()
-        self.title = clutter.Text(FONT, title)
+        self.title = clutter.Text(settings.HEADER_TITLE_FONT, title)
         self.title.set_color(FONT_COLOR)
         layout.add(self.logo,
                    clutter.BIN_ALIGNMENT_START,

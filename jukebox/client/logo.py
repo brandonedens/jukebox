@@ -23,8 +23,9 @@
 ## Imports
 ###############################################################################
 
-import clutter
+from django.conf import settings
 from pango import ALIGN_CENTER
+import clutter
 
 
 ###############################################################################
@@ -53,10 +54,10 @@ class LogoLarge(clutter.Box):
         layout.set_spacing(40)
         layout.set_use_animations(True)
 
-        self.as220 = clutter.Text('Helvetica75Outline Bold 120',
+        self.as220 = clutter.Text(settings.LOGO_AS220_LARGE_FONT,
                                   'AS22O')
         self.as220.set_color(FONT_COLOR)
-        self.jukebox = clutter.Text('Router Ultra-Bold Italic 55',
+        self.jukebox = clutter.Text(settings.LOGO_JUKEBOX_LARGE_FONT,
                                     'Jukebox\nMusic')
         self.jukebox.set_color(FONT_COLOR)
         self.jukebox.set_line_alignment(ALIGN_CENTER)
@@ -77,10 +78,10 @@ class LogoSmall(clutter.Box):
         layout.set_spacing(20)
         layout.set_use_animations(True)
 
-        self.as220 = clutter.Text('Helvetica75Outline Bold 50',
+        self.as220 = clutter.Text(settings.LOGO_AS220_SMALL_FONT,
                                   'AS22O')
         self.as220.set_color(FONT_COLOR)
-        self.jukebox = clutter.Text('Router Ultra-Bold Italic 20',
+        self.jukebox = clutter.Text(settings.LOGO_JUKEBOX_SMALL_FONT,
                                     'Jukebox\nMusic')
         self.jukebox.set_color(FONT_COLOR)
         self.jukebox.set_line_alignment(ALIGN_CENTER)

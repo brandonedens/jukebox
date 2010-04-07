@@ -23,6 +23,7 @@
 ## Imports
 ###############################################################################
 
+from django.conf import settings
 import clutter
 import logging
 
@@ -68,6 +69,11 @@ class Jukebox(clutter.Box):
             logging.info('Escape button pressed. Quitting jukebox.')
             clutter.main_quit()
         self.active_screen.on_press(actor, event)
+
+    def on_signal(self, signum, frame):
+        """
+        Handler for incoming process signals.
+        """
 
     def on_release(self, actor, event):
         """

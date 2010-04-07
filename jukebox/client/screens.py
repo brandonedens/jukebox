@@ -33,15 +33,9 @@ import logging
 ## Constants
 ###############################################################################
 
-SLIDE_RATE = 300
-
-FONT = 'Router Bold Italic 30'
 FONT_COLOR = clutter.Color(200, 200, 200)
 FONT_HIGHLIGHT_COLOR = clutter.Color(255, 170, 170)
 FONT_OPACITY = 80
-
-BLINK_RATE = 800
-HIGHLIGHT_RATE = 600
 
 
 ###############################################################################
@@ -52,12 +46,8 @@ class Screen(clutter.Box):
 
     def __init__(self, layout_manager):
         super(Screen, self).__init__(layout_manager)
-
-        print settings.SCREEN_WIDTH
-        print type(settings.SCREEN_WIDTH)
         self.set_size(settings.SCREEN_WIDTH,
                       settings.SCREEN_HEIGHT)
-
         self.desired_x = 0
 
     def set_x(self, value):
@@ -66,12 +56,12 @@ class Screen(clutter.Box):
 
     def slide_left(self):
         self.desired_x -= self.get_width()
-        animation = self.animate(clutter.LINEAR, SLIDE_RATE,
+        animation = self.animate(clutter.LINEAR, settings.SCREEN_SLIDE_RATE,
                                  'x', self.desired_x)
 
     def slide_right(self):
         self.desired_x += self.get_width()
-        animation = self.animate(clutter.LINEAR, SLIDE_RATE,
+        animation = self.animate(clutter.LINEAR, settings.SCREEN_SLIDE_RATE,
                                  'x', self.desired_x)
 
     def get_selected(self):
@@ -92,7 +82,7 @@ class BlinkingText(clutter.Text):
     """
 
     def __init__(self, obj):
-        super(BlinkingText, self).__init__(FONT, obj.__str__())
+        super(BlinkingText, self).__init__(settings.SCROLLING_TEXT_FONT, obj.__str__())
         self.obj = obj
 
         # Setup text attributes
@@ -103,7 +93,7 @@ class BlinkingText(clutter.Text):
         self.set_line_wrap(True)
 
         # Setup blinking timeline.
-        self.timeline = clutter.Timeline(duration=BLINK_RATE)
+        self.timeline = clutter.Timeline(duration=settings.BLINKING_TEXT_RATE)
         self.timeline.set_loop(True)
         self.alpha = clutter.Alpha(self.timeline, clutter.LINEAR)
         self.blink = clutter.BehaviourOpacity(alpha=self.alpha,
@@ -138,7 +128,7 @@ class BlinkingText(clutter.Text):
     def highlight(self):
         """
         """
-        self.animate(clutter.LINEAR, HIGHLIGHT_RATE,
+        self.animate(clutter.LINEAR, settings.HIGHLIGHT_RATE,
                      "scale-x", 1.3,
                      "scale-y", 1.3,
                      'color', FONT_HIGHLIGHT_COLOR,
@@ -147,7 +137,7 @@ class BlinkingText(clutter.Text):
     def unhighlight(self):
         """
         """
-        self.animate(clutter.LINEAR, HIGHLIGHT_RATE,
+        self.animate(clutter.LINEAR, settings.HIGHLIGHT_RATE,
                      "scale-x", 1,
                      "scale-y", 1,
                      'color', FONT_COLOR,
@@ -163,6 +153,7 @@ class ScrollingText(clutter.Box):
         layout = self.get_layout_manager()
         layout.set_vertical(True)
         layout.set_spacing(20)
+        layout.set_use_animations(True)
 
         # Contents stores the possible on screen elements.
         self.contents = contents

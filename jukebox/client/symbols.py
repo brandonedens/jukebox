@@ -55,37 +55,37 @@ class Arrow(clutter.Box):
         cr.paint()
         cr.set_operator(cairo.OPERATOR_OVER)
         cr.arc(width/2, width/2, width/2, 0.0, 2*math.pi)
-        pattern = cairo.SolidPattern(0.20, 0.20, 0.20, 0.9)
-        cr.set_source(pattern)
-        cr.fill_preserve()
-        del pattern
-        del cr
-
-#         pattern = cairo.RadialGradient(width/2, width/2, 0,
-#                                        width/2, width/2, width/2)
-#         pattern.add_color_stop_rgba(0, 0.88, 0.95, 0.99, 0.1)
-#         pattern.add_color_stop_rgba(0.6, 0.88, 0.95, 0.99, 0.1)
-#         pattern.add_color_stop_rgba(0.8, 0.67, 0.83, 0.91, 0.2)
-#         pattern.add_color_stop_rgba(0.9, 0.5, 0.67, 0.88, 0.7)
-#         pattern.add_color_stop_rgba(1.0, 0.3, 0.43, 0.69, 0.8)
-
+#         pattern = cairo.SolidPattern(0.20, 0.20, 0.20, 0.9)
 #         cr.set_source(pattern)
 #         cr.fill_preserve()
-
-#         del pattern
-
-#         pattern = cairo.LinearGradient(0, 0, width, width)
-#         pattern.add_color_stop_rgba(0.0, 1.0, 1.0, 1.0, 0.0)
-#         pattern.add_color_stop_rgba(0.15, 1.0, 1.0, 1.0, 0.95)
-#         pattern.add_color_stop_rgba(0.3, 1.0, 1.0, 1.0, 0.0)
-#         pattern.add_color_stop_rgba(0.7, 1.0, 1.0, 1.0, 0.95)
-#         pattern.add_color_stop_rgba(1.0, 1.0, 1.0, 1.0, 0.0)
-
-#         cr.set_source(pattern)
-#         cr.fill()
-
 #         del pattern
 #         del cr
+
+        pattern = cairo.RadialGradient(width/2, width/2, 0,
+                                       width/2, width/2, width/2)
+        pattern.add_color_stop_rgba(0, 0.88, 0.95, 0.99, 0.1)
+        pattern.add_color_stop_rgba(0.6, 0.88, 0.95, 0.99, 0.1)
+        pattern.add_color_stop_rgba(0.8, 0.67, 0.83, 0.91, 0.2)
+        pattern.add_color_stop_rgba(0.9, 0.5, 0.67, 0.88, 0.7)
+        pattern.add_color_stop_rgba(1.0, 0.3, 0.43, 0.69, 0.8)
+
+        cr.set_source(pattern)
+        cr.fill_preserve()
+
+        del pattern
+
+        pattern = cairo.LinearGradient(0, 0, width, width)
+        pattern.add_color_stop_rgba(0.0, 1.0, 1.0, 1.0, 0.0)
+        pattern.add_color_stop_rgba(0.15, 1.0, 1.0, 1.0, 0.95)
+        pattern.add_color_stop_rgba(0.3, 1.0, 1.0, 1.0, 0.0)
+        pattern.add_color_stop_rgba(0.7, 1.0, 1.0, 1.0, 0.95)
+        pattern.add_color_stop_rgba(1.0, 1.0, 1.0, 1.0, 0.0)
+
+        cr.set_source(pattern)
+        cr.fill()
+
+        del pattern
+        del cr
 
 
         self.add(self.circle)
