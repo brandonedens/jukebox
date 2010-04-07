@@ -3,12 +3,13 @@
 import os
 import serial
 import sys
+import time
 
 
 XDOTOOL = "/usr/bin/xdotool"
 DEFAULT_SERIAL = "/dev/ttyUSB0"
 
-def on_coin_drop():
+def coin_drop():
     """
     Function for handling a coin drop.
     """
@@ -26,6 +27,9 @@ def main():
 
     last_serial_input = []
     ring = 'XXXXBGPRWYC'
+
+    last_coin_drop_timestamp = time.time()
+
     try:
         # State of the buttons
         blue_state = 0
@@ -101,8 +105,13 @@ def main():
 
             if coin_state != coin:
                 if coin == 0:
-                    # Coin dropped into jukebox.
-                    on_coin_drop()
+                    current_timestamp = time.time()
+                    # Debounce the coin drop by checking to see if time between
+                    # now and the last coin drop timestamp is greater than 200
+                    # milliseconds
+                    if current_timestamp - last_coin_drop_timestamp > 0.2:
+                        coin_drop()
+                        last_coin_drop_timestamp = current_timestamp
 
             blue_state = blue
             green_state = green
