@@ -3,14 +3,10 @@
 import os
 import serial
 import sys
-import time
 
 
 XDOTOOL = "/usr/bin/xdotool"
 DEFAULT_SERIAL = "/dev/ttyUSB0"
-
-def find_program():
-    os.system("export WID=\"%s search 'python' | head -1\"" % XDOTOOL)
 
 def main():
     try:
@@ -31,7 +27,6 @@ def main():
         red_state = 0
         white_state = 0
         yellow_state = 0
-        last_tick = time.time()
 
         while True:
             c = ser.read(1)
@@ -59,41 +54,46 @@ def main():
                 last_buttons = buttons
 
             if blue_state != blue:
+                print "Return"
                 if blue == 1:
                     os.system("%s keydown Return" % XDOTOOL)
                 else:
                     os.system("%s keyup Return" % XDOTOOL)
 
             if green_state != green:
+                print 'Right'
                 if green == 1:
                     os.system("%s keydown Right" % XDOTOOL)
                 else:
                     os.system("%s keyup Right" % XDOTOOL)
 
             if purple_state != purple:
+                print "Up"
                 if purple == 1:
                     os.system("%s keydown Up" % XDOTOOL)
                 else:
                     os.system("%s keyup Up" % XDOTOOL)
 
             if red_state != red:
+                print "Left"
                 if red == 1:
                     os.system("%s keydown Left" % XDOTOOL)
                 else:
                     os.system("%s keyup Left" % XDOTOOL)
 
             if white_state != white:
+                print "BackSpace"
                 if white == 1:
                     os.system("%s keydown BackSpace" % XDOTOOL)
                 else:
                     os.system("%s keyup BackSpace" % XDOTOOL)
 
             if yellow_state != yellow:
+                print "Down"
                 if yellow == 1:
                     os.system("%s keydown Down" % XDOTOOL)
                 else:
                     os.system("%s keyup Down" % XDOTOOL)
-
 
             blue_state = blue
             green_state = green
@@ -102,30 +102,11 @@ def main():
             white_state = white
             yellow_state = yellow
 
-            tick = time.time()
-
-            if tick >= (last_tick + 0.03333333):
-                if blue_state == 1:
-                    os.system("%s keydown Return" % XDOTOOL)
-                if green_state == 1:
-                    os.system("%s keydown Right" % XDOTOOL)
-                if purple_state == 1:
-                    os.system("%s keydown Up" % XDOTOOL)
-                if red_state == 1:
-                    os.system("%s keydown Left" % XDOTOOL)
-                if white_state == 1:
-                    os.system("%s keydown BackSpace" % XDOTOOL)
-                if yellow_state == 1:
-                    os.system("%s keydown Down" % XDOTOOL)
-
-                last_tick = tick
-
     finally:
         ser.close()
 
     ser.close()
 
-
-#find_program()
-main()
+if __name__ == '__main__':
+    main()
 
