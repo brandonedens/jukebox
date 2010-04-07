@@ -222,7 +222,9 @@ def xdotool(keystroke, button):
     coin, to its respective keyboard mapping.
     """
     logging.debug("Button %s in state %s sending keyboard button %s"
-                  % (button, keystroke, KEYBOARD_MAPPINGS[button])
+                  % (button,
+                     keystroke,
+                     KEYBOARD_MAPPINGS[button]))
     os.system("%s %s %s" % (XDOTOOL, keystroke, KEYBOARD_MAPPINGS[button]))
 
 if __name__ == '__main__':
