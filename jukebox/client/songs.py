@@ -30,7 +30,7 @@ import logging
 
 from jukebox.music.models import Song
 
-from symbols import LeftArrow, RightArrow
+from symbols import BuySymbol, LeftArrow, RightArrow
 from header import Header
 from screens import Screen, BlinkingText, ScrollingText
 
@@ -103,6 +103,7 @@ class SongDetailScreen(Screen):
                    clutter.BIN_ALIGNMENT_START)
 
         self.left_arrow = LeftArrow()
+        self.buy = BuySymbol()
 
         self.box = clutter.Box(clutter.BoxLayout())
         box_layout = self.box.get_layout_manager()
@@ -129,6 +130,11 @@ class SongDetailScreen(Screen):
         layout.add(self.left_arrow,
                    clutter.BIN_ALIGNMENT_START,
                    clutter.BIN_ALIGNMENT_CENTER)
+
+        layout.add(self.buy,
+                   clutter.BIN_ALIGNMENT_END,
+                   clutter.BIN_ALIGNMENT_CENTER)
+
 
     def on_press(self, actor, event):
         """

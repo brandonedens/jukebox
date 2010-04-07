@@ -23,6 +23,7 @@
 ## Imports
 ###############################################################################
 
+from django.conf import settings
 import cairo
 import clutter
 import math
@@ -32,20 +33,19 @@ import math
 ## Constants
 ###############################################################################
 
-BLINK_RATE = 1000
-BLINK_OFF_OPACITY = 80
+BLINK_OFF_OPACITY = 150
 
-DEFAULT_ARROW_SIZE=150
+DEFAULT_SYMBOL_SIZE=150
 
 
 ###############################################################################
 ## Classes
 ###############################################################################
 
-class Arrow(clutter.Box):
+class Symbol(clutter.Box):
 
-    def __init__(self, width=DEFAULT_ARROW_SIZE):
-        super(Arrow, self).__init__(clutter.BinLayout(True, True))
+    def __init__(self, width=DEFAULT_SYMBOL_SIZE, color='solid'):
+        super(Symbol, self).__init__(clutter.BinLayout(True, True))
 
         self.set_width(width)
 
@@ -55,43 +55,143 @@ class Arrow(clutter.Box):
         cr.paint()
         cr.set_operator(cairo.OPERATOR_OVER)
         cr.arc(width/2, width/2, width/2, 0.0, 2*math.pi)
-#         pattern = cairo.SolidPattern(0.20, 0.20, 0.20, 0.9)
-#         cr.set_source(pattern)
-#         cr.fill_preserve()
-#         del pattern
-#         del cr
 
-        pattern = cairo.RadialGradient(width/2, width/2, 0,
-                                       width/2, width/2, width/2)
-        pattern.add_color_stop_rgba(0, 0.88, 0.95, 0.99, 0.1)
-        pattern.add_color_stop_rgba(0.6, 0.88, 0.95, 0.99, 0.1)
-        pattern.add_color_stop_rgba(0.8, 0.67, 0.83, 0.91, 0.2)
-        pattern.add_color_stop_rgba(0.9, 0.5, 0.67, 0.88, 0.7)
-        pattern.add_color_stop_rgba(1.0, 0.3, 0.43, 0.69, 0.8)
+        if color == 'solid':
+            pattern = cairo.SolidPattern(0.20, 0.20, 0.20, 0.9)
+            cr.set_source(pattern)
+            cr.fill_preserve()
+            del pattern
 
-        cr.set_source(pattern)
-        cr.fill_preserve()
+        elif color == 'bubble':
+            pattern = cairo.RadialGradient(width/2, width/2, 0,
+                                           width/2, width/2, width/2)
+            pattern.add_color_stop_rgba(0, 0.88, 0.95, 0.99, 0.1)
+            pattern.add_color_stop_rgba(0.6, 0.88, 0.95, 0.99, 0.1)
+            pattern.add_color_stop_rgba(0.8, 0.67, 0.83, 0.91, 0.2)
+            pattern.add_color_stop_rgba(0.9, 0.5, 0.67, 0.88, 0.7)
+            pattern.add_color_stop_rgba(1.0, 0.3, 0.43, 0.69, 0.8)
+            cr.set_source(pattern)
+            cr.fill_preserve()
+            del pattern
 
-        del pattern
+            pattern = cairo.LinearGradient(0, 0, width, width)
+            pattern.add_color_stop_rgba(0.0, 1.0, 1.0, 1.0, 0.0)
+            pattern.add_color_stop_rgba(0.15, 1.0, 1.0, 1.0, 0.95)
+            pattern.add_color_stop_rgba(0.3, 1.0, 1.0, 1.0, 0.0)
+            pattern.add_color_stop_rgba(0.7, 1.0, 1.0, 1.0, 0.95)
+            pattern.add_color_stop_rgba(1.0, 1.0, 1.0, 1.0, 0.0)
+            cr.set_source(pattern)
+            cr.fill()
+            del pattern
 
-        pattern = cairo.LinearGradient(0, 0, width, width)
-        pattern.add_color_stop_rgba(0.0, 1.0, 1.0, 1.0, 0.0)
-        pattern.add_color_stop_rgba(0.15, 1.0, 1.0, 1.0, 0.95)
-        pattern.add_color_stop_rgba(0.3, 1.0, 1.0, 1.0, 0.0)
-        pattern.add_color_stop_rgba(0.7, 1.0, 1.0, 1.0, 0.95)
-        pattern.add_color_stop_rgba(1.0, 1.0, 1.0, 1.0, 0.0)
+        elif color == 'blue':
+            pattern = cairo.RadialGradient(width/2, width/2, 0,
+                                           width/2, width/2, width/2)
+            pattern.add_color_stop_rgba(0, 0.22, 0.22, 0.99, 0.1)
+            pattern.add_color_stop_rgba(0.6, 0.22, 0.22, 0.88, 0.1)
+            pattern.add_color_stop_rgba(0.8, 0.22, 0.22, 0.67, 0.2)
+            pattern.add_color_stop_rgba(0.9, 0.22, 0.22, 0.55, 0.7)
+            pattern.add_color_stop_rgba(1.0, 0.22, 0.22, 0.44, 0.8)
+            cr.set_source(pattern)
+            cr.fill_preserve()
+            del pattern
 
-        cr.set_source(pattern)
-        cr.fill()
 
-        del pattern
+            pattern = cairo.RadialGradient(width/2, width/2, 0,
+                                           width/2, width/2, width/2)
+            pattern.add_color_stop_rgba(0.9, 0.22, 0.22, 0.99, 0.1)
+            pattern.add_color_stop_rgba(0.8, 0.22, 0.22, 0.88, 0.1)
+            pattern.add_color_stop_rgba(0.75, 0.22, 0.22, 0.67, 0.2)
+            pattern.add_color_stop_rgba(0.7, 0.22, 0.22, 0.55, 0.7)
+            pattern.add_color_stop_rgba(0.1, 0.22, 0.22, 0.44, 0.8)
+            cr.set_source(pattern)
+            cr.fill_preserve()
+            del pattern
+
+            pattern = cairo.LinearGradient(0, 0, width, width)
+            pattern.add_color_stop_rgba(0.0, 0.0, 0.0, 1.0, 0.0)
+            pattern.add_color_stop_rgba(0.15, 0.0, 0.0, 1.0, 0.95)
+            pattern.add_color_stop_rgba(0.3, 0.0, 0.0, 1.0, 0.0)
+            pattern.add_color_stop_rgba(0.7, 0.0, 0.0, 1.0, 0.95)
+            pattern.add_color_stop_rgba(1.0, 0.0, 0.0, 1.0, 0.0)
+            cr.set_source(pattern)
+            cr.fill()
+            del pattern
+
+        elif color == 'green':
+            pattern = cairo.RadialGradient(width/2, width/2, 0,
+                                           width/2, width/2, width/2)
+            pattern.add_color_stop_rgba(0, 0.22, 0.99, 0.22, 0.1)
+            pattern.add_color_stop_rgba(0.6, 0.22, 0.88, 0.22, 0.1)
+            pattern.add_color_stop_rgba(0.8, 0.22, 0.67, 0.22, 0.2)
+            pattern.add_color_stop_rgba(0.9, 0.22, 0.55, 0.22, 0.7)
+            pattern.add_color_stop_rgba(1.0, 0.22, 0.44, 0.22, 0.8)
+            cr.set_source(pattern)
+            cr.fill_preserve()
+            del pattern
+
+            pattern = cairo.RadialGradient(width/2, width/2, 0,
+                                           width/2, width/2, width/2)
+            pattern.add_color_stop_rgba(0.9, 0.22, 0.99, 0.22, 0.1)
+            pattern.add_color_stop_rgba(0.8, 0.22, 0.88, 0.22, 0.1)
+            pattern.add_color_stop_rgba(0.75, 0.22, 0.67, 0.22, 0.2)
+            pattern.add_color_stop_rgba(0.7, 0.22, 0.55, 0.22, 0.7)
+            pattern.add_color_stop_rgba(0.1, 0.22, 0.44, 0.22, 0.8)
+            cr.set_source(pattern)
+            cr.fill_preserve()
+            del pattern
+
+
+            pattern = cairo.LinearGradient(0, 0, width, width)
+            pattern.add_color_stop_rgba(0.0, 0.0, 1.0, 0.0, 0.0)
+            pattern.add_color_stop_rgba(0.15, 0.0, 1.0, 0.0, 0.95)
+            pattern.add_color_stop_rgba(0.3, 0.0, 1.0, 0.0, 0.0)
+            pattern.add_color_stop_rgba(0.7, 0.0, 1.0, 0.0, 0.95)
+            pattern.add_color_stop_rgba(1.0, 0.0, 1.0, 0.0, 0.0)
+            cr.set_source(pattern)
+            cr.fill()
+            del pattern
+
+        elif color == 'red':
+            pattern = cairo.RadialGradient(width/2, width/2, 0,
+                                           width/2, width/2, width/2)
+            pattern.add_color_stop_rgba(0, 0.99, 0.22, 0.22, 0.1)
+            pattern.add_color_stop_rgba(0.6, 0.88, 0.22, 0.22, 0.1)
+            pattern.add_color_stop_rgba(0.8, 0.67, 0.22, 0.22, 0.2)
+            pattern.add_color_stop_rgba(0.9, 0.55, 0.22, 0.22, 0.7)
+            pattern.add_color_stop_rgba(1.0, 0.44, 0.22, 0.22, 0.8)
+            cr.set_source(pattern)
+            cr.fill_preserve()
+            del pattern
+
+
+            pattern = cairo.RadialGradient(width/2, width/2, 0,
+                                           width/2, width/2, width/2)
+            pattern.add_color_stop_rgba(0.9, 0.99, 0.22, 0.22, 0.1)
+            pattern.add_color_stop_rgba(0.8, 0.88, 0.22, 0.22, 0.1)
+            pattern.add_color_stop_rgba(0.75, 0.67, 0.22, 0.22, 0.2)
+            pattern.add_color_stop_rgba(0.7, 0.55, 0.22, 0.22, 0.7)
+            pattern.add_color_stop_rgba(0.1, 0.44, 0.22, 0.22, 0.8)
+            cr.set_source(pattern)
+            cr.fill_preserve()
+            del pattern
+
+            pattern = cairo.LinearGradient(0, 0, width, width)
+            pattern.add_color_stop_rgba(0.0, 1.0, 0.0, 0.0, 0.0)
+            pattern.add_color_stop_rgba(0.15, 1.0, 0.0, 0.0, 0.95)
+            pattern.add_color_stop_rgba(0.3, 1.0, 0.0, 0.0, 0.0)
+            pattern.add_color_stop_rgba(0.7, 1.0, 0.0, 0.0, 0.95)
+            pattern.add_color_stop_rgba(1.0, 1.0, 0.0, 0.0, 0.0)
+            cr.set_source(pattern)
+            cr.fill()
+            del pattern
+
         del cr
-
 
         self.add(self.circle)
 
         # glowing timeline
-        self.timeline = clutter.Timeline(duration=BLINK_RATE)
+        self.timeline = clutter.Timeline(duration=settings.ARROW_BLINK_RATE)
         self.timeline.set_loop(True)
         self.alpha = clutter.Alpha(self.timeline, clutter.LINEAR)
         self.blink = clutter.BehaviourOpacity(alpha=self.alpha,
@@ -125,10 +225,10 @@ class Arrow(clutter.Box):
         else:
             self.timeline.set_direction(clutter.TIMELINE_FORWARD)
 
-class LeftArrow(Arrow):
+class LeftArrow(Symbol):
 
-    def __init__(self, width=DEFAULT_ARROW_SIZE):
-        super(LeftArrow, self).__init__()
+    def __init__(self, width=DEFAULT_SYMBOL_SIZE):
+        super(LeftArrow, self).__init__(width=width, color='red')
 
         self.arrow = clutter.CairoTexture(width, width)
         cr = self.arrow.cairo_create()
@@ -142,10 +242,10 @@ class LeftArrow(Arrow):
         del cr
         self.add(self.arrow)
 
-class RightArrow(Arrow):
+class RightArrow(Symbol):
 
-    def __init__(self, width=DEFAULT_ARROW_SIZE):
-        super(RightArrow, self).__init__()
+    def __init__(self, width=DEFAULT_SYMBOL_SIZE):
+        super(RightArrow, self).__init__(width=width, color='green')
 
         self.arrow = clutter.CairoTexture(width, width)
         cr = self.arrow.cairo_create()
@@ -159,4 +259,15 @@ class RightArrow(Arrow):
         del cr
         self.add(self.arrow)
 
+class BuySymbol(Symbol):
+
+    def __init__(self, width=DEFAULT_SYMBOL_SIZE):
+        super(BuySymbol, self).__init__(width=width, color='blue')
+
+        self.box = clutter.Box(clutter.BinLayout(clutter.BIN_ALIGNMENT_CENTER,
+                                                 clutter.BIN_ALIGNMENT_CENTER))
+        self.buy = clutter.Text('Router Ultra Bold 30', 'BUY')
+        self.buy.set_color(clutter.Color(255, 255, 255, 102))
+        self.box.add(self.buy)
+        self.add(self.box)
 

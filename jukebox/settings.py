@@ -61,6 +61,8 @@ if config.get('song_list_items'):
     SONG_LIST_ITEMS = config.get('song_list_items')
 
 # Rate of blinking, moving, highlighting (in milliseconds)
+if config.get('arrow_blink_rate'):
+    ARROW_BLINK_RATE = config.get('arrow_blink_rate')
 if config.get('blinking_text_rate'):
     BLINKING_TEXT_RATE = config.get('blinking_text_rate')
 if config.get('highlight_rate'):
