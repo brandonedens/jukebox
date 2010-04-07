@@ -70,14 +70,13 @@ void print_button(int button_value)
 void print_buttons()
 {
     Serial.print("Juke");
-    print_button(button_white);
     print_button(button_blue);
     print_button(button_green);
     print_button(button_purple);
-    print_button(button_yellow);
     print_button(button_red);
+    print_button(button_white);
+    print_button(button_yellow);
     print_button(coin);
-    delay(50);
 }
 
 void loop()
