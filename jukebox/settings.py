@@ -42,7 +42,9 @@ if config.get('media_root'):
 if config.get('log_jukebox_filename'):
     LOG_JUKEBOX_FILENAME = config.get('log_jukebox_filename')
 if config.get('log_jukebox_buttons_filename'):
-    LOG_JUKEBOX_FILENAME = config.get('log_jukebox_buttons_filename')
+    LOG_JUKEBOX_BUTTONS_FILENAME = config.get(
+        'log_jukebox_buttons_filename'
+        )
 if config.get('log_format'):
     LOG_FORMAT = config.get('log_format')
 
