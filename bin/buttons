@@ -8,6 +8,12 @@ import sys
 XDOTOOL = "/usr/bin/xdotool"
 DEFAULT_SERIAL = "/dev/ttyUSB0"
 
+def on_coin_drop():
+    """
+    Function for handling a coin drop.
+    """
+    print 'coin drop'
+
 def main():
     try:
         usb_port = sys.argv[1]
@@ -18,15 +24,19 @@ def main():
     ser.xonxoff = False
     ser.rtscts = False
 
-    last_buttons = []
-    ring = '           '
+    last_serial_input = []
+    ring = 'XXXXBGPRWYC'
     try:
+        # State of the buttons
         blue_state = 0
         green_state = 0
         purple_state = 0
         red_state = 0
         white_state = 0
         yellow_state = 0
+
+        # State of the coins
+        coin_state = 1
 
         while True:
             c = ser.read(1)
@@ -35,65 +45,64 @@ def main():
             ring = ring[1:] + c
             if ring[:4] != 'Juke':
                 continue
-            buttons = ring[4:]
+            serial_input = ring[4:]
 
             try:
-                blue = int(buttons[1])
-                green = int(buttons[2])
-                purple = int(buttons[3])
-                red = int(buttons[5])
-                white = int(buttons[0])
-                yellow = int(buttons[4])
+                blue = int(serial_input[0])
+                green = int(serial_input[1])
+                purple = int(serial_input[2])
+                red = int(serial_input[3])
+                white = int(serial_input[4])
+                yellow = int(serial_input[5])
+                coin = int(serial_input[6])
             except IndexError:
                 continue
             except ValueError:
                 continue
 
-            if buttons != last_buttons:
-                print buttons
-                last_buttons = buttons
+            if serial_input != last_serial_input:
+                last_serial_input = serial_input
 
             if blue_state != blue:
-                print "Return"
                 if blue == 1:
                     os.system("%s keydown Return" % XDOTOOL)
                 else:
                     os.system("%s keyup Return" % XDOTOOL)
 
             if green_state != green:
-                print 'Right'
                 if green == 1:
                     os.system("%s keydown Right" % XDOTOOL)
                 else:
                     os.system("%s keyup Right" % XDOTOOL)
 
             if purple_state != purple:
-                print "Up"
                 if purple == 1:
                     os.system("%s keydown Up" % XDOTOOL)
                 else:
                     os.system("%s keyup Up" % XDOTOOL)
 
             if red_state != red:
-                print "Left"
                 if red == 1:
                     os.system("%s keydown Left" % XDOTOOL)
                 else:
                     os.system("%s keyup Left" % XDOTOOL)
 
             if white_state != white:
-                print "BackSpace"
                 if white == 1:
                     os.system("%s keydown BackSpace" % XDOTOOL)
                 else:
                     os.system("%s keyup BackSpace" % XDOTOOL)
 
             if yellow_state != yellow:
-                print "Down"
                 if yellow == 1:
                     os.system("%s keydown Down" % XDOTOOL)
                 else:
                     os.system("%s keyup Down" % XDOTOOL)
+
+            if coin_state != coin:
+                if coin == 0:
+                    # Coin dropped into jukebox.
+                    on_coin_drop()
 
             blue_state = blue
             green_state = green
@@ -101,6 +110,8 @@ def main():
             red_state = red
             white_state = white
             yellow_state = yellow
+
+            coin_state = coin
 
     finally:
         ser.close()
