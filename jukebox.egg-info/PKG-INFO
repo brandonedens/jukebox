@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: jukebox
+Version: 0.1dev
+Summary: Jukebox software.
+Home-page: http://as220.org/git/gitweb/
+Author: Brandon Edens
+Author-email: brandon@as220.org
+License: GPL-3
+Description: Jukebox web and client software.
+Keywords: jukebox audio
+Platform: UNKNOWN
