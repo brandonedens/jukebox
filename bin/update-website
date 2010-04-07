@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rsync -auv --exclude *.deb --exclude jukebox/settings.py --exclude jukebox/dev.db* --exclude jukebox/static_media/music --exclude *.pyc /home/brandon/src/jukebox as220.org:./src/
+rsync -auv --exclude *.deb --exclude jukebox/settings.py --exclude jukebox/dev.db* --exclude jukebox/static_media/music --exclude *.pyc /home/brandon/src/jukebox/jukebox as220.org:./src/
 
