@@ -65,7 +65,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/brandon/src/jukebox/static_media'
+MEDIA_ROOT = '/home/brandon/src/jukebox/jukebox/static_media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -97,7 +97,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'jukebox.urls'
 
 TEMPLATE_DIRS = (
-    '/home/brandon/src/jukebox/templates',
+    '/home/brandon/src/jukebox/jukebox/templates',
 )
 
 INSTALLED_APPS = (
