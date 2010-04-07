@@ -23,6 +23,8 @@
 ## Imports
 ###############################################################################
 
+import hashlib
+
 from django.contrib.auth.models import User
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 from django.core.urlresolvers import reverse
@@ -260,7 +262,7 @@ class Song(models.Model):
     sample_frequency = models.PositiveIntegerField()
 
     # File specific information
-    digest = models.CharField(max_length=128, unique=True)
+    digest = models.CharField(max_length=128, unique=False, null=True)
 
     class Meta:
         permissions = (('can_review', 'Can review songs.'),)
@@ -308,7 +310,9 @@ class Song(models.Model):
         # Set sample frequency.
         self.sample_frequency = audio_file.getSampleFreq()
 
-        self.digest = self.digest_compute(self.file)
+        # FIXME this is temporarily disabled until we can figure out why it
+        # will not properly compute digests.
+        #self.digest = self.digest_compute(self.file)
 
         # Call parent save()
         super(Song, self).save()
@@ -337,7 +341,6 @@ class Song(models.Model):
     def digest_compute(cls, file):
         """
         """
-        import hashlib
         m = hashlib.sha512()
         m.update(file.read())
         return m.hexdigest()
