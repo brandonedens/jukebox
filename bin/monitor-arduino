@@ -17,13 +17,8 @@ def main():
     ser.xonxoff = False
     ser.rtscts = False
 
-    ring = '           '
+    ring = 'XXXXBGPRWYC'
     try:
-        red_state = 0
-        blue_state = 0
-        green_state = 0
-        purple_state = 0
-        yellow_state = 0
         last_tick = time.time()
 
         while True:
@@ -33,21 +28,25 @@ def main():
             ring = ring[1:] + c
             if ring[:4] != 'Juke':
                 continue
-            buttons = ring[4:]
+
+            print 'XXXXBGPRWYC'
+            print ring
+            print ''
+
+            serial_input = ring[4:]
 
             try:
-                white = int(buttons[0])
-                blue = int(buttons[1])
-                green = int(buttons[2])
-                purple = int(buttons[3])
-                yellow = int(buttons[4])
-                red = int(buttons[5])
+                blue = int(serial_input[0])
+                green = int(serial_input[1])
+                purple = int(serial_input[2])
+                red = int(serial_input[3])
+                white = int(serial_input[4])
+                yellow = int(serial_input[5])
+                coin = int(serial_input[6])
             except IndexError:
                 continue
             except ValueError:
                 continue
-
-            print buttons
 
     finally:
         ser.close()
