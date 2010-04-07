@@ -30,6 +30,7 @@ import hashlib
 import logging
 import shutil
 import sqlite3
+import MySQLdb
 import sys
 
 from glob import glob
@@ -147,7 +148,10 @@ def load_file(filename):
             try:
                 artist.save()
             except sqlite3.IntegrityError as e:
-                logging.error("The artist %s had sqlite integrity errors." % artist)
+                logging.error("The artist %s had integrity errors." % artist)
+                logging.error(e)
+            except MySQLdb.IntegrityError as e:
+                logging.error("The artist %s had integrity errors." % artist)
                 logging.error(e)
             song.artist = artist
     else:
@@ -188,6 +192,10 @@ def load_file(filename):
     try:
         song.save()
     except sqlite3.IntegrityError as e:
+        logging.error("Song %s had integrity errors." % song)
+        logging.error(e)
+        return
+    except MySQLdb.IntegrityError as e:
         logging.error("Song %s had integrity errors." % song)
         logging.error(e)
         return
