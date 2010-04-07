@@ -53,7 +53,7 @@ def main():
     """
     Main function.
     """
-    # Setup logging for audio interface.
+    # Setup logging.
     logging.basicConfig(filename=settings.LOG_JUKEBOX_FILENAME,
                         level=logging.DEBUG,
                         format=settings.LOG_FORMAT)
