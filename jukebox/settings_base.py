@@ -150,10 +150,27 @@ SONGS_PER_PAGE = 6
 ## Client related settings
 ################################################################################
 
+LOG_FILENAME = '/tmp/jukebox.log'
+LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
 FULLSCREEN = True
 SCREEN_WIDTH = 1366
 SCREEN_HEIGHT = 768
 
-LOG_FILENAME = '/tmp/jukebox.log'
-LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+ARTIST_LIST_ITEMS = 10
+SONG_LIST_ITEMS = 10
+
+BLINKING_TEXT_RATE = 800
+HIGHLIGHT_RATE = 600
+SCREEN_SLIDE_RATE = 300
+
+HEADER_TITLE_FONT = 'Router Bold 50'
+LOGO_AS220_LARGE_FONT = 'Helvetica75Outline Bold 120'
+LOGO_JUKEBOX_LARGE_FONT = 'Router Ultra-Bold Italic 55'
+LOGO_AS220_SMALL_FONT = 'Helvetica75Outline Bold 50'
+LOGO_JUKEBOX_SMALL_FONT = 'Router Ultra-Bold Italic 20'
+SCROLLING_TEXT_FONT = 'Router Bold Italic 40'
+SONG_ARTIST_FONT = 'Router Bold Italic 30'
+SONG_TITLE_FONT = 'Router Bold 70'
+
 
