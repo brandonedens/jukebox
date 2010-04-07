@@ -4,6 +4,7 @@
 {% block css %}
 {{ super.block }}
 <link href="{{ MEDIA_URL }}css/table.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/review/base.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block js %}
@@ -27,6 +28,8 @@
       <th>Uploaded on</th>
       <th>Review</th>
       <th>Play</th>
+      <th>User</th>
+      <th>Firstname Lastname</th>
     </tr>
   </thead>
   <tbody>
@@ -48,6 +51,8 @@
           <param name="wmode" value="transparent">
         </object>
       </td>
+      <td><a>{{ song.artist.user }}</a></td>
+      <td><a>{{ song.artist.user.first_name }} {{song.artist.user.last_name }}</a></td>
     </tr>
     {% endfor %}
   </tbody>
