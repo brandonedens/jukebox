@@ -73,6 +73,8 @@ if config.get('screen_slide_rate'):
     SCREEN_SLIDE_RATE = config.get('screen_slide_rate')
 
 # Font settings
+if config.get('front_screen_font'):
+    FRONT_SCREEN_FONT = config.get('front_screen_font')
 if config.get('header_title_font'):
     HEADER_TITLE_FONT = config.get('header_title_font')
 if config.get('logo_large_as220_font'):

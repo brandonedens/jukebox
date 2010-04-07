@@ -23,6 +23,7 @@
 ## Imports
 ###############################################################################
 
+from django.conf import settings
 import clutter
 import logging
 
@@ -44,7 +45,6 @@ ARROW_SIZE = 150
 BLINK_RATE = 800
 HIGHLIGHT_RATE = 600
 
-FONT = 'Router Bold Italic 64'
 FONT_COLOR = clutter.Color(200, 200, 200)
 FONT_OPACITY = 80
 
@@ -69,8 +69,8 @@ class FrontScreen(Screen):
                     clutter.BOX_ALIGNMENT_CENTER)
 
         self.labels = (
-            clutter.Text(FONT, 'songs'),
-            clutter.Text(FONT, 'artists'),
+            clutter.Text(settings.FRONT_SCREEN_FONT, 'songs'),
+            clutter.Text(settings.FRONT_SCREEN_FONT, 'artists'),
             )
 
         self.selected = self.labels[0]
