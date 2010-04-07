@@ -7,7 +7,7 @@ export PYTHONPATH = $(shell echo "$$PYTHONPATH"):./jukebox
 all: clean-pyc check test
 
 check:
-	@$(PYTHON) utils/check_sources.py -i jukebox/manage.py -i lib -i debian -i build -i tests/coverage.py .
+	@$(PYTHON) utils/check_sources.py -i jukebox/manage.py -i jukebox/registration -i lib -i debian -i build -i tests/coverage.py .
 
 clean: clean-pyc clean-patchfiles
 
