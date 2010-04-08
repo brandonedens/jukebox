@@ -76,9 +76,17 @@ def main():
 
             track_to_play = tracks[0]
             set_playing(track_to_play.song)
-            subprocess.call([MP3_PLAYER,
-                             "-o", "esd",
-                             str(track_to_play.song.file)])
+
+            logging.info("Now playing song %s" % track_to_play.song)
+            returncode = subprocess.call([MP3_PLAYER,
+                                          "-o", "esd",
+                                          str(track_to_play.song.file)])
+            if returncode != 0:
+                logging.warning("Receiving error code %d from mp3 player."
+                                % returncode)
+
+            logging.info("Finished playing song %s" % track_to_play.song)
+
 
             # Move the file lock for the playing file to the last song played.
             stop_playing()
@@ -107,5 +115,21 @@ def main():
 ###############################################################################
 
 if __name__ == '__main__':
-    main()
+    # Setup logging.
+    logging.basicConfig(filename=settings.LOG_PLAYER_FILENAME,
+                        level=logging.DEBUG,
+                        format=settings.LOG_FORMAT)
+    consolehandler = logging.StreamHandler()
+    consolehandler.setLevel( logging.DEBUG )
+    formatter = logging.Formatter(settings.LOG_FORMAT)
+    consolehandler.setFormatter(formatter)
+    logging.getLogger( '' ).addHandler( consolehandler )
+    logging.info('Starting jukebox player software.')
+    try:
+        main()
+    except KeyboardInterrupt:
+        # Keyboard interrupt so its time to shutdown software.
+        logging.debug('Keyboard interrupt so shut down software.')
+    logging.info('Shutting down jukebox player software.')
+
 
