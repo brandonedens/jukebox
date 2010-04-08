@@ -68,7 +68,7 @@ class SongListScreen(Screen):
 
         layout.add(self.songs,
                    clutter.BIN_ALIGNMENT_CENTER,
-                   clutter.BIN_ALIGNMENT_CENTER)
+                   clutter.BIN_ALIGNMENT_END)
 
         layout.add(self.left_arrow,
                    clutter.BIN_ALIGNMENT_START,
@@ -124,7 +124,8 @@ class SongDetailScreen(Screen):
         text.set_color(clutter.Color(210, 210, 210, 0xff))
         self.box.add(text)
         self.box.set_width(self.get_width() -
-                           (self.left_arrow.get_width()))
+                           (self.left_arrow.get_width() +
+                            self.buy.get_width()))
 
 
         layout.add(self.box,

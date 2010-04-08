@@ -74,7 +74,7 @@ class ArtistListScreen(Screen):
 
         layout.add(self.artists,
                    clutter.BIN_ALIGNMENT_CENTER,
-                   clutter.BIN_ALIGNMENT_CENTER)
+                   clutter.BIN_ALIGNMENT_END)
 
         layout.add(self.left_arrow,
                    clutter.BIN_ALIGNMENT_START,
@@ -127,7 +127,7 @@ class ArtistDetailScreen(Screen):
             self.songs.set_height(self.get_height() - self.header.get_height())
             layout.add(self.songs,
                        clutter.BIN_ALIGNMENT_CENTER,
-                       clutter.BIN_ALIGNMENT_CENTER)
+                       clutter.BIN_ALIGNMENT_END)
             layout.add(self.right_arrow,
                        clutter.BIN_ALIGNMENT_END,
                        clutter.BIN_ALIGNMENT_CENTER)
