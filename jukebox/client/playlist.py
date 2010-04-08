@@ -58,7 +58,8 @@ def next_song():
     """
     song = None
     if QueuedPlay.objects.count() > 0:
-        song = QueuedPlay.objects.all()[0]
+        queued_play = QueuedPlay.objects.all()[0]
+        song = queued_play.song
     return song
 
 def now_playing():
