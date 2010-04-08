@@ -62,6 +62,10 @@ class GUI(clutter.Box):
         if event.keyval == clutter.keysyms.Escape:
             logging.info('Escape button pressed. Quitting jukebox.')
             clutter.main_quit()
+        elif event.keyval == clutter.keysyms.space:
+            logging.info('Space button pressed. Rereading credits.')
+            jukebox.credits_load()
+            # FIXME update credits information.
         self.screen_container.on_press(actor, event)
 
     def on_release(self, actor, event):
@@ -72,3 +76,10 @@ class GUI(clutter.Box):
         """
         pass
 
+    def on_second(self):
+        """
+        Callback heartbeat tick that arrives each second.
+        """
+        logging.debug('GUI one second heartbeat.')
+        self.screen_container.on_second()
+        return True

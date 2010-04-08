@@ -28,11 +28,12 @@ from pango import ALIGN_CENTER
 import clutter
 import logging
 
-from jukebox.music.models import Song
+from jukebox.music.models import Song, QueuedPlay
 
-from symbols import BuySymbol, LeftArrow, RightArrow
 from header import Header
+from main import jukebox
 from screens import Screen, BlinkingText, ScrollingText
+from symbols import BuySymbol, LeftArrow, RightArrow
 
 
 ###############################################################################
@@ -64,7 +65,6 @@ class SongListScreen(Screen):
                              (self.left_arrow.get_width() +
                               self.right_arrow.get_width()))
         self.songs.set_height(self.get_height() - self.header.get_height())
-        logging.debug("Songs height = %s" % self.songs.get_height())
 
         layout.add(self.songs,
                    clutter.BIN_ALIGNMENT_CENTER,
@@ -77,6 +77,11 @@ class SongListScreen(Screen):
         layout.add(self.right_arrow,
                    clutter.BIN_ALIGNMENT_END,
                    clutter.BIN_ALIGNMENT_CENTER)
+
+    def on_second(self):
+        """
+        """
+        pass
 
     def on_press(self, actor, event):
         """
@@ -146,4 +151,8 @@ class SongDetailScreen(Screen):
         """
         if event.keyval == clutter.keysyms.Left:
             self.get_parent().remove_screen(self)
+        elif event.keyval == clutter.keysyms.Return:
+            jukebox.credits_decrement()
+            print 'buy song'
+
 

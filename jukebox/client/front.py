@@ -27,13 +27,13 @@ from django.conf import settings
 import clutter
 import logging
 
+from artists import ArtistListScreen
+from credits import Credits
+from genres import GenreListScreen
 from logo import LogoLarge
 from screens import Screen
-from symbols import RightArrow
-
 from songs import SongListScreen
-from artists import ArtistListScreen
-from genres import GenreListScreen
+from symbols import RightArrow
 
 
 ###############################################################################
@@ -56,17 +56,32 @@ FONT_OPACITY = 80
 class FrontScreen(Screen):
 
     def __init__(self):
-        super(FrontScreen, self).__init__(clutter.BoxLayout())
-
+        super(FrontScreen, self).__init__(
+            clutter.BinLayout(clutter.BIN_ALIGNMENT_CENTER,
+                              clutter.BIN_ALIGNMENT_CENTER)
+            )
         layout = self.get_layout_manager()
-        layout.set_use_animations(True)
-        layout.set_vertical(True)
-        layout.set_spacing(20)
 
-        self.logo = LogoLarge()
-        layout.pack(self.logo, True, False, False,
-                    clutter.BOX_ALIGNMENT_CENTER,
-                    clutter.BOX_ALIGNMENT_CENTER)
+        self.credits = Credits()
+        layout.add(self.credits,
+                   clutter.BIN_ALIGNMENT_START,
+                   clutter.BIN_ALIGNMENT_END)
+
+        self.right_arrow = RightArrow()
+        layout.add(self.right_arrow,
+                   clutter.BIN_ALIGNMENT_END,
+                   clutter.BIN_ALIGNMENT_CENTER)
+
+        self.boxed_contents = clutter.Box(clutter.BoxLayout())
+        box_layout = self.boxed_contents.get_layout_manager()
+        box_layout.set_use_animations(True)
+        box_layout.set_vertical(True)
+        box_layout.set_spacing(100)
+
+        self.header = LogoLarge()
+        box_layout.pack(self.header, True, False, False,
+                        clutter.BOX_ALIGNMENT_CENTER,
+                        clutter.BOX_ALIGNMENT_CENTER)
 
         self.labels = (
             clutter.Text(settings.FRONT_SCREEN_FONT, 'songs'),
@@ -79,21 +94,15 @@ class FrontScreen(Screen):
             label.set_color(FONT_COLOR)
             label.set_opacity(FONT_OPACITY)
             label.set_property('scale-gravity', clutter.GRAVITY_CENTER)
-            layout.pack(label, True, False, False,
-                        clutter.BOX_ALIGNMENT_CENTER,
-                        clutter.BOX_ALIGNMENT_CENTER)
+            box_layout.pack(label, True, False, False,
+                            clutter.BOX_ALIGNMENT_CENTER,
+                            clutter.BOX_ALIGNMENT_CENTER)
 
-        self.set_color(clutter.Color(0, 0, 0, 225))
-        #self.set_color(clutter.Color(90, 0, 0, 200))
+        layout.add(self.boxed_contents,
+                   clutter.BIN_ALIGNMENT_CENTER,
+                   clutter.BIN_ALIGNMENT_START)
+
         self.highlight(self.selected)
-
-        self.right_arrow = RightArrow(ARROW_SIZE)
-        self.add(self.right_arrow)
-
-        self.right_arrow.set_position(self.get_width() - ARROW_SIZE,
-                                      self.get_height()/2 - ARROW_SIZE/2,
-                                      )
-        self.right_arrow.blink_on()
 
     def on_timeline_completed(self, timeline, behaviour):
         """

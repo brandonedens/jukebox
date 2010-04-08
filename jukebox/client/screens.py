@@ -50,6 +50,10 @@ class Screen(clutter.Box):
                       settings.SCREEN_HEIGHT)
         self.desired_x = 0
 
+        # Set variables that relate to all screens.
+        self.credits = None
+        self.footer = None
+
     def set_x(self, value):
         super(Screen, self).set_x(value)
         self.desired_x = value
@@ -77,6 +81,12 @@ class Screen(clutter.Box):
         """
         logging.warning("on_press called for generic Screen.")
 
+    def on_second(self):
+        """
+        Callback that is called each second.
+        """
+        pass
+
 class ScreenContainer(clutter.Box):
     """
     A container for screens.
@@ -92,11 +102,19 @@ class ScreenContainer(clutter.Box):
         self.screens = []
         self.active_screen = None
 
-    def on_press(self, actor, event):
+    def add_screen(self, screen, offscreen=None):
         """
-        Pass keypresses off to the active screen.
+        Add a screen to the current list of screens.
         """
-        self.active_screen.on_press(actor, event)
+        self.screens.append(screen)
+        self.add(screen)
+        if offscreen == 'right':
+            screen.set_x(settings.SCREEN_WIDTH)
+        elif offscreen == 'left':
+            screen.set_x(-settings.SCREEN_WIDTH)
+        else:
+            screen.set_position(0, 0)
+        return screen
 
     def clear_screens(self, current_screen):
         """
@@ -136,6 +154,18 @@ class ScreenContainer(clutter.Box):
             self.active_screen = self.add_screen(new_screen, 'right')
             self.active_screen.slide_left()
 
+    def on_press(self, actor, event):
+        """
+        Pass keypresses off to the active screen.
+        """
+        self.active_screen.on_press(actor, event)
+
+    def on_second(self):
+        """
+        One second tick.
+        """
+        self.active_screen.on_second()
+
     def remove_screen(self, screen):
         """
         Remove a screen which really means sliding the current screen out of
@@ -146,21 +176,6 @@ class ScreenContainer(clutter.Box):
         self.active_screen.slide_right()
         self.active_screen = self.screens[self.screens.index(screen) - 1]
         self.active_screen.slide_right()
-
-    def add_screen(self, screen, offscreen=None):
-        """
-        Add a screen to the current list of screens.
-        """
-        self.screens.append(screen)
-        self.add(screen)
-        if offscreen == 'right':
-            screen.set_x(settings.SCREEN_WIDTH)
-        elif offscreen == 'left':
-            screen.set_x(-settings.SCREEN_WIDTH)
-        else:
-            screen.set_position(0, 0)
-        return screen
-
 
 class BlinkingText(clutter.Text):
     """

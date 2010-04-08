@@ -31,6 +31,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
 
 from django.conf import settings
 import clutter
+import gobject
 import logging
 import signal
 import sys
@@ -64,7 +65,6 @@ def main():
     logging.getLogger( '' ).addHandler( consolehandler )
 
     logging.info("Starting Jukebox.")
-    gui = GUI()
     signal.signal(signal.SIGINT, signal_handler)
     stage = clutter.Stage()
     stage.hide_cursor()
@@ -74,11 +74,15 @@ def main():
         stage.set_fullscreen(True)
     stage.set_color(clutter.Color(0x00, 0x00, 0x00, 0xff))
 
+    # Create the GUI
+    gui = GUI()
+
     # Connect listeners
     stage.connect('destroy', clutter.main_quit)
     stage.connect('key-press-event', gui.on_press)
     stage.connect('key-release-event', gui.on_release)
     stage.add(gui)
+    gobject.timeout_add_seconds(1, gui.on_second)
     stage.show()
     clutter.main()
     logging.info("Stopping Jukebox.")

@@ -26,15 +26,8 @@
 from django.conf import settings
 import clutter
 import logging
-
-from jukebox.music.models import Song
-
-from front import FrontScreen
-
-
-###############################################################################
-## Constants
-###############################################################################
+import os
+import shutil
 
 
 ###############################################################################
@@ -55,30 +48,43 @@ class Jukebox(object):
         self.admin_mode = False
         self.playing = None
 
-    def decrement_credits(self):
-        current_credits = read_credits()
-        current_credits -= 1
-        if current_credits < 0:
-            # current credits cannot go below 0
-            current_credits = 0
-        fh = open(settings.CREDITS_FILENAME, 'w')
-        fh.write("%d\n" % current_credits())
-        fh.close()
-        self.credits = current_credits
+        self.credits_load()
 
-    def read_credits(self):
-        current_credits = 0
+    def credits_decrement(self):
+        if self.credits > 0:
+            self.credits -= 1
+        fh = open(settings.CREDITS_FILENAME, 'w')
+        fh.write("%d\n" % self.credits)
+        fh.close()
+
+    def credits_update(self):
+        """
+        """
+        fh = open(settings.CREDITS_FILENAME+'.tmp', 'w')
+        fh.write("%d\n" % self.credits)
+        fh.close()
+        shutil.move(settings.CREDITS_FILENAME+'.tmp', settings.CREDITS_FILENAME)
+
+    def credits_load(self):
+        tmp_credits = 0
         if os.path.isfile(settings.CREDITS_FILENAME):
             fh = open(settings.CREDITS_FILENAME, 'r')
             try:
-                current_credits = int(fh.readline())
+                tmp_credits = int(fh.readline())
             except ValueError:
                 # Error reading the current credits value. Reset the system
                 # back to 0.
                 pass
             fh.close()
-        self.credits = current_credits
-        return current_credits
+        self.credits = tmp_credits
+        return self.credits
+
+    def on_second(self):
+        """
+        Callback heartbeat tick that arrives each second.
+        """
+        logging.debug('One second heartbeat.')
+        return True
 
 
 ###############################################################################
