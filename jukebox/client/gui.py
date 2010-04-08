@@ -27,6 +27,7 @@ from django.conf import settings
 import clutter
 import logging
 
+from credits import credits_load
 from screens import ScreenContainer
 from footer import footer
 from front import FrontScreen
@@ -78,7 +79,7 @@ class GUI(clutter.Box):
         elif event.keyval == clutter.keysyms.space:
             logging.debug('Space button pressed which means credit insert.')
             logging.info('Reading new credits value.')
-            jukebox.credits_load()
+            credits_load()
             self.screen_container.update_screens()
         elif event.keyval == clutter.keysyms.d:
             logging.debug('Displaying footer.')
