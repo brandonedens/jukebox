@@ -184,9 +184,9 @@ SCREEN_SLIDE_RATE = 300
 TRANSIENT_MESSAGE_FADE_RATE = 2000
 
 CREDITS_FONT = 'Router Bold 30'
-FOOTER_ARTIST_FONT = 'Router Bold Italic 20'
-FOOTER_SONG_FONT = 'Router Bold Italic 20'
-FOOTER_FONT = 'Router Bold Italic 20'
+FOOTER_ARTIST_FONT = 'Router Bold Italic 40'
+FOOTER_SONG_FONT = 'Router Bold Italic 50'
+FOOTER_FONT = 'Router Bold Italic 40'
 FRONT_SCREEN_FONT = 'Router Bold Italic 64'
 HEADER_TITLE_FONT = 'Router Bold 50'
 LOGO_AS220_LARGE_FONT = 'Helvetica75Outline Bold 120'
