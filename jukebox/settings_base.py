@@ -159,8 +159,10 @@ CREDITS_FILENAME = '/var/lib/jukebox/credits.txt'
 PLAYING_FILENAME = '/var/lib/jukebox/playing.txt'
 LAST_SONG_FILENAME = '/var/lib/jukebox/last_song.txt'
 
+LOG_BUTTONS_FILENAME = '/var/log/jukebox/buttons.log'
 LOG_JUKEBOX_FILENAME = '/var/log/jukebox/jukebox.log'
-LOG_JUKEBOX_BUTTONS_FILENAME = '/var/log/jukebox/buttons.log'
+LOG_PLAYER_FILENAME = '/var/log/jukebox/player.log'
+LOG_RANDOM_FILENAME = '/var/log/jukebox/random.log'
 LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 # The min/max (in seconds) to wait before a random play.

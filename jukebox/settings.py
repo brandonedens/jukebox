@@ -47,14 +47,18 @@ if config.get('last_song_filename'):
     LAST_SONG_FILENAME = config.get('last_song_filename')
 
 # Logging settings
-if config.get('log_jukebox_filename'):
-    LOG_JUKEBOX_FILENAME = config.get('log_jukebox_filename')
-if config.get('log_jukebox_buttons_filename'):
-    LOG_JUKEBOX_BUTTONS_FILENAME = config.get(
-        'log_jukebox_buttons_filename'
-        )
 if config.get('log_format'):
     LOG_FORMAT = config.get('log_format')
+
+if config.get('log_buttons_filename'):
+    LOG_BUTTONS_FILENAME = config.get('log_buttons_filename')
+if config.get('log_jukebox_filename'):
+    LOG_JUKEBOX_FILENAME = config.get('log_jukebox_filename')
+if config.get('log_player_filename'):
+    LOG_PLAYER_FILENAME = config.get('log_player_filename')
+if config.get('log_random_filename'):
+    LOG_RANDOM_FILENAME = config.get('log_random_filename')
+
 
 # Random play values
 if config.get('random_sleep_min'):
