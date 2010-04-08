@@ -240,7 +240,7 @@ def xdotool(keystroke, button):
 
 if __name__ == '__main__':
     # Setup logging.
-    logging.basicConfig(filename=settings.LOG_JUKEBOX_BUTTONS_FILENAME,
+    logging.basicConfig(filename=settings.LOG_BUTTONS_FILENAME,
                         level=logging.DEBUG,
                         format=settings.LOG_FORMAT)
     consolehandler = logging.StreamHandler()
