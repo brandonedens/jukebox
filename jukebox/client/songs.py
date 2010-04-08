@@ -31,11 +31,11 @@ import logging
 from jukebox.music.models import Song, QueuedPlay
 
 from header import Header
-from main import jukebox
 from screens import Screen, BlinkingText, ScrollingText
 from symbols import BuySymbol, LeftArrow, RightArrow
 from transient_message import transient_message
-
+from credits import can_buy_song, credits_decrement
+from playlist import queue_song
 
 ###############################################################################
 ## Classes
@@ -155,8 +155,10 @@ class SongDetailScreen(Screen):
         if event.keyval == clutter.keysyms.Left:
             self.get_parent().remove_screen(self)
         elif event.keyval == clutter.keysyms.Return:
-            if jukebox.can_buy_song():
-                jukebox.song_buy(self.song)
+            if can_buy_song():
+                logging.info('User bought song %s.' % self.song)
+                queue_song(self.song)
+                credits_decrement()
                 transient_message.message('Bought song %s' % self.song,
                                           color=clutter.Color(40, 250, 40))
                 self.header.update()

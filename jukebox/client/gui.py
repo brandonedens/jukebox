@@ -28,6 +28,7 @@ import clutter
 import logging
 
 from screens import ScreenContainer
+from footer import footer
 from front import FrontScreen
 from transient_message import transient_message
 
@@ -57,6 +58,7 @@ class GUI(clutter.Box):
         self.screen_container.active_screen = front
 
         self.transient_message = transient_message
+        self.footer = footer
         self.add(transient_message)
 
     def on_press(self, actor, event):
@@ -71,6 +73,9 @@ class GUI(clutter.Box):
             logging.info('Reading new credits value.')
             jukebox.credits_load()
             self.screen_container.update_screens()
+        elif event.keyval == clutter.keysyms.d:
+            logging.debug('Displaying footer.')
+            self.footer.display()
         self.screen_container.on_press(actor, event)
 
     def on_release(self, actor, event):

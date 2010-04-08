@@ -1,5 +1,5 @@
 # Brandon Edens
-# 2010-03-26
+# 2010-04-08
 # Copyright (C) 2010 Brandon Edens <brandon@as220.org>
 #
 # This file is part of jukebox.
@@ -24,46 +24,70 @@
 ###############################################################################
 
 from django.conf import settings
-import clutter
 import logging
-import os
 
 from jukebox.music.models import Song, QueuedPlay
 
 
 ###############################################################################
-## Classes
+## Functions
 ###############################################################################
 
-class Jukebox(object):
+def has_next_song():
     """
+    Return True or False depending upon whether or not a next song will
+    play.
     """
-
-    def __init__(self):
-        """
-        """
-        super(Jukebox, self).__init__()
-
-        # Setup initial variables.
-        self.credits = 0
-        self.admin_mode = False
-
-        self.credits_load()
-
-
-    def on_second(self):
-        """
-        Callback heartbeat tick that arrives each second.
-        """
-        logging.debug('One second heartbeat.')
+    if next_song():
         return True
+    else:
+        return False
 
+def is_now_playing():
+    """
+    Return True or False depending upon whether or not a song is currently
+    being played.
+    """
+    if now_playing():
+        return True
+    else:
+        return False
 
+def next_song():
+    """
+    """
+    song = None
+    if QueuedPlay.objects.count() > 0:
+        song = QueuedPlay.objects.all()[0]
+    return song
 
-###############################################################################
-## Statements
-###############################################################################
+def now_playing():
+    """
+    """
+    song = None
+    song = playing_load()
+    return song
 
-# Create a single jukebox object.
-#jukebox = Jukebox()
+def playing_load():
+    """
+    Load the playing information from the filesystem. Return the song
+    object associated with the playing song.
+    """
+    song = None
+    try:
+        fh = open(settings.PLAYING_FILENAME, 'r')
+        song_id = fh.readline()
+        fh.close()
+        song = Song(pk=song_id)
+    except IOError:
+        pass
+    return song
+
+def queue_song(song):
+    """
+    Queue the given song.
+    """
+    # Queue up the song to play
+    queued_play = QueuedPlay(song=song)
+    queued_play.save()
 

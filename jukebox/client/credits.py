@@ -26,8 +26,8 @@
 from django.conf import settings
 import clutter
 import os
-
-from main import jukebox
+import shutil
+import tempfile
 
 
 ###############################################################################
@@ -52,8 +52,8 @@ class Credits(clutter.Box):
         self.credits_text = clutter.Text(settings.CREDITS_FONT, 'Credits:')
         self.credits_text.set_color(FONT_COLOR)
 
-        self.previous_credits = jukebox.credits
-        self.credits = clutter.Text(settings.CREDITS_FONT, jukebox.credits)
+        self.previous_credits = credits_load()
+        self.credits = clutter.Text(settings.CREDITS_FONT, credits_load())
         self.credits.set_property('scale-gravity', clutter.GRAVITY_CENTER)
         self.credits.set_color(clutter.Color(255, 255, 255, 230))
 
@@ -68,12 +68,53 @@ class Credits(clutter.Box):
         """
         Update the credits information.
         """
-        if jukebox.credits != self.previous_credits:
-            self.credits.set_text("%d" % jukebox.credits)
+        credits = credits_load()
+        if credits != self.previous_credits:
+            self.credits.set_text("%d" % credits)
             self.credits.set_scale(1.3, 1.3)
             self.credits.animate(clutter.LINEAR, settings.HIGHLIGHT_RATE,
                                  "scale-x", 1,
                                  "scale-y", 1,
                                  )
-            self.previous_credits = jukebox.credits
+            self.previous_credits = credits
+
+###############################################################################
+## Functions
+###############################################################################
+
+def can_buy_song():
+    """
+    Returns true or false if the user can buy a song.
+    """
+    if credits_load() > 0:
+        return True
+    return False
+
+def credits_decrement():
+    credits = credits_load()
+    if credits > 0:
+        credits -= 1
+    credits_save(credits)
+
+def credits_save(value):
+    """
+    """
+    tmpfile = tempfile.NamedTemporaryFile()
+    tmpfile.write("%d\n" % value)
+    tmpfile.flush()
+    shutil.copy(tmpfile.name, settings.CREDITS_FILENAME)
+    tmpfile.close()
+
+def credits_load():
+    tmp_credits = 0
+    if os.path.isfile(settings.CREDITS_FILENAME):
+        fh = open(settings.CREDITS_FILENAME, 'r')
+        try:
+            tmp_credits = int(fh.readline())
+        except ValueError:
+            # Error reading the current credits value. Reset the system
+            # back to 0.
+            pass
+        fh.close()
+    return tmp_credits
 
