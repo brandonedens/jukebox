@@ -34,6 +34,7 @@ from header import Header
 from main import jukebox
 from screens import Screen, BlinkingText, ScrollingText
 from symbols import BuySymbol, LeftArrow, RightArrow
+from transient_message import transient_message
 
 
 ###############################################################################
@@ -100,7 +101,9 @@ class SongDetailScreen(Screen):
         super(SongDetailScreen, self).__init__(clutter.BinLayout(
             clutter.BIN_ALIGNMENT_CENTER,
             clutter.BIN_ALIGNMENT_CENTER))
-        self.set_name('song detail %s' % song.title)
+        # Immediately store song information
+        self.song = song
+        self.set_name('song detail %s' % self.song.title)
         layout = self.get_layout_manager()
 
         self.header = Header('Song Details')
@@ -116,13 +119,13 @@ class SongDetailScreen(Screen):
         box_layout = self.box.get_layout_manager()
         box_layout.set_vertical(True)
         box_layout.set_spacing(20)
-        text = clutter.Text(settings.SONG_TITLE_FONT, song.title)
+        text = clutter.Text(settings.SONG_TITLE_FONT, self.song.title)
         text.set_line_alignment(ALIGN_CENTER)
         text.set_line_wrap(True)
         text.set_color(clutter.Color(230, 230, 230, 0xff))
         self.box.add(text)
         text = clutter.Text(
-            settings.SONG_ARTIST_FONT, "by %s" % song.artist.name
+            settings.SONG_ARTIST_FONT, "by %s" % self.song.artist.name
             )
         text.set_line_alignment(ALIGN_CENTER)
         text.set_line_wrap(True)
@@ -152,7 +155,17 @@ class SongDetailScreen(Screen):
         if event.keyval == clutter.keysyms.Left:
             self.get_parent().remove_screen(self)
         elif event.keyval == clutter.keysyms.Return:
-            jukebox.credits_decrement()
-            print 'buy song'
+            if jukebox.can_buy_song():
+                jukebox.song_buy(self.song)
+                transient_message.message('Bought song %s' % self.song,
+                                          color=clutter.Color(40, 250, 40))
+                self.header.update()
+            else:
+                transient_message.message('Insert Quarter!',
+                                          color=clutter.Color(250, 40, 40))
 
+    def update(self):
+        """
+        """
+        self.header.update()
 

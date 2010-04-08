@@ -175,3 +175,9 @@ class FrontScreen(Screen):
             elif self.selected.get_text() == 'artists':
                 self.get_parent().new_screen(ArtistListScreen())
 
+    def update(self):
+        """
+        Update the contents of oneself, specifically the credits information.
+        """
+        self.credits.update()
+

@@ -67,3 +67,10 @@ class Header(clutter.Box):
                    clutter.BIN_ALIGNMENT_END,
                    clutter.BIN_ALIGNMENT_START)
 
+    def update(self):
+        """
+        Update the contents of oneself, specifically the credits information.
+        """
+        print 'called header update.'
+        self.credits.update()
+

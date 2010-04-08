@@ -51,7 +51,7 @@ class Screen(clutter.Box):
         self.desired_x = 0
 
         # Set variables that relate to all screens.
-        self.credits = None
+        self.header = None
         self.footer = None
 
     def set_x(self, value):
@@ -86,6 +86,12 @@ class Screen(clutter.Box):
         Callback that is called each second.
         """
         pass
+
+    def update(self):
+        """
+        Update the contents of oneself.
+        """
+        self.header.update()
 
 class ScreenContainer(clutter.Box):
     """
@@ -176,6 +182,15 @@ class ScreenContainer(clutter.Box):
         self.active_screen.slide_right()
         self.active_screen = self.screens[self.screens.index(screen) - 1]
         self.active_screen.slide_right()
+
+    def update_screens(self):
+        """
+        Iterate over screens asking them to update their contents.
+
+        This functionality is used to update credits information.
+        """
+        for screen in self.screens():
+            screen.update()
 
 class BlinkingText(clutter.Text):
     """

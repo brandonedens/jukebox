@@ -28,6 +28,9 @@ import clutter
 import logging
 import os
 import shutil
+import tempfile
+
+from jukebox.music.models import QueuedPlay
 
 
 ###############################################################################
@@ -50,20 +53,27 @@ class Jukebox(object):
 
         self.credits_load()
 
+    def can_buy_song(self):
+        """
+        Returns true or false if the user can buy a song.
+        """
+        if self.credits > 0:
+            return True
+        return False
+
     def credits_decrement(self):
         if self.credits > 0:
             self.credits -= 1
-        fh = open(settings.CREDITS_FILENAME, 'w')
-        fh.write("%d\n" % self.credits)
-        fh.close()
+        self.credits_save()
 
-    def credits_update(self):
+    def credits_save(self):
         """
         """
-        fh = open(settings.CREDITS_FILENAME+'.tmp', 'w')
-        fh.write("%d\n" % self.credits)
-        fh.close()
-        shutil.move(settings.CREDITS_FILENAME+'.tmp', settings.CREDITS_FILENAME)
+        tmpfile = tempfile.NamedTemporaryFile()
+        tmpfile.write("%d\n" % self.credits)
+        tmpfile.flush()
+        shutil.copy(tmpfile.name, settings.CREDITS_FILENAME)
+        tmpfile.close()
 
     def credits_load(self):
         tmp_credits = 0
@@ -85,6 +95,17 @@ class Jukebox(object):
         """
         logging.debug('One second heartbeat.')
         return True
+
+    def song_buy(self, song):
+        """
+        Buy the named song.
+        """
+        logging.info('User bought song %s.' % song)
+        # Decrement the available credits.
+        self.credits_decrement()
+        # Queue up the song to play
+        queued_play = QueuedPlay(song=song)
+        queued_play.save()
 
 
 ###############################################################################
