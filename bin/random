@@ -34,7 +34,7 @@ import logging
 import time
 import random
 
-from jukebox.music.models import QueuedPlay, Play
+from jukebox.music.models import Song, QueuedPlay
 
 
 ###############################################################################
@@ -43,10 +43,11 @@ from jukebox.music.models import QueuedPlay, Play
 
 def main():
     while True:
-        if Queue.objects.count() == 0:
+        if QueuedPlay.objects.count() == 0:
             songs = Song.objects.all()
             song = random.choice(songs)
-            new_track = Queue(song=song, random=True, paid=False)
+            logging.info("Randomly playing %s." % song)
+            new_track = QueuedPlay(song=song, random=True, paid=False)
             new_track.save()
         else:
             # No music to queue, sleep 10 second then try again.
