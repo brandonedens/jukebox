@@ -52,6 +52,7 @@ class Credits(clutter.Box):
         self.credits_text = clutter.Text(settings.CREDITS_FONT, 'Credits:')
         self.credits_text.set_color(FONT_COLOR)
 
+        self.previous_credits = jukebox.credits
         self.credits = clutter.Text(settings.CREDITS_FONT, jukebox.credits)
         self.credits.set_property('scale-gravity', clutter.GRAVITY_CENTER)
         self.credits.set_color(clutter.Color(255, 255, 255, 230))
@@ -67,10 +68,12 @@ class Credits(clutter.Box):
         """
         Update the credits information.
         """
-        self.credits.set_text(jukebox.credits)
-        self.credits.set_scale(1.3, 1.3)
-        self.animate(clutter.LINEAR, settings.HIGHLIGHT_RATE,
-                     "scale-x", 1,
-                     "scale-y", 1,
-                     )
+        if jukebox.credits != self.previous_credits:
+            self.credits.set_text("%d" % jukebox.credits)
+            self.credits.set_scale(1.3, 1.3)
+            self.credits.animate(clutter.LINEAR, settings.HIGHLIGHT_RATE,
+                                 "scale-x", 1,
+                                 "scale-y", 1,
+                                 )
+            self.previous_credits = jukebox.credits
 
