@@ -1,0 +1,74 @@
+#!/usr/bin/python
+# Brandon Edens
+# AS220
+# 2010-04-08
+# Copyright (C) 2009 Brandon Edens <brandon@as220.org>
+#
+# This file is part of jukebox.
+#
+# jukebox is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# jukebox is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with jukebox.  If not, see <http://www.gnu.org/licenses/>.
+"""
+Jukebox music player script.
+"""
+
+###############################################################################
+## Imports
+###############################################################################
+
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
+
+import logging
+import subprocess
+import time
+
+from jukebox.music.models import QueuedPlay, Play
+
+
+###############################################################################
+## Constants
+###############################################################################
+
+MP3_PLAYER = "/usr/bin/mpg321"
+
+
+###############################################################################
+## Functions
+###############################################################################
+
+def main():
+    while True:
+        if QueuedPlay.objects.count() > 0:
+            # We have music to play.
+            tracks = QueuedPlay.objects.all()
+
+            track_to_play = tracks[0]
+            subprocess.call([MP3_PLAYER, str(track_to_play.song.file)])
+
+            # Add information on previous played track
+            play = Play(song=track_to_play.song,
+                        paid=track_to_play.paid,
+                        random=track_to_play.random)
+            play.save()
+
+            # Delete the track from queue
+            track_to_play.delete()
+
+        else:
+            # No music to play, sleep 1 second then try again.
+            time.sleep(1)
+
+if __name__ == '__main__':
+    main()
+
