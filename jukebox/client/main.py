@@ -49,7 +49,8 @@ class Jukebox(object):
         # Setup initial variables.
         self.credits = 0
         self.admin_mode = False
-        self.playing = None
+        self.playing_song = None
+        self.next_song = None
 
         self.credits_load()
 
@@ -88,6 +89,14 @@ class Jukebox(object):
             fh.close()
         self.credits = tmp_credits
         return self.credits
+
+    def is_now_playing(self):
+        """
+        """
+        if self.playing_song:
+            return True
+        else:
+            return False
 
     def on_second(self):
         """
