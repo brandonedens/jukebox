@@ -189,7 +189,7 @@ class ScreenContainer(clutter.Box):
 
         This functionality is used to update credits information.
         """
-        for screen in self.screens():
+        for screen in self.screens:
             screen.update()
 
 class BlinkingText(clutter.Text):
