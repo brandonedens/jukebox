@@ -1,0 +1,63 @@
+#!/usr/bin/python
+# Brandon Edens
+# AS220
+# 2010-04-08
+# Copyright (C) 2009 Brandon Edens <brandon@as220.org>
+#
+# This file is part of jukebox.
+#
+# jukebox is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# jukebox is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with jukebox.  If not, see <http://www.gnu.org/licenses/>.
+"""
+Jukebox random music loader.
+"""
+
+###############################################################################
+## Imports
+###############################################################################
+
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
+
+from django.conf import settings
+import logging
+import time
+import random
+
+from jukebox.music.models import QueuedPlay, Play
+
+
+###############################################################################
+## Functions
+###############################################################################
+
+def main():
+    while True:
+        if Queue.objects.count() == 0:
+            songs = Song.objects.all()
+            song = random.choice(songs)
+            new_track = Queue(song=song, random=True)
+            new_track.save()
+        else:
+            # No music to queue, sleep 10 second then try again.
+            time.sleep(random.randint(settings.RANDOM_SLEEP_MIN,
+                                      settings.RANDOM_SLEEP_MAX))
+
+
+###############################################################################
+## Statements
+###############################################################################
+
+if __name__ == '__main__':
+    main()
+
