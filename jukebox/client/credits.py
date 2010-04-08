@@ -27,6 +27,8 @@ from django.conf import settings
 import clutter
 import os
 
+from main import jukebox
+
 
 ###############################################################################
 ## Constants
@@ -50,7 +52,7 @@ class Credits(clutter.Box):
         self.credits_text = clutter.Text(settings.CREDITS_FONT, 'Credits:')
         self.credits_text.set_color(FONT_COLOR)
 
-        self.credits = clutter.Text(settings.CREDITS_FONT, self.read_credits())
+        self.credits = clutter.Text(settings.CREDITS_FONT, jukebox.read_credits())
         self.credits.set_color(clutter.Color(255, 255, 255, 230))
 
         layout.pack(self.credits_text, True, False, False,
@@ -59,27 +61,4 @@ class Credits(clutter.Box):
         layout.pack(self.credits, True, False, False,
                     clutter.BOX_ALIGNMENT_CENTER,
                     clutter.BOX_ALIGNMENT_CENTER)
-
-    def decrement_credits(self):
-        current_credits = read_credits()
-        current_credits -= 1
-        if current_credits < 0:
-            # current credits cannot go below 0
-            current_credits = 0
-        fh = open(settings.CREDITS_FILENAME, 'w')
-        fh.write("%d\n" % current_credits())
-        fh.close()
-
-    def read_credits(self):
-        current_credits = 0
-        if os.path.isfile(settings.CREDITS_FILENAME):
-            fh = open(settings.CREDITS_FILENAME, 'r')
-            try:
-                current_credits = int(fh.readline())
-            except ValueError:
-                # Error reading the current credits value. Reset the system
-                # back to 0.
-                pass
-            fh.close()
-        return current_credits
 
