@@ -369,7 +369,7 @@ class QueuedPlay(models.Model):
     song = models.ForeignKey(Song)
 
     paid = models.BooleanField(default=False)
-    random = models.BooleanField(default=True)
+    random = models.BooleanField(default=False)
 
     added_on = models.DateTimeField(auto_now_add=True)
 
@@ -389,7 +389,7 @@ class Play(models.Model):
     """
     song = models.ForeignKey(Song)
     paid = models.BooleanField(default=False)
-    random = models.BooleanField(default=True)
+    random = models.BooleanField(default=False)
     played_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -397,9 +397,9 @@ class Play(models.Model):
 
     def __unicode__(self):
         text = "%s - %s - %s" % (self.played_on, self.song.artist, self.song)
-        if paid:
+        if self.paid:
             text += ' P'
-        if random:
+        if self.random:
             text += ' R'
         return text
 
