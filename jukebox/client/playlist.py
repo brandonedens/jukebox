@@ -89,6 +89,6 @@ def queue_song(song):
     Queue the given song.
     """
     # Queue up the song to play
-    queued_play = QueuedPlay(song=song)
+    queued_play = QueuedPlay(song=song, paid=True)
     queued_play.save()
 
