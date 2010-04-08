@@ -59,8 +59,8 @@ class SongListScreen(Screen):
         self.left_arrow = LeftArrow()
         self.right_arrow = RightArrow()
 
-        self.songs = ScrollingText(map(BlinkingText,
-                                       Song.objects.all().order_by('title')),
+        songs = Song.objects.filter(approved=True).order_by('title')
+        self.songs = ScrollingText(map(BlinkingText, songs),
                                    items_on_screen=settings.SONG_LIST_ITEMS)
         self.songs.set_width(self.get_width() -
                              (self.left_arrow.get_width() +

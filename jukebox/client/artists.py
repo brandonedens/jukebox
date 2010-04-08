@@ -65,6 +65,8 @@ class ArtistListScreen(Screen):
         # Filter to all artists that have songs.
         artists = Artist.objects.filter(song__isnull=False
                                         ).distinct().order_by('name')
+        artists = artists.filter(song__approved=True
+                                 ).distinct().order_by('name')
         self.artists = ScrollingText(map(BlinkingText, artists),
                                      items_on_screen=settings.ARTIST_LIST_ITEMS)
         self.artists.set_width(self.get_width() -
@@ -112,13 +114,12 @@ class ArtistDetailScreen(Screen):
 
         self.left_arrow = LeftArrow()
 
-        songs = artist.song_set.all().order_by('title')
+        songs = artist.song_set.filter(approved=True).order_by('title')
         self.songs = None
         if len(songs) > 0:
             self.right_arrow = RightArrow()
             self.songs = ScrollingText(
-                map(BlinkingText,
-                    artist.song_set.all().order_by('title')),
+                map(BlinkingText, songs),
                 items_on_screen=settings.SONG_LIST_ITEMS
                 )
             self.songs.set_width(self.get_width() -
