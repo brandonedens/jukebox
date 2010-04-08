@@ -56,6 +56,12 @@ if config.get('log_jukebox_buttons_filename'):
 if config.get('log_format'):
     LOG_FORMAT = config.get('log_format')
 
+# Random play values
+if config.get('random_sleep_min'):
+    RANDOM_SLEEP_MIN = config.get('random_sleep_min')
+if config.get('random_sleep_max'):
+    RANDOM_SLEEP_MAX = config.get('random_sleep_max')
+
 # Screen settings
 if config.get('fullscreen'):
     FULLSCREEN = config.get('fullscreen')

@@ -163,6 +163,10 @@ LOG_JUKEBOX_FILENAME = '/var/log/jukebox/jukebox.log'
 LOG_JUKEBOX_BUTTONS_FILENAME = '/var/log/jukebox/buttons.log'
 LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
+# The min/max (in seconds) to wait before a random play.
+RANDOM_SLEEP_MIN = 60
+RANDOM_SLEEP_MAX = 300
+
 FULLSCREEN = True
 SCREEN_WIDTH = 1366
 SCREEN_HEIGHT = 768
