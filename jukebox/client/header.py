@@ -71,6 +71,5 @@ class Header(clutter.Box):
         """
         Update the contents of oneself, specifically the credits information.
         """
-        print 'called header update.'
         self.credits.update()
 
