@@ -50,6 +50,9 @@ class GUI(clutter.Box):
                               clutter.BIN_ALIGNMENT_CENTER)
             )
 
+        self.set_size(settings.SCREEN_WIDTH,
+                      settings.SCREEN_HEIGHT)
+
         # Setup screen container
         self.screen_container = ScreenContainer()
         self.add(self.screen_container)
@@ -59,6 +62,10 @@ class GUI(clutter.Box):
 
         self.transient_message = transient_message
         self.footer = footer
+        layout = self.get_layout_manager()
+        layout.add(self.footer,
+                   clutter.BIN_ALIGNMENT_CENTER,
+                   clutter.BIN_ALIGNMENT_END)
         self.add(transient_message)
 
     def on_press(self, actor, event):
