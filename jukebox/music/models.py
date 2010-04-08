@@ -362,4 +362,47 @@ class Website(models.Model):
     artist = models.ForeignKey(Artist)
     url = models.URLField()
 
+class QueuedPlay(models.Model):
+    """
+    The playlist queue.
+    """
+    song = models.ForeignKey(Song)
+
+    paid = models.BooleanField(default=False)
+    random = models.BooleanField(default=True)
+
+    added_on = models.DateTimeField(auto_now_add=True)
+
+
+    class Meta:
+        ordering = ('added_on',)
+
+    def __unicode__(self):
+        return "%s - %s - %s" % (self.added_on, self.song.artist, self.song)
+
+    def __str__(self):
+        return self.__unicode__()
+
+class Play(models.Model):
+    """
+    Model that represents when a song was played.
+    """
+    song = models.ForeignKey(Song)
+    paid = models.BooleanField(default=False)
+    random = models.BooleanField(default=True)
+    played_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('played_on',)
+
+    def __unicode__(self):
+        text = "%s - %s - %s" % (self.played_on, self.song.artist, self.song)
+        if paid:
+            text += ' P'
+        if random:
+            text += ' R'
+        return text
+
+    def __str__(self):
+        return self.__unicode__()
 
