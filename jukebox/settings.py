@@ -41,6 +41,10 @@ if config.get('media_root'):
 # important files
 if config.get('credits_filename'):
     CREDITS_FILENAME = config.get('credits_filename')
+if config.get('playing_filename'):
+    PLAYING_FILENAME = config.get('playing_filename')
+if config.get('last_song_filename'):
+    LAST_SONG_FILENAME = config.get('last_song_filename')
 
 # Logging settings
 if config.get('log_jukebox_filename'):
@@ -73,14 +77,24 @@ if config.get('arrow_blink_rate'):
     ARROW_BLINK_RATE = config.get('arrow_blink_rate')
 if config.get('blinking_text_rate'):
     BLINKING_TEXT_RATE = config.get('blinking_text_rate')
+if config.get('footer_fade_rate'):
+    FOOTER_FADE_RATE = config.get('footer_fade_rate')
 if config.get('highlight_rate'):
     HIGHLIGHT_RATE = config.get('highlight_rate')
 if config.get('screen_slide_rate'):
     SCREEN_SLIDE_RATE = config.get('screen_slide_rate')
+if config.get('transient_message_fade_rate'):
+    TRANSIENT_MESSAGE_FADE_RATE = config.get('transient_message_fade_rate')
 
 # Font settings
 if config.get('credits_font'):
     CREDITS_FONT = config.get('credits_font')
+if config.get('footer_artist_font'):
+    FOOTER_FONT = config.get('footer_artist_font')
+if config.get('footer_song_font'):
+    FOOTER_FONT = config.get('footer_song_font')
+if config.get('footer_font'):
+    FOOTER_FONT = config.get('footer_font')
 if config.get('front_screen_font'):
     FRONT_SCREEN_FONT = config.get('front_screen_font')
 if config.get('header_title_font'):
@@ -99,4 +113,6 @@ if config.get('song_artist_font'):
     SONG_ARTIST_FONT = config.get('song_artist_font')
 if config.get('song_title_font'):
     SONG_TITLE_FONT = config.get('song_title_font')
+if config.get('transient_message_font'):
+    TRANSIENT_MESSAGE_FONT = config.get('transient_message_font')
 

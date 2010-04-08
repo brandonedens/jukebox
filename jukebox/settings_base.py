@@ -156,6 +156,8 @@ SONGS_PER_PAGE = 6
 ################################################################################
 
 CREDITS_FILENAME = '/var/lib/jukebox/credits.txt'
+PLAYING_FILENAME = '/var/lib/jukebox/playing.txt'
+LAST_SONG_FILENAME = '/var/lib/jukebox/last_song.txt'
 
 LOG_JUKEBOX_FILENAME = '/var/log/jukebox/jukebox.log'
 LOG_JUKEBOX_BUTTONS_FILENAME = '/var/log/jukebox/buttons.log'
@@ -165,15 +167,20 @@ FULLSCREEN = True
 SCREEN_WIDTH = 1366
 SCREEN_HEIGHT = 768
 
-ARTIST_LIST_ITEMS = 10
-SONG_LIST_ITEMS = 10
+ARTIST_LIST_ITEMS = 7
+SONG_LIST_ITEMS = 7
 
 ARROW_BLINK_RATE = 1000
 BLINKING_TEXT_RATE = 800
+FOOTER_FADE_RATE = 4000
 HIGHLIGHT_RATE = 600
 SCREEN_SLIDE_RATE = 300
+TRANSIENT_MESSAGE_FADE_RATE = 2000
 
-CREDITS_FONT = 'Router Bold 50'
+CREDITS_FONT = 'Router Bold 30'
+FOOTER_ARTIST_FONT = 'Router Bold Italic 20'
+FOOTER_SONG_FONT = 'Router Bold Italic 20'
+FOOTER_FONT = 'Router Bold Italic 20'
 FRONT_SCREEN_FONT = 'Router Bold Italic 64'
 HEADER_TITLE_FONT = 'Router Bold 50'
 LOGO_AS220_LARGE_FONT = 'Helvetica75Outline Bold 120'
@@ -183,5 +190,6 @@ LOGO_JUKEBOX_SMALL_FONT = 'Router Ultra-Bold Italic 20'
 SCROLLING_TEXT_FONT = 'Router Bold Italic 40'
 SONG_ARTIST_FONT = 'Router Bold Italic 30'
 SONG_TITLE_FONT = 'Router Bold 70'
+TRANSIENT_MESSAGE_FONT = 'Router Bold 120'
 
 
