@@ -29,6 +29,7 @@ import logging
 
 from screens import ScreenContainer
 from front import FrontScreen
+from transient_message import transient_message
 
 
 ###############################################################################
@@ -55,6 +56,9 @@ class GUI(clutter.Box):
         self.screen_container.add_screen(front)
         self.screen_container.active_screen = front
 
+        self.transient_message = transient_message
+        self.add(transient_message)
+
     def on_press(self, actor, event):
         """
         Toplevel callback for when buttons are pressed.
@@ -63,9 +67,12 @@ class GUI(clutter.Box):
             logging.info('Escape button pressed. Quitting jukebox.')
             clutter.main_quit()
         elif event.keyval == clutter.keysyms.space:
-            logging.info('Space button pressed. Rereading credits.')
+            logging.debug('Space button pressed which means credit insert.')
+            logging.info('Reading new credits value.')
             jukebox.credits_load()
-            # FIXME update credits information.
+            self.screen_container.update_screens()
+        elif event.keyval == clutter.keysyms.s:
+            self.transient_message.message('this is a test')
         self.screen_container.on_press(actor, event)
 
     def on_release(self, actor, event):
@@ -83,3 +90,11 @@ class GUI(clutter.Box):
         logging.debug('GUI one second heartbeat.')
         self.screen_container.on_second()
         return True
+
+    def set_transient_message(self, text):
+        """
+        Display a transient message.
+        """
+        self.transient_message.message(text)
+        self.transient_message.raise_top()
+
