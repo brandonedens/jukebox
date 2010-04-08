@@ -80,7 +80,7 @@ def main():
             logging.info("Now playing song %s" % track_to_play.song)
             returncode = subprocess.call([MP3_PLAYER,
                                           "-o", "esd",
-                                          str(track_to_play.song.file)])
+                                          settings.MEDIA_ROOT+str(track_to_play.song.file)])
             if returncode != 0:
                 logging.warning("Receiving error code %d from mp3 player."
                                 % returncode)
