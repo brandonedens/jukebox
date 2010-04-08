@@ -57,8 +57,8 @@ def next_song():
     """
     """
     song = None
-    if QueuedPlay.objects.count() > 0:
-        queued_play = QueuedPlay.objects.all()[0]
+    if QueuedPlay.objects.count() > 1:
+        queued_play = QueuedPlay.objects.all()[1]
         song = queued_play.song
     return song
 
@@ -77,9 +77,9 @@ def playing_load():
     song = None
     try:
         fh = open(settings.PLAYING_FILENAME, 'r')
-        song_id = fh.readline()
+        song_id = int(fh.readline())
         fh.close()
-        song = Song(pk=song_id)
+        song = Song.objects.get(pk=song_id)
     except IOError:
         pass
     return song
