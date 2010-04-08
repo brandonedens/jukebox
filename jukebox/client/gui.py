@@ -97,8 +97,9 @@ class GUI(clutter.Box):
         """
         Callback heartbeat tick that arrives each second.
         """
-        logging.debug('GUI one second heartbeat.')
+        self.footer.update()
         self.screen_container.on_second()
+        self.screen_container.update_screens()
         return True
 
     def set_transient_message(self, text):
