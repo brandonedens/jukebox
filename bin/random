@@ -46,7 +46,7 @@ def main():
         if Queue.objects.count() == 0:
             songs = Song.objects.all()
             song = random.choice(songs)
-            new_track = Queue(song=song, random=True)
+            new_track = Queue(song=song, random=True, paid=False)
             new_track.save()
         else:
             # No music to queue, sleep 10 second then try again.
