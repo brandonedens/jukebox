@@ -35,7 +35,7 @@ import logging
 import signal
 import sys
 
-from jukebox.client.main import Jukebox
+from jukebox.client.gui import GUI
 
 
 ###############################################################################
@@ -64,7 +64,7 @@ def main():
     logging.getLogger( '' ).addHandler( consolehandler )
 
     logging.info("Starting Jukebox.")
-    jukebox = Jukebox()
+    gui = GUI()
     signal.signal(signal.SIGINT, signal_handler)
     stage = clutter.Stage()
     stage.hide_cursor()
@@ -76,9 +76,9 @@ def main():
 
     # Connect listeners
     stage.connect('destroy', clutter.main_quit)
-    stage.connect('key-press-event', jukebox.on_press)
-    stage.connect('key-release-event', jukebox.on_release)
-    stage.add(jukebox)
+    stage.connect('key-press-event', gui.on_press)
+    stage.connect('key-release-event', gui.on_release)
+    stage.add(gui)
     stage.show()
     clutter.main()
     logging.info("Stopping Jukebox.")

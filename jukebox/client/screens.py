@@ -77,6 +77,91 @@ class Screen(clutter.Box):
         """
         logging.warning("on_press called for generic Screen.")
 
+class ScreenContainer(clutter.Box):
+    """
+    A container for screens.
+    """
+
+    def __init__(self):
+        """
+        Initialize the screen container.
+        """
+        super(ScreenContainer, self).__init__(clutter.FixedLayout())
+
+        # Setup screens.
+        self.screens = []
+        self.active_screen = None
+
+    def on_press(self, actor, event):
+        """
+        Pass keypresses off to the active screen.
+        """
+        self.active_screen.on_press(actor, event)
+
+    def clear_screens(self, current_screen):
+        """
+        Removes all screens stored in the screens array after the
+        current_screen.
+        """
+        while self.screens[-1] != current_screen:
+            # Pop a screen off the stack.
+            screen = self.screens.pop()
+            logging.debug("Clearing screen %s." % screen)
+            # Remove the screen from the box.
+            self.remove(screen)
+
+    def new_screen(self, new_screen):
+        """
+        Add a screen to the current list of screens slide that screen to the
+        foreground.
+
+        If the new_screen already exists in the list of screens then simply
+        activate the existing version of that screen.
+        """
+        current_screen_index = self.screens.index(self.active_screen)
+        next_screen = None
+        try:
+            next_screen = self.screens[current_screen_index + 1]
+        except IndexError:
+            pass
+
+        if next_screen and next_screen.get_name() == new_screen.get_name():
+            # We have existing screen so simply use that one.
+            self.active_screen.slide_left()
+            self.active_screen = next_screen
+            self.active_screen.slide_left()
+        else:
+            self.clear_screens(self.active_screen)
+            self.active_screen.slide_left()
+            self.active_screen = self.add_screen(new_screen, 'right')
+            self.active_screen.slide_left()
+
+    def remove_screen(self, screen):
+        """
+        Remove a screen which really means sliding the current screen out of
+        the way moving the virtual camera to the left. We leave the previous
+        screen in the screen's list in case the user immediately wants to
+        return to that screen.
+        """
+        self.active_screen.slide_right()
+        self.active_screen = self.screens[self.screens.index(screen) - 1]
+        self.active_screen.slide_right()
+
+    def add_screen(self, screen, offscreen=None):
+        """
+        Add a screen to the current list of screens.
+        """
+        self.screens.append(screen)
+        self.add(screen)
+        if offscreen == 'right':
+            screen.set_x(settings.SCREEN_WIDTH)
+        elif offscreen == 'left':
+            screen.set_x(-settings.SCREEN_WIDTH)
+        else:
+            screen.set_position(0, 0)
+        return screen
+
+
 class BlinkingText(clutter.Text):
     """
     """
