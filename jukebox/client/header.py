@@ -28,6 +28,7 @@ from pango import ALIGN_CENTER
 import clutter
 
 from logo import LogoSmall
+from credits import Credits
 
 
 ###############################################################################
@@ -55,10 +56,14 @@ class Header(clutter.Box):
         self.logo = LogoSmall()
         self.title = clutter.Text(settings.HEADER_TITLE_FONT, title)
         self.title.set_color(FONT_COLOR)
+        self.credits = Credits()
         layout.add(self.logo,
                    clutter.BIN_ALIGNMENT_START,
                    clutter.BIN_ALIGNMENT_START)
         layout.add(self.title,
                    clutter.BIN_ALIGNMENT_CENTER,
+                   clutter.BIN_ALIGNMENT_START)
+        layout.add(self.credits,
+                   clutter.BIN_ALIGNMENT_END,
                    clutter.BIN_ALIGNMENT_START)
 
