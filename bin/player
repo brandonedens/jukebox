@@ -76,7 +76,9 @@ def main():
 
             track_to_play = tracks[0]
             set_playing(track_to_play.song)
-            subprocess.call([MP3_PLAYER, str(track_to_play.song.file)])
+            subprocess.call([MP3_PLAYER,
+                             "-o", "esd",
+                             str(track_to_play.song.file)])
 
             # Add information on previous played track
             play = Play(song=track_to_play.song,
