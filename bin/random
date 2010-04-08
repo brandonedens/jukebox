@@ -50,9 +50,10 @@ def main():
             new_track = QueuedPlay(song=song, random=True, paid=False)
             new_track.save()
         else:
-            # No music to queue, sleep 10 second then try again.
-            time.sleep(random.randint(settings.RANDOM_SLEEP_MIN,
-                                      settings.RANDOM_SLEEP_MAX))
+            sleep_seconds = random.randint(settings.RANDOM_SLEEP_MIN,
+                                           settings.RANDOM_SLEEP_MAX)
+            logging.debug("Sleeping for %d seconds." % sleep_seconds)
+            time.sleep(sleep_seconds)
 
 
 ###############################################################################
@@ -60,5 +61,20 @@ def main():
 ###############################################################################
 
 if __name__ == '__main__':
-    main()
+    # Setup logging.
+    logging.basicConfig(filename=settings.LOG_RANDOM_FILENAME,
+                        level=logging.DEBUG,
+                        format=settings.LOG_FORMAT)
+    consolehandler = logging.StreamHandler()
+    consolehandler.setLevel( logging.DEBUG )
+    formatter = logging.Formatter(settings.LOG_FORMAT)
+    consolehandler.setFormatter(formatter)
+    logging.getLogger( '' ).addHandler( consolehandler )
+    logging.info('Starting jukebox random software.')
+    try:
+        main()
+    except KeyboardInterrupt:
+        # Keyboard interrupt so its time to shutdown software.
+        logging.debug('Keyboard interrupt so shut down software.')
+    logging.info('Shutting down jukebox random software.')
 
