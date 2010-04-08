@@ -12,7 +12,9 @@ from django.conf import settings
 import logging
 import os
 import serial
+import shutil
 import sys
+import tempfile
 import time
 
 
@@ -77,9 +79,9 @@ def coin_drop():
     new one then reads in the current credits value and increments that value
     by one. Finally this function writes the new credit value.
     """
-    credits = coin_load()
-    credits += 1
-    coin_save(credits)
+    current_credits = coin_load()
+    current_credits += 1
+    coin_save(current_credits)
     logging.info("Coin drop registered. Credits now at: %d" % current_credits)
 
 def main():
