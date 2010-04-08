@@ -71,8 +71,6 @@ class GUI(clutter.Box):
             logging.info('Reading new credits value.')
             jukebox.credits_load()
             self.screen_container.update_screens()
-        elif event.keyval == clutter.keysyms.s:
-            self.transient_message.message('this is a test')
         self.screen_container.on_press(actor, event)
 
     def on_release(self, actor, event):
