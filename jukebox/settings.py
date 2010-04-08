@@ -38,6 +38,10 @@ if config.get('media_root'):
 
 # Load client based settings from config file.
 
+# important files
+if config.get('credits_filename'):
+    CREDITS_FILENAME = config.get('credits_filename')
+
 # Logging settings
 if config.get('log_jukebox_filename'):
     LOG_JUKEBOX_FILENAME = config.get('log_jukebox_filename')
@@ -75,6 +79,8 @@ if config.get('screen_slide_rate'):
     SCREEN_SLIDE_RATE = config.get('screen_slide_rate')
 
 # Font settings
+if config.get('credits_font'):
+    CREDITS_FONT = config.get('credits_font')
 if config.get('front_screen_font'):
     FRONT_SCREEN_FONT = config.get('front_screen_font')
 if config.get('header_title_font'):

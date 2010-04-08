@@ -29,9 +29,6 @@ DEFAULT_SERIAL = "/dev/ttyUSB0"
 # Coin drop debuce seconds
 COIN_DROP_DEBOUNCE_SECONDS = 0.2
 
-# Default credits file
-CREDITS_FILENAME = '/var/lib/jukebox/credits.txt'
-
 # Mappings of buttons to keyboard commands.
 KEYBOARD_MAPPINGS = {'blue': 'Return',
                      'green': 'Right',
@@ -55,8 +52,8 @@ def coin_drop():
     """
     fh = None
     current_credits = 0
-    if os.path.isfile(CREDITS_FILENAME):
-        fh = open(CREDITS_FILENAME, 'r+')
+    if os.path.isfile(settings.CREDITS_FILENAME):
+        fh = open(settings.CREDITS_FILENAME, 'r+')
         try:
             current_credits = int(fh.readline())
         except ValueError:
@@ -64,7 +61,7 @@ def coin_drop():
             # 0.
             current_credits = 0
     else:
-        fh = open(CREDITS_FILENAME, 'w')
+        fh = open(settings.CREDITS_FILENAME, 'w')
     current_credits += 1
     fh.seek(0)
     fh.write("%d\n" % current_credits)

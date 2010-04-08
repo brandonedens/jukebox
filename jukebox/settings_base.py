@@ -155,6 +155,8 @@ SONGS_PER_PAGE = 6
 ## Client related settings
 ################################################################################
 
+CREDITS_FILENAME = '/var/lib/jukebox/credits.txt'
+
 LOG_JUKEBOX_FILENAME = '/var/log/jukebox/jukebox.log'
 LOG_JUKEBOX_BUTTONS_FILENAME = '/var/log/jukebox/buttons.log'
 LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -171,6 +173,7 @@ BLINKING_TEXT_RATE = 800
 HIGHLIGHT_RATE = 600
 SCREEN_SLIDE_RATE = 300
 
+CREDITS_FONT = 'Router Bold 50'
 FRONT_SCREEN_FONT = 'Router Bold Italic 64'
 HEADER_TITLE_FONT = 'Router Bold 50'
 LOGO_AS220_LARGE_FONT = 'Helvetica75Outline Bold 120'
