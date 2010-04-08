@@ -80,21 +80,31 @@ def main():
                              "-o", "esd",
                              str(track_to_play.song.file)])
 
+            # Move the file lock for the playing file to the last song played.
+            stop_playing()
+
+            # Delete the track from queue
+            track_to_play.delete()
+
             # Add information on previous played track
             play = Play(song=track_to_play.song,
                         paid=track_to_play.paid,
                         random=track_to_play.random)
             play.save()
 
-            # Delete the track from queue
-            track_to_play.delete()
-
-            # Move the file lock for the playing file to the last song played.
-            stop_playing()
+            # Update song's total number of plays
+            song = track_to_play.song
+            song.number_of_plays += 1
+            song.save()
 
         else:
             # No music to play, sleep 1 second then try again.
             time.sleep(1)
+
+
+###############################################################################
+## Statements
+###############################################################################
 
 if __name__ == '__main__':
     main()
