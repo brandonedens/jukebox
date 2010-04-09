@@ -29,6 +29,7 @@ Jukebox random music loader.
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
 
+from datetime import datetime
 from django.conf import settings
 import logging
 import time
@@ -45,6 +46,12 @@ from jukebox.music.models import Song, QueuedPlay
 
 def main():
     while True:
+        now = datetime.now()
+        if now.hour > settings.RANDOM_NO_PLAY_START and now.hour < settings.RANDOM_NO_PLAY_END:
+            # Sleep for 30 minutes then wake up and check if we can randomly play again.
+            time.sleep(1800)
+            continue
+
         if QueuedPlay.objects.count() == 0:
             songs = Song.objects.filter(approved=True)
             song = random.choice(songs)
