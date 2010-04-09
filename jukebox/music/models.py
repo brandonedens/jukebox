@@ -71,7 +71,7 @@ class Artist(models.Model):
     user = models.ForeignKey(User)
 
     name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(max_length=255, unique=True)
     startswith = models.CharField(max_length=1, db_index=True)
 
     description = models.TextField(
@@ -238,7 +238,7 @@ class Song(models.Model):
         help_text='The title of the song.'
         )
 
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=255)
     startswith = models.CharField(max_length=1, db_index=True)
 
     file = models.FileField(
