@@ -166,8 +166,8 @@ LOG_RANDOM_FILENAME = '/var/log/jukebox/random.log'
 LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 # The min/max (in seconds) to wait before a random play.
-RANDOM_SLEEP_MIN = 60
-RANDOM_SLEEP_MAX = 300
+RANDOM_SLEEP_MIN = 300
+RANDOM_SLEEP_MAX = 420
 
 FULLSCREEN = True
 SCREEN_WIDTH = 1366
