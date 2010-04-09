@@ -31,3 +31,5 @@ Change BUY to PLAY.
 Only randomly play approved songs.
 FIXED
 
+Only randomly play between hours of 1:20am to 10:00am.
+
