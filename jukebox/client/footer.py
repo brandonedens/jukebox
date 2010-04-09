@@ -53,10 +53,12 @@ class Footer(clutter.Box):
         tmplayout = self.now_playing_box.get_layout_manager()
         tmplayout.set_vertical(False)
         tmplayout.set_spacing(20)
+        self.now_playing_box.set_width(settings.SCREEN_WIDTH)
         self.next_song_box = clutter.Box(clutter.BoxLayout())
         tmplayout = self.next_song_box.get_layout_manager()
         tmplayout.set_vertical(False)
         tmplayout.set_spacing(20)
+        self.next_song_box.set_width(settings.SCREEN_WIDTH)
 
         layout.pack(self.now_playing_box, True, False, False,
                     clutter.BOX_ALIGNMENT_CENTER,
@@ -67,8 +69,7 @@ class Footer(clutter.Box):
 
 
     def display(self):
-        if is_now_playing() and self.now_playing != now_playing():
-            self.now_playing = now_playing()
+        if is_now_playing():
             self.set_color(clutter.Color(0, 0, 0, 250))
             self.set_opacity(250)
 
@@ -117,7 +118,9 @@ class Footer(clutter.Box):
                                           'opacity', 0)
 
     def update(self):
-        self.display()
+        if is_now_playing() and self.now_playing != now_playing():
+            self.display()
+            self.now_playing = now_playing()
 
 
 ###############################################################################

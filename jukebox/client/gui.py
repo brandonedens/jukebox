@@ -81,8 +81,8 @@ class GUI(clutter.Box):
             logging.info('Reading new credits value.')
             credits_load()
             self.screen_container.update_screens()
-        elif event.keyval == clutter.keysyms.d:
-            logging.debug('Displaying footer.')
+        elif event.keyval == clutter.keysyms.BackSpace:
+            logging.info('Showing now playing information.')
             self.footer.display()
         self.screen_container.on_press(actor, event)
 
