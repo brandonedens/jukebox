@@ -83,7 +83,13 @@ def main():
                 logging.info("Now playing paid song %s" % track_to_play.song)
             elif track_to_play.random:
                 logging.info("Now playing random song %s" % track_to_play.song)
+
+            # The absolute path to the song filename is the media root + the
+            # song's file field.
             song_filename = settings.MEDIA_ROOT+'/'+str(track_to_play.song.file)
+
+            # Call the mp3 player (mpg321) and record the return code for
+            # logging purposes.
             returncode = subprocess.call([MP3_PLAYER,
                                           "-o", "esd",
                                           song_filename])
