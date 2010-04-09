@@ -65,6 +65,10 @@ if config.get('random_sleep_min'):
     RANDOM_SLEEP_MIN = config.get('random_sleep_min')
 if config.get('random_sleep_max'):
     RANDOM_SLEEP_MAX = config.get('random_sleep_max')
+if config.get('random_no_play_start'):
+    RANDOM_NO_PLAY_START = config.get('random_no_play_start')
+if config.get('random_no_play_end'):
+    RANDOM_NO_PLAY_END = config.get('random_no_play_end')
 
 # Screen settings
 if config.get('fullscreen'):

@@ -168,6 +168,9 @@ LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 # The min/max (in seconds) to wait before a random play.
 RANDOM_SLEEP_MIN = 300
 RANDOM_SLEEP_MAX = 420
+# Time period where random play is disabled. (hour in 24hr format)
+RANDOM_NO_PLAY_START = 1
+RANDOM_NO_PLAY_END = 10
 
 FULLSCREEN = True
 SCREEN_WIDTH = 1366
