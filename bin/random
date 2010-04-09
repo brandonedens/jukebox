@@ -44,7 +44,7 @@ from jukebox.music.models import Song, QueuedPlay
 def main():
     while True:
         if QueuedPlay.objects.count() == 0:
-            songs = Song.objects.all()
+            songs = Song.objects.filter(approved=True)
             song = random.choice(songs)
             logging.info("Randomly playing %s." % song)
             new_track = QueuedPlay(song=song, random=True, paid=False)
