@@ -40,7 +40,7 @@ urlpatterns = patterns('jukebox.review.views',
     url(r'^$', index, name='review_index',),
     url(r'^songs/$', object_list,
         {'queryset': Song.objects.filter(reviewed=False).order_by(
-            'uploaded_on'
+            '-uploaded_on'
             ),
          'template_name': 'review/review_song_list.html',
          'template_object_name': 'song',
