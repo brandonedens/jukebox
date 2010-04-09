@@ -52,6 +52,9 @@ def main():
             new_track = QueuedPlay(song=song, random=True, paid=False)
             new_track.save()
         else:
+            if settings.RANDOM_SLEEP_MIN > settings.RANDOM_SLEEP_MAX:
+                logging.warning("Random sleep min %d is greater than max %d." % (settings.RANDOM_SLEEP_MIN,
+                                                                                 settings.RANDOM_SLEEP_MAX))
             sleep_seconds = random.randint(settings.RANDOM_SLEEP_MIN,
                                            settings.RANDOM_SLEEP_MAX)
             logging.debug("Sleeping for %d seconds." % sleep_seconds)
