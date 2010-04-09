@@ -79,7 +79,10 @@ def main():
             track_to_play = tracks[0]
             set_playing(track_to_play.song)
 
-            logging.info("Now playing song %s" % track_to_play.song)
+            if track_to_play.paid:
+                logging.info("Now playing paid song %s" % track_to_play.song)
+            elif track_to_play.random:
+                logging.info("Now playing random song %s" % track_to_play.song)
             song_filename = settings.MEDIA_ROOT+'/'+str(track_to_play.song.file)
             returncode = subprocess.call([MP3_PLAYER,
                                           "-o", "esd",
