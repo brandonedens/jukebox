@@ -33,8 +33,10 @@ from django.conf import settings
 import logging
 import shutil
 import subprocess
+import sys
 import tempfile
 import time
+import traceback
 
 from jukebox.music.models import QueuedPlay, Play
 
@@ -102,10 +104,14 @@ def main():
             play.save()
 
             # Update song's total number of plays
-            song = track_to_play.song
-            song.number_of_plays += 1
-            song.save()
-
+            if track_to_play.paid:
+                song = track_to_play.song
+                song.number_of_plays += 1
+                song.save()
+            elif track_to_play.random:
+                song = track_to_play.song
+                song.number_of_random_plays += 1
+                song.save()
         else:
             # No music to play, sleep 1 second then try again.
             time.sleep(1)
@@ -131,6 +137,9 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         # Keyboard interrupt so its time to shutdown software.
         logging.debug('Keyboard interrupt so shut down software.')
+    except Exception as e:
+        traceback.print_exc()
+        logging.critical("Unexpected failure %s." % e)
+        sys.exit(1)
     logging.info('Shutting down jukebox player software.')
-
 
