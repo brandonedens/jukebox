@@ -15,6 +15,7 @@ import serial
 import shutil
 import sys
 import tempfile
+import traceback
 import time
 
 
@@ -256,6 +257,10 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         # Keyboard interrupt so its time to shutdown buttons software.
         logging.debug('Keyboard interrupt so shut down the software.')
+    except Exception as e:
+        traceback.print_exc()
+        logging.critical("Unexpected failure %s." % e)
+        sys.exit(1)
     logging.info('Shutting down jukebox button interface software.')
 
 

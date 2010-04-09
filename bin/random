@@ -33,6 +33,8 @@ from django.conf import settings
 import logging
 import time
 import random
+import sys
+import traceback
 
 from jukebox.music.models import Song, QueuedPlay
 
@@ -76,5 +78,9 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         # Keyboard interrupt so its time to shutdown software.
         logging.debug('Keyboard interrupt so shut down software.')
+    except Exception as e:
+        traceback.print_exc()
+        logging.critical("Unexpected failure %s." % e)
+        sys.exit(1)
     logging.info('Shutting down jukebox random software.')
 
