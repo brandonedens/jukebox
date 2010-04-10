@@ -45,7 +45,7 @@ from jukebox.client.models import QueuedPlay, PaidPlay, RandomPlay
 ## Constants
 ###############################################################################
 
-MP3_PLAYER = "/usr/bin/mpg321"
+MP3_PLAYER = "/usr/bin/mplayer"
 
 
 ###############################################################################
@@ -88,10 +88,10 @@ def main():
             # song's file field.
             song_filename = settings.MEDIA_ROOT+'/'+str(track_to_play.song.file)
 
-            # Call the mp3 player (mpg321) and record the return code for
+            # Call the mp3 player (mplayer) and record the return code for
             # logging purposes.
             returncode = subprocess.call([MP3_PLAYER,
-                                          "-o", "esd",
+                                          "-vo", "null",
                                           song_filename])
             if returncode != 0:
                 logging.warning("Receiving error code %d from mp3 player."
