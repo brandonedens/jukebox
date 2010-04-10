@@ -38,6 +38,7 @@ from transient_message import transient_message
 from credits import can_buy_song, credits_decrement
 from playlist import queue_song
 
+
 ###############################################################################
 ## Classes
 ###############################################################################
