@@ -28,7 +28,8 @@ from pango import ALIGN_CENTER
 import clutter
 import logging
 
-from jukebox.music.models import Song, QueuedPlay
+from jukebox.client.models import QueuedPlay
+from jukebox.music.models import Song
 
 from header import Header
 from screens import Screen, BlinkingText, ScrollingText

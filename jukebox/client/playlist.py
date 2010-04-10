@@ -26,7 +26,8 @@
 from django.conf import settings
 import logging
 
-from jukebox.music.models import Song, QueuedPlay
+from jukebox.client.models import QueuedPlay
+from jukebox.music.models import Song
 
 
 ###############################################################################

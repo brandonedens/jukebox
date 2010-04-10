@@ -18,6 +18,8 @@ import tempfile
 import traceback
 import time
 
+from jukebox.client.models import CoinInsert
+
 
 ###############################################################################
 ## Constants
@@ -83,6 +85,9 @@ def coin_drop():
     current_credits = coin_load()
     current_credits += 1
     coin_save(current_credits)
+    # Add a coin drop to the database.
+    coin = CoinInsert()
+    coin.save()
     logging.info("Coin drop registered. Credits now at: %d" % current_credits)
 
 def main():

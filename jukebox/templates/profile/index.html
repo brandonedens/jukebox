@@ -63,13 +63,18 @@
           <a href="{% url song_detail song.id %}">{{ song }}</a>
         </td>
         <td>
-          {{ song.number_of_plays }}
+          {{ song.paidplay_set.count }}
         </td>
         <td>
           <script language="JavaScript" src="{{ MEDIA_URL }}js/audio-player.js"></script>
-          <object type="application/x-shockwave-flash" data="{{ MEDIA_URL }}flash/player.swf" id="audioplayer1" height="24" width="200">
+          <object type="application/x-shockwave-flash"
+                  data="{{ MEDIA_URL }}flash/player.swf"
+                  id="audioplayer1"
+                  height="24"
+                  width="200">
             <param name="movie" value="{{ MEDIA_URL }}flash/player.swf">
-            <param name="FlashVars" value="playerID=audioplayer1&soundFile={% url song_play song.id %}">
+            <param name="FlashVars"
+                   value="playerID=audioplayer1&soundFile={% url song_play song.id %}">
             <param name="quality" value="high">
             <param name="menu" value="false">
             <param name="wmode" value="transparent">

@@ -241,6 +241,7 @@ class Song(models.Model):
     slug = models.SlugField(max_length=255)
     startswith = models.CharField(max_length=1, db_index=True)
 
+    # The file for the song.
     file = models.FileField(
         upload_to=song_upload_to,
         help_text='File must be an MP3 and of reasonably high quality.')
@@ -248,11 +249,6 @@ class Song(models.Model):
     # Whether or not the song was reviewed.
     reviewed = models.BooleanField(default=False)
     approved = models.BooleanField(default=False)
-
-    # Number of times that the track was played.
-    number_of_plays = models.PositiveIntegerField(default=0)
-    # Number of random plays.
-    number_of_random_plays = models.PositiveIntegerField(default=0)
 
     uploaded_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -267,6 +263,7 @@ class Song(models.Model):
     digest = models.CharField(max_length=128, unique=False, null=True)
 
     class Meta:
+        ordering = ('title',)
         permissions = (('can_review', 'Can review songs.'),)
 
     def __unicode__(self):
@@ -361,48 +358,4 @@ class Video(models.Model):
 class Website(models.Model):
     artist = models.ForeignKey(Artist)
     url = models.URLField()
-
-class QueuedPlay(models.Model):
-    """
-    The playlist queue.
-    """
-    song = models.ForeignKey(Song)
-
-    paid = models.BooleanField(default=False)
-    random = models.BooleanField(default=False)
-
-    added_on = models.DateTimeField(auto_now_add=True)
-
-
-    class Meta:
-        ordering = ('added_on',)
-
-    def __unicode__(self):
-        return "%s - %s - %s" % (self.added_on, self.song.artist, self.song)
-
-    def __str__(self):
-        return self.__unicode__()
-
-class Play(models.Model):
-    """
-    Model that represents when a song was played.
-    """
-    song = models.ForeignKey(Song)
-    paid = models.BooleanField(default=False)
-    random = models.BooleanField(default=False)
-    played_on = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ('played_on',)
-
-    def __unicode__(self):
-        text = "%s - %s - %s" % (self.played_on, self.song.artist, self.song)
-        if self.paid:
-            text += ' P'
-        if self.random:
-            text += ' R'
-        return text
-
-    def __str__(self):
-        return self.__unicode__()
 

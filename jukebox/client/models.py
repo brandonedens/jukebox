@@ -24,6 +24,7 @@
 ###############################################################################
 
 from jukebox.music.models import Song
+from django.db import models
 
 
 ###############################################################################
@@ -60,26 +61,34 @@ class QueuedPlay(models.Model):
     def __str__(self):
         return self.__unicode__()
 
-class Play(models.Model):
+class RandomPlay(models.Model):
     """
-    Model that represents when a song was played.
+    Model that represents when a song was randomly played.
     """
     song = models.ForeignKey(Song)
-    paid = models.BooleanField(default=False)
-    random = models.BooleanField(default=False)
     played_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ('played_on',)
 
     def __unicode__(self):
-        text = ""
-        if self.paid:
-            text += 'PAID '
-        if self.random:
-            text += 'RANDOM '
-        text += "%s - %s - %s" % (self.played_on, self.song.artist, self.song)
-        return text
+        return "%s - %s - %s" % (self.played_on, self.song.artist, self.song)
+
+    def __str__(self):
+        return self.__unicode__()
+
+class PaidPlay(models.Model):
+    """
+    Model that represents when a song was randomly played.
+    """
+    song = models.ForeignKey(Song)
+    played_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('played_on',)
+
+    def __unicode__(self):
+        return "%s - %s - %s" % (self.played_on, self.song.artist, self.song)
 
     def __str__(self):
         return self.__unicode__()

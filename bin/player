@@ -38,7 +38,7 @@ import tempfile
 import time
 import traceback
 
-from jukebox.music.models import QueuedPlay, Play
+from jukebox.client.models import QueuedPlay, PaidPlay, RandomPlay
 
 
 ###############################################################################
@@ -103,24 +103,20 @@ def main():
             # Move the file lock for the playing file to the last song played.
             stop_playing()
 
-            # Delete the track from queue
-            track_to_play.delete()
-
-            # Add information on previous played track
-            play = Play(song=track_to_play.song,
-                        paid=track_to_play.paid,
-                        random=track_to_play.random)
-            play.save()
-
-            # Update song's total number of plays
+            # Add information on previously played track.
             if track_to_play.paid:
-                song = track_to_play.song
-                song.number_of_plays += 1
-                song.save()
+                play = PaidPlay(song=track_to_play.song)
+                # Delete the track from the queue
+                track_to_play.delete()
+                # Save the paid play
+                play.save()
             elif track_to_play.random:
-                song = track_to_play.song
-                song.number_of_random_plays += 1
-                song.save()
+                play = RandomPlay(song=track_to_play.song)
+                # Delete the track from the queue
+                track_to_play.delete()
+                # Save the random play
+                play.save()
+
         else:
             # No music to play, sleep 1 second then try again.
             time.sleep(1)

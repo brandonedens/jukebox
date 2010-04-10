@@ -118,13 +118,14 @@ INSTALLED_APPS = (
     'registration',
 
     # Local applications.
-    'jukebox.utils',
-    'jukebox.utils.templatetags',
+    'jukebox.client',
     'jukebox.music',
     'jukebox.music.templatetags',
     'jukebox.profile',
     'jukebox.review',
     'jukebox.search',
+    'jukebox.utils',
+    'jukebox.utils.templatetags',
 )
 
 # URL to redirect to after successful login
