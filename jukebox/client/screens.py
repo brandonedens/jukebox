@@ -270,7 +270,7 @@ class ScrollingText(clutter.Box):
         layout = self.get_layout_manager()
         layout.set_vertical(True)
         layout.set_spacing(20)
-        layout.set_use_animations(True)
+        layout.set_use_animations(False)
 
         # Contents stores the possible on screen elements.
         self.contents = contents
