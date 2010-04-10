@@ -72,7 +72,11 @@ class RandomPlay(models.Model):
         ordering = ('played_on',)
 
     def __unicode__(self):
-        return "%s - %s - %s" % (self.played_on, self.song.artist, self.song)
+        try:
+            return "%s - %s - %s" % (self.played_on, self.song.artist, self.song)
+        except Song.DoesNotExist:
+            print "Error: Could not find the song for random play %s." % self.id
+            return ""
 
     def __str__(self):
         return self.__unicode__()
@@ -88,7 +92,11 @@ class PaidPlay(models.Model):
         ordering = ('played_on',)
 
     def __unicode__(self):
-        return "%s - %s - %s" % (self.played_on, self.song.artist, self.song)
+        try:
+            return "%s - %s - %s" % (self.played_on, self.song.artist, self.song)
+        except Song.DoesNotExist:
+            print "Error: Could not find the song for paid play %s." % self.id
+            return ""
 
     def __str__(self):
         return self.__unicode__()
