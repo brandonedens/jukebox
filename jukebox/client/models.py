@@ -38,7 +38,13 @@ class CoinInsert(models.Model):
     added_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('added_on',)
+        ordering = ('-added_on',)
+
+    def __unicode__(self):
+        return "%s" % added_on
+
+    def __str__(self):
+        return self.__unicode__()
 
 class QueuedPlay(models.Model):
     """
@@ -53,7 +59,7 @@ class QueuedPlay(models.Model):
 
 
     class Meta:
-        ordering = ('added_on',)
+        ordering = ('-added_on',)
 
     def __unicode__(self):
         return "%s - %s - %s" % (self.added_on, self.song.artist, self.song)
@@ -69,7 +75,7 @@ class RandomPlay(models.Model):
     played_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('played_on',)
+        ordering = ('-played_on',)
 
     def __unicode__(self):
         try:
@@ -89,7 +95,7 @@ class PaidPlay(models.Model):
     played_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('played_on',)
+        ordering = ('-played_on',)
 
     def __unicode__(self):
         try:
