@@ -49,7 +49,8 @@ def main():
     while True:
         now = datetime.now()
         if now.hour > settings.RANDOM_NO_PLAY_START and now.hour < settings.RANDOM_NO_PLAY_END:
-            # Sleep for 30 minutes then wake up and check if we can randomly play again.
+            # Sleep for 30 minutes then wake up and check if we can randomly
+            # play again.
             time.sleep(1800)
             continue
 
