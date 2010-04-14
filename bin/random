@@ -70,8 +70,11 @@ def main():
             logging.debug("Previous random song is now %s." % previous_random_song)
         else:
             current_queue = QueuedPlay.objects.all()[0]
-            previous_song = current_queue.song
-            logging.debug("Previous song is now %s." % previous_song)
+            # Update the previous song to reflect last song played.
+            if current_queue.song != previous_song:
+                previous_song = current_queue.song
+                logging.debug("Previous song is now %s." % previous_song)
+
             if settings.RANDOM_SLEEP_MIN > settings.RANDOM_SLEEP_MAX:
                 logging.warning("Random sleep min %d is greater than max %d." % (settings.RANDOM_SLEEP_MIN,
                                                                                  settings.RANDOM_SLEEP_MAX))
