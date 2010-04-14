@@ -43,6 +43,8 @@
 
   {% ifequal user song.artist.user %}
   <div class="controls">
+    <a class="button green"
+       href="{% url song_update song.id %}">edit</a>
     <a class="button orange"
        href="{% url song_delete song.id %}">delete</a>
   </div>

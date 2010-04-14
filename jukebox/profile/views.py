@@ -198,14 +198,37 @@ def song_update(request, object_id):
     """
     song = get_object_or_404(Song, pk=object_id)
     if request.user != song.artist.user:
-        # Song is not owned by this user; do not allow update.
+        # This song is not registered to the logged in user. This is an attempt
+        # at modifying some other user's songs.
         request.user.message_set.create(
-            message='This song does not belong to you. You cannot update it.'
+            message='You do not have permission to update this song.'
             )
         return HttpResponseForbidden()
-    return update_object(request,
-                         form_class=SongForm,
-                         object_id=song.id,
-                         template_name='profile/song_form.html',
-                         template_object_name='song')
+
+    if request.method == 'POST':
+        form = SongForm(request.POST,
+                        request.FILES,
+                        instance=song,
+                        prefix='song')
+        tos = TermsOfServiceForm(request.POST, prefix='tos')
+        tos_valid = tos.is_valid()
+        if tos.is_valid() and form.is_valid():
+            first_name = tos.cleaned_data['first_name'].strip().lower()
+            last_name = tos.cleaned_data['last_name'].strip().lower()
+            if first_name != request.user.first_name.strip().lower():
+                tos.errors['first_name'] = "Firstname does not match user's firstname."
+            elif last_name != request.user.last_name.strip().lower():
+                tos.errors['last_name'] = "Lastname does not match user's lastname."
+            else:
+                song = form.save()
+                return redirect_to(request, reverse('song_detail',
+                                                    args=[song.id]))
+    else:
+        tos = TermsOfServiceForm(initial={'first_name': 'first name',
+                                          'last_name': 'last name'},
+                                 prefix='tos')
+        form = SongForm(instance=song, prefix='song')
+    return direct_to_template(request, 'profile/song_form.html',
+                              {'form': form,
+                               'terms_of_service': tos})
 
