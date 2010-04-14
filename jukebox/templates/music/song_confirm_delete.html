@@ -4,7 +4,34 @@
 {% block content %}
 <article>
   <form method="post" action=".">
+    <h1>Just want to Edit the Song?</h1>
+    <p>
+      If you are merely trying to update the file associated with this song
+      then
+      <span style="font-size: 125%"><a href="{% url song_update song.id %}">
+          PLEASE visit the edit page instead.
+      </a></span>
+    </p>
+    <h1>CAUTION</h1>
     <p>Are you sure you want to delete song "{{ song }}"?</p>
+    <p>
+      Please know that the number of paid plays and by extension the money that
+      has been accrued for this artist for each play of this song is tied
+      directly to this song in the database.
+    </p>
+    <p>
+      This means that deleting this song will lower the amount of money that
+      this artist has earned.
+    </p>
+    <p>
+      The process of deleting then recreating this same song will not
+      automatically update the number of plays that were already associated
+      with this song. So its best to seriously consider what is about to be
+      done.
+    </p>
+    <p style="color: #ff0000; font-size: 150%">
+      You have been warned!
+    </p>
     <input type="submit" value="Delete" />
   </form>
 </article>
