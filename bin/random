@@ -46,6 +46,8 @@ from jukebox.music.models import Song
 ###############################################################################
 
 def main():
+    previous_song = None
+    previous_random_song = None
     while True:
         now = datetime.now()
         if now.hour > settings.RANDOM_NO_PLAY_START and now.hour < settings.RANDOM_NO_PLAY_END:
@@ -57,10 +59,19 @@ def main():
         if QueuedPlay.objects.count() == 0:
             songs = Song.objects.filter(approved=True)
             song = random.choice(songs)
+            # Make sure the random song we choose is not the previous random
+            # song OR the previous song played.
+            while song == previous_random_song or song == previous_song:
+                song = random.choice(songs)
             logging.info("Randomly playing %s." % song)
             new_track = QueuedPlay(song=song, random=True, paid=False)
             new_track.save()
+            previous_random_song = song
+            logging.debug("Previous random song is now %s." % previous_random_song)
         else:
+            current_queue = QueuedPlay.objects.all()[0]
+            previous_song = current_queue.song
+            logging.debug("Previous song is now %s." % previous_song)
             if settings.RANDOM_SLEEP_MIN > settings.RANDOM_SLEEP_MAX:
                 logging.warning("Random sleep min %d is greater than max %d." % (settings.RANDOM_SLEEP_MIN,
                                                                                  settings.RANDOM_SLEEP_MAX))
