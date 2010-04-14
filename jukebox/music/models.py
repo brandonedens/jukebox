@@ -176,6 +176,14 @@ class Genre(models.Model):
     def get_absolute_url(self):
         return ('genre_detail', [str(self.id)])
 
+    def save(self):
+        """
+        Adjust the genre name capitalizing each word between spaces before
+        calling the super-class save.
+        """
+        self.name = ' '.join([s.capitalize() for s in name.split()])
+        super(Genre, self).save()
+
 class Photo(models.Model):
     artist = models.ForeignKey(Artist)
     photo = models.ImageField(upload_to=photo_upload_to,
@@ -233,7 +241,7 @@ class Photo(models.Model):
 
 class Song(models.Model):
     artist = models.ForeignKey(Artist)
-    genre = models.ForeignKey(Genre, null=True)
+    genres = models.ManyToManyField(Genre)
 
     title = models.CharField(
         max_length=200,
