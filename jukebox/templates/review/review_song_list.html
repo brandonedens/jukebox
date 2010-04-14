@@ -30,6 +30,11 @@
       <th>Play</th>
       <th>User</th>
       <th>Firstname Lastname</th>
+      <th>
+        User Email<br />
+        Artist Email<br />
+      </th>
+      <th>Artist Address</th>
     </tr>
   </thead>
   <tbody>
@@ -53,6 +58,17 @@
       </td>
       <td><a>{{ song.artist.user }}</a></td>
       <td><a>{{ song.artist.user.first_name }} {{song.artist.user.last_name }}</a></td>
+      <td>
+        {{ song.artist.user.email }}><br />
+        {{ song.artist.email_address }}
+      </td>
+      <td>
+        {{ song.artist.address1 }}<br />
+        {{ song.artist.address2 }}<br />
+        {{ song.artist.city }}<br />
+        {{ song.artist.state }}<br />
+        {{ song.artist.zipcode }}<br />
+      </td>
     </tr>
     {% endfor %}
   </tbody>
