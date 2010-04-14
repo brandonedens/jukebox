@@ -59,7 +59,7 @@ class QueuedPlay(models.Model):
 
 
     class Meta:
-        ordering = ('-added_on',)
+        ordering = ('added_on',)
 
     def __unicode__(self):
         return "%s - %s - %s" % (self.added_on, self.song.artist, self.song)
