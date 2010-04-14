@@ -178,10 +178,12 @@ class Genre(models.Model):
 
 class Photo(models.Model):
     artist = models.ForeignKey(Artist)
-    photo = models.ImageField(upload_to=photo_upload_to)
+    photo = models.ImageField(upload_to=photo_upload_to,
+                              max_length=512)
     caption = models.CharField(max_length=255, blank=True, null=True)
 
-    thumbnail = models.ImageField(upload_to=photo_upload_to)
+    thumbnail = models.ImageField(upload_to=photo_upload_to,
+                                  max_length=512)
 
     # Whether or not the photo was reviewed.
     reviewed = models.BooleanField(default=False)
@@ -244,6 +246,7 @@ class Song(models.Model):
     # The file for the song.
     file = models.FileField(
         upload_to=song_upload_to,
+        max_length=512,
         help_text='File must be an MP3 and of reasonably high quality.')
 
     # Whether or not the song was reviewed.
@@ -342,7 +345,8 @@ class Song(models.Model):
 
 class Video(models.Model):
     artist = models.ForeignKey(Artist)
-    video = models.FileField(upload_to=video_upload_to)
+    video = models.FileField(upload_to=video_upload_to,
+                             max_length=512)
     caption = models.CharField(max_length=512)
 
     # Whether or not the video was reviewed.
