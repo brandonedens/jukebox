@@ -46,6 +46,7 @@ from jukebox.client.models import QueuedPlay, PaidPlay, RandomPlay
 ###############################################################################
 
 MP3_PLAYER = "/usr/bin/mplayer"
+VOLUME_CONTROL = '/usr/bin/pactl'
 
 
 ###############################################################################
@@ -62,6 +63,17 @@ def set_playing(song):
     tmpfile.flush()
     shutil.copy(tmpfile.name, settings.PLAYING_FILENAME)
     tmpfile.close()
+
+def set_volume(level):
+    """
+    Set the volume level of the player. The volume level should be a percentage
+    from 0 to 100.
+    """
+    actual_level = int((level * 65535) / 100)
+    returncode = subprocess.call([VOLUME_CONTROL],
+                                 'set-sink-volume',
+                                 '0',
+                                 level)
 
 def stop_playing():
     """
@@ -87,6 +99,11 @@ def main():
             # The absolute path to the song filename is the media root + the
             # song's file field.
             song_filename = settings.MEDIA_ROOT+'/'+str(track_to_play.song.file)
+
+            if track_to_play.random:
+                set_volume(93)
+            else:
+                set_volume(100)
 
             # Call the mp3 player (mplayer) and record the return code for
             # logging purposes.
