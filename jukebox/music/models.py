@@ -162,7 +162,7 @@ class Album(models.Model):
         return self.title
 
 class Genre(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
 
@@ -181,7 +181,7 @@ class Genre(models.Model):
         Adjust the genre name capitalizing each word between spaces before
         calling the super-class save.
         """
-        self.name = ' '.join([s.capitalize() for s in name.split()])
+        self.name = ' '.join([s.capitalize() for s in self.name.split()])
         super(Genre, self).save()
 
 class Photo(models.Model):
