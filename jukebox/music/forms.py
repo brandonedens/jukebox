@@ -67,6 +67,7 @@ class TermsOfServiceForm(forms.Form):
         return self.cleaned_data['agree']
 
 class SongForm(ModelForm):
+
     class Meta:
         model = Song
         fields = ('title', 'file',)
