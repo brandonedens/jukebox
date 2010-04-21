@@ -70,10 +70,11 @@ def set_volume(level):
     from 0 to 100.
     """
     actual_level = int((level * 65535) / 100)
-    returncode = subprocess.call([VOLUME_CONTROL],
-                                 'set-sink-volume',
-                                 '0',
-                                 level)
+    logging.debug("set_volume actual level = %s." % actual_level)
+    returncode = subprocess.call([VOLUME_CONTROL,
+                                  'set-sink-volume',
+                                  '0',
+                                  "%s" % actual_level])
 
 def stop_playing():
     """
@@ -101,7 +102,7 @@ def main():
             song_filename = settings.MEDIA_ROOT+'/'+str(track_to_play.song.file)
 
             if track_to_play.random:
-                set_volume(93)
+                set_volume(92)
             else:
                 set_volume(100)
 
