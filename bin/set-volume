@@ -1,0 +1,70 @@
+#!/usr/bin/python
+# Brandon Edens
+# AS220
+# 2010-04-22
+# Copyright (C) 2009 Brandon Edens <brandon@as220.org>
+#
+# This file is part of jukebox.
+#
+# jukebox is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# jukebox is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with jukebox.  If not, see <http://www.gnu.org/licenses/>.
+"""
+Jukebox set volume script.
+"""
+
+###############################################################################
+## Imports
+###############################################################################
+
+import subprocess
+import sys
+
+
+###############################################################################
+## Constants
+###############################################################################
+
+VOLUME_CONTROL = '/usr/bin/pactl'
+
+
+###############################################################################
+## Functions
+###############################################################################
+
+def set_volume(level):
+    """
+    Set the volume level of the player. The volume level should be a percentage
+    from 0 to 100.
+    """
+    actual_level = int((level * 65535) / 100)
+    returncode = subprocess.call([VOLUME_CONTROL,
+                                  'set-sink-volume',
+                                  '0',
+                                  "%s" % actual_level])
+
+def main(volume_level):
+    """
+    """
+    set_volume(volume_level)
+
+if __name__ == '__main__':
+    try:
+        main(int(sys.argv[1]))
+    except IndexError:
+        print 'Please specify a volume level (0 - 100).'
+        print "As in: %s %d" % (sys.argv[0], 80)
+        sys.exit(1)
+    except ValueError:
+        print 'Volume level must be a number between 0 - 100'
+        sys.exit(1)
+
