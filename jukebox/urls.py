@@ -43,7 +43,7 @@ urlpatterns = patterns('',
     # Administrative services.
     (r'^admin/', include(admin.site.urls)),
 
-    # Registration URLs.
+    # Third party URLs.
     (r'^accounts/', include('registration.urls')),
 
     # Top level URLS.
