@@ -13,13 +13,24 @@
       article, aside, dialog, figure, footer, header,
       hgroup, menu, nav, section { display: block; }
     </style>
-    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.4.min.js"></script>
-    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.tablesorter.js"></script>
-    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.corner.js"></script>
+    <script type="text/javascript"
+            src="{{ MEDIA_URL }}js/jquery-1.4.min.js"></script>
+    <script type="text/javascript"
+            src="{{ MEDIA_URL }}js/jquery.tablesorter.js"></script>
+    <script type="text/javascript"
+            src="{{ MEDIA_URL }}js/jquery.corner.js"></script>
+    <script type="text/javascript"
+            src="{{ MEDIA_URL }}lib/jquery-autocomplete/jquery.autocomplete.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}js/base.js"></script>
     {% block js %}{% endblock %}
 
+    <script type="text/javascript">
+      {% block extra_script %}{% endblock %}
+    </script>
+
     <link href="{{ MEDIA_URL }}css/base.css" rel="stylesheet" type="text/css" />
+    <link href="{{ MEDIA_URL }}lib/jquery-autocomplete/jquery.autocomplete.css"
+          rel="stylesheet" type="text/css" />
     <link href="{{ MEDIA_URL }}css/button.css" rel="stylesheet" type="text/css" />
     <link href="{{ MEDIA_URL }}css/layout.css" rel="stylesheet" type="text/css" />
     {% block css %}{% endblock %}
