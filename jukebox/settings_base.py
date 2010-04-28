@@ -172,6 +172,9 @@ RANDOM_SLEEP_MAX = 420
 # Time period where random play is disabled. (hour in 24hr format)
 RANDOM_NO_PLAY_START = 1
 RANDOM_NO_PLAY_END = 10
+# Volume levels
+RANDOM_PLAY_VOLUME = 92
+PAID_PLAY_VOLUME = 100
 
 FULLSCREEN = True
 SCREEN_WIDTH = 1366

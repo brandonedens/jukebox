@@ -104,9 +104,9 @@ def main():
             song_filename = settings.MEDIA_ROOT+'/'+str(track_to_play.song.file)
 
             if track_to_play.random:
-                set_volume(92)
+                set_volume(settings.random_play_volume)
             else:
-                set_volume(98)
+                set_volume(settings.paid_play_volume)
 
             # Call the mp3 player (mplayer) and record the return code for
             # logging purposes.

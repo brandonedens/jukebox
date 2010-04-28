@@ -69,6 +69,11 @@ if config.get('random_no_play_start'):
     RANDOM_NO_PLAY_START = config.get('random_no_play_start')
 if config.get('random_no_play_end'):
     RANDOM_NO_PLAY_END = config.get('random_no_play_end')
+if config.get('random_play_volume'):
+    RANDOM_PLAY_VOLUME = config.get('random_play_volume')
+if config.get('paid_play_volume'):
+    PAID_PLAY_VOLUME = config.get('paid_play_volume')
+
 
 # Screen settings
 if config.get('fullscreen'):
