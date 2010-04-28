@@ -26,8 +26,10 @@ Jukebox set volume script.
 ## Imports
 ###############################################################################
 
+import re
 import subprocess
 import sys
+import time
 
 
 ###############################################################################
@@ -36,10 +38,31 @@ import sys
 
 VOLUME_CONTROL = '/usr/bin/amixer'
 
+# Amount of time to sleep while waiting for get volume to return data.
+GET_VOLUME_SLEEP = 0.1
+
 
 ###############################################################################
 ## Functions
 ###############################################################################
+
+def get_volume():
+    """
+    Get the current volume level as a percentage from 0 to 100.
+    """
+    proc = subprocess.Popen([VOLUME_CONTROL,
+                             'get',
+                             'Master'],
+                            stdout=subprocess.PIPE)
+    while not proc:
+        time.sleep(0.1)
+
+    volume_level = None
+    for line in proc.stdout.readlines():
+        match = re.search('Playback.*\[(\d+)%\]', line)
+        if match:
+            volume_level = match.group(1)
+    return int(volume_level)
 
 def set_volume(level):
     """
