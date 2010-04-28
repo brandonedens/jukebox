@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:cc="http://creativecommons.org/ns#"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:svg="http://www.w3.org/2000/svg"
+xmlns="http://www.w3.org/2000/svg"
+xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+version="1.0"
+width="2160"
+height="1080"
+id="svg2">
+<sodipodi:namedview
+inkscape:document-units="in"
+pagecolor="#ffffff"
+bordercolor="#666666"
+borderopacity="1.0"
+inkscape:pageopacity="0.0"
+inkscape:pageshadow="2"
+inkscape:zoom="0.73425926"
+inkscape:cx="1080"
+inkscape:cy="540"
+inkscape:current-layer="layer1"
+id="namedview2387"
+showgrid="true"
+units="in"
+inkscape:window-width="1678"
+inkscape:window-height="1029"
+inkscape:window-x="0"
+inkscape:window-y="19"
+showguides="true"
+inkscape:guide-bbox="true"
+inkscape:snap-global="true"
+objecttolerance="1"
+gridtolerance="10"
+guidetolerance="15">
+<inkscape:grid
+type="xygrid"
+id="grid2379"
+units="in"
+visible="true"
+enabled="true"
+spacingx="0.125in"
+spacingy="0.125in"
+empspacing="4" />
+</sodipodi:namedview>
+<!-- upper view (7) -->
+<g
+inkscape:label="Layer XY"
+inkscape:groupmode="layer"
+id="layerxy">
+</g>
+<!-- bottom view (1) -->
+<g
+inkscape:label="Layer XZ"
+inkscape:groupmode="layer"
+id="layerxz">
+</g>
+<!-- right view (3) -->
+<g
+inkscape:label="Layer YZ"
+inkscape:groupmode="layer"
+id="layeryz">
+</g>
+</svg>
