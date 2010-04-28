@@ -83,6 +83,8 @@ def playing_load():
         song = Song.objects.get(pk=song_id)
     except IOError:
         pass
+    except Song.DoesNotExist:
+        pass
     return song
 
 def queue_song(song):
