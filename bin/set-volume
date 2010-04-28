@@ -34,7 +34,7 @@ import sys
 ## Constants
 ###############################################################################
 
-VOLUME_CONTROL = '/usr/bin/pactl'
+VOLUME_CONTROL = '/usr/bin/amixer'
 
 
 ###############################################################################
@@ -46,11 +46,14 @@ def set_volume(level):
     Set the volume level of the player. The volume level should be a percentage
     from 0 to 100.
     """
-    actual_level = int((level * 65535) / 100)
+    if level > 100:
+        level = 100
+    elif level < 0:
+        level = 0
     returncode = subprocess.call([VOLUME_CONTROL,
-                                  'set-sink-volume',
-                                  '0',
-                                  "%s" % actual_level])
+                                  'set',
+                                  'Master',
+                                  "%s%%" % level])
 
 def main(volume_level):
     """
