@@ -46,7 +46,7 @@ from jukebox.client.models import QueuedPlay, PaidPlay, RandomPlay
 ###############################################################################
 
 MP3_PLAYER = "/usr/bin/mplayer"
-VOLUME_CONTROL = '/usr/bin/pactl'
+VOLUME_CONTROL = '/usr/bin/amixer'
 
 
 ###############################################################################
@@ -69,12 +69,14 @@ def set_volume(level):
     Set the volume level of the player. The volume level should be a percentage
     from 0 to 100.
     """
-    actual_level = int((level * 65535) / 100)
-    logging.debug("set_volume actual level = %s." % actual_level)
+    if level > 100:
+        level = 100
+    elif level < 0:
+        level = 0
     returncode = subprocess.call([VOLUME_CONTROL,
-                                  'set-sink-volume',
-                                  '0',
-                                  "%s" % actual_level])
+                                  'set',
+                                  'Master',
+                                  "%s%%" % level])
 
 def stop_playing():
     """
@@ -104,7 +106,7 @@ def main():
             if track_to_play.random:
                 set_volume(92)
             else:
-                set_volume(100)
+                set_volume(98)
 
             # Call the mp3 player (mplayer) and record the return code for
             # logging purposes.
