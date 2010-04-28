@@ -31,6 +31,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'jukebox.settings'
 
 from django.conf import settings
 import logging
+import re
 import shutil
 import subprocess
 import sys
@@ -48,10 +49,48 @@ from jukebox.client.models import QueuedPlay, PaidPlay, RandomPlay
 MP3_PLAYER = "/usr/bin/mplayer"
 VOLUME_CONTROL = '/usr/bin/amixer'
 
+# Amount of time to sleep while waiting for get volume to return data.
+GET_VOLUME_SLEEP = 0.1
+
+# Rate at which volume is faded down.
+VOLUME_FADE_RATE = 0.1
+
+# Number of percents to lower volume (DO NOT SET THIS TO 1)
+VOLUME_DECREMENT = 3
+
 
 ###############################################################################
 ## Functions
 ###############################################################################
+
+def fade_volume():
+    """
+    Fade the volume from current level down to 0.
+    """
+    volume_level = get_volume()
+    while volume_level > 0:
+        set_volume(volume_level - VOLUME_DECREMENT)
+        time.sleep(VOLUME_FADE_RATE)
+        volume_level = get_volume()
+        logging.info('volume_level = %d' % volume_level)
+
+def get_volume():
+    """
+    Get the current volume level as a percentage from 0 to 100.
+    """
+    proc = subprocess.Popen([VOLUME_CONTROL,
+                             'get',
+                             'Master'],
+                            stdout=subprocess.PIPE)
+    while not proc:
+        time.sleep(GET_VOLUME_SLEEP)
+
+    volume_level = None
+    for line in proc.stdout.readlines():
+        match = re.search('Playback.*\[(\d+)%\]', line)
+        if match:
+            volume_level = match.group(1)
+    return int(volume_level)
 
 def set_playing(song):
     """
@@ -69,6 +108,7 @@ def set_volume(level):
     Set the volume level of the player. The volume level should be a percentage
     from 0 to 100.
     """
+    logging.info('Setting volume level to %d.' % level)
     if level > 100:
         level = 100
     elif level < 0:
@@ -76,7 +116,9 @@ def set_volume(level):
     returncode = subprocess.call([VOLUME_CONTROL,
                                   'set',
                                   'Master',
-                                  "%s%%" % level])
+                                  "%s%%" % level],
+                                 stdout=None,
+                                 stderr=None)
 
 def stop_playing():
     """
@@ -108,14 +150,27 @@ def main():
             else:
                 set_volume(settings.PAID_PLAY_VOLUME)
 
-            # Call the mp3 player (mplayer) and record the return code for
-            # logging purposes.
-            returncode = subprocess.call([MP3_PLAYER,
-                                          "-vo", "null",
-                                          song_filename])
-            if returncode != 0:
-                logging.warning("Receiving error code %d from mp3 player."
-                                % returncode)
+            # Call the mp3 player (mplayer).
+            proc = subprocess.Popen([MP3_PLAYER,
+                                     '-softvol',
+                                     '-vo', 'null',
+                                     song_filename])
+
+            # Enter idle loop waiting for mp3 player to finish playing the
+            # song. Also if this is a random play and a user wants to play a
+            # paid play then this loop will also fade out the music and
+            # terminate the player.
+            while proc.poll() == None:
+                time.sleep(1)
+                if track_to_play.random:
+                    # This is a randomly played track so check to see if any
+                    # paid tracks are awaiting play.
+                    paid_tracks = QueuedPlay.objects.filter(paid=True)
+                    if paid_tracks:
+                        logging.debug('A paid track awaiting play so killing random.')
+                        fade_volume()
+                        if not proc.poll():
+                            proc.kill()
 
             logging.info("Finished playing song %s" % track_to_play.song)
 
