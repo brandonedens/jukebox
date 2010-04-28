@@ -152,7 +152,6 @@ def main():
 
             # Call the mp3 player (mplayer).
             proc = subprocess.Popen([MP3_PLAYER,
-                                     '-softvol',
                                      '-vo', 'null',
                                      song_filename])
 
