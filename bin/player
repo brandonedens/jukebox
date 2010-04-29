@@ -169,7 +169,11 @@ def main():
                         logging.debug('A paid track awaiting play so killing random.')
                         fade_volume()
                         if not proc.poll():
-                            proc.kill()
+                            try:
+                                proc.kill()
+                            except OSError:
+                                logging.error('Attempt to kill song process that did not exist.')
+                                break
 
             logging.info("Finished playing song %s" % track_to_play.song)
 
