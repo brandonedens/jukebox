@@ -46,7 +46,7 @@ from jukebox.client.models import QueuedPlay, PaidPlay, RandomPlay
 ## Constants
 ###############################################################################
 
-LOCK_FILE=settings.LOCK_DIR+'player'
+LOCK_FILE=settings.LOCK_DIR+'/player'
 
 MP3_PLAYER = "/usr/bin/mplayer"
 VOLUME_CONTROL = '/usr/bin/amixer'
@@ -208,9 +208,13 @@ def main():
 
 if __name__ == '__main__':
     # Store the process id in a lock file.
+    try:
+        os.makedirs(settings.LOCK_DIR)
+    except OSError:
+        pass
     pid = os.getpid()
     fh = open(LOCK_FILE, 'w')
-    dh.write("%d\n" % pid)
+    fh.write("%d\n" % pid)
     fh.close()
 
     # Setup logging.

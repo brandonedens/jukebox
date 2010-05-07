@@ -1,3 +1,9 @@
+jukebox (0.3.1) unstable; urgency=low
+
+  * Add lockfile support.
+
+ -- Brandon Edens <brandon@as220.org>  Fri, 07 May 2010 11:13:38 -0400
+
 jukebox (0.3) unstable; urgency=low
 
   * Version bump. Jukebox is live and has been for a few weeks.

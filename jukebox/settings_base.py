@@ -157,7 +157,7 @@ SONGS_PER_PAGE = 6
 ################################################################################
 
 # Location for storing process id (run) locks.
-LOCK_DIR = '/var/run/jukebox/'
+LOCK_DIR = '/home/jukebox/run'
 
 CREDITS_FILENAME = '/var/lib/jukebox/credits.txt'
 PLAYING_FILENAME = '/var/lib/jukebox/playing.txt'

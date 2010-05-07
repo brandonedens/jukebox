@@ -44,7 +44,7 @@ from jukebox.client.gui import GUI
 ## Constants
 ###############################################################################
 
-LOCK_FILE=settings.LOCK_DIR+'buttons'
+LOCK_FILE=settings.LOCK_DIR+'/jukebox'
 
 
 ###############################################################################
@@ -106,9 +106,13 @@ def main():
 
 if __name__ == '__main__':
     # Store the process id in a lock file.
+    try:
+        os.makedirs(settings.LOCK_DIR)
+    except OSError:
+        pass
     pid = os.getpid()
     fh = open(LOCK_FILE, 'w')
-    dh.write("%d\n" % pid)
+    fh.write("%d\n" % pid)
     fh.close()
 
     returncode = main()
