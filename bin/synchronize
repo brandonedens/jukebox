@@ -1,0 +1,65 @@
+#!/bin/bash
+# Brandon Edens
+# AS220
+# 2010-05-07
+# Copyright (C) 2010 Brandon Edens <brandon@as220.org>
+#
+# Description:
+#
+# Script to synchronize the jukebox with the server. The ordering of the
+# operations that occur here is meaningful. Please do not modify these
+# statements without thinking about potential race conditions surrounding new
+# songs being uploaded and the like.
+
+
+
+###############################################################################
+## Constants
+###############################################################################
+
+DATE=`date +%F`--`date +%T`
+TMP_DIR_CLIENT=/tmp/jukebox
+TMP_DIR_SERVER=/home/jukebox/tmp/
+
+# Database related filenames
+DB_FILENAME_MUSIC=${DATE}_music.json
+DB_FILENAME_AUTH=${DATE}_auth.json
+DB_FILENAME_CLIENT=${DATE}_client.json
+
+SERVER=jukebox@as220.org
+SERVER_MANAGE_SCRIPT=/home/jukebox/src/jukebox/manage.py
+CLIENT_MANAGE_SCRIPT=/usr/bin/jukebox-manage
+
+SERVER_MUSIC_DIR=/home/jukebox/src/jukebox/static_media
+CLIENT_MUSIC_DIR=/home/jukebox/static_media
+
+
+###############################################################################
+
+# Create the temporary directories
+mkdir -p $TMP_DIR_CLIENT
+ssh $SERVER mkdir -p $TMP_DIR_SERVER
+
+echo "Dumping server and client databases."
+# Dump server music db
+ssh $SERVER $SERVER_MANAGE_SCRIPT dumpdata --indent=2 music > $TMP_DIR_CLIENT/$DB_FILENAME_MUSIC
+# Dump server auth db
+ssh $SERVER $SERVER_MANAGE_SCRIPT dumpdata --indent=2 auth > $TMP_DIR_CLIENT/$DB_FILENAME_AUTH
+# Dump client db
+$CLIENT_MANAGE_SCRIPT dumpdata --indent=2 client > $TMP_DIR_CLIENT/$DB_FILENAME_CLIENT
+
+echo "Downloading new music."
+pushd . > /dev/null
+cd $CLIENT_MUSIC_DIR
+rsync -au $SERVER:${SERVER_MUSIC_DIR}/music .
+
+echo "Loading database updates."
+# Load server auth db into client
+$CLIENT_MANAGE_SCRIPT loaddata $TMP_DIR_CLIENT/$DB_FILENAME_AUTH
+# Load server music db into client
+$CLIENT_MANAGE_SCRIPT loaddata $TMP_DIR_CLIENT/$DB_FILENAME_MUSIC
+# Load client db into server
+scp -p $TMP_DIR_CLIENT/$DB_FILENAME_CLIENT $SERVER:$TMP_DIR_SERVER/
+ssh $SERVER $SERVER_MANAGE_SCRIPT loaddata $TMP_DIR_SERVER/$DB_FILENAME_CLIENT
+
+echo "Synchronization complete."
