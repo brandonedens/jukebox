@@ -46,6 +46,8 @@ from jukebox.client.models import QueuedPlay, PaidPlay, RandomPlay
 ## Constants
 ###############################################################################
 
+LOCK_FILE=settings.LOCK_DIR+'player'
+
 MP3_PLAYER = "/usr/bin/mplayer"
 VOLUME_CONTROL = '/usr/bin/amixer'
 
@@ -205,6 +207,12 @@ def main():
 ###############################################################################
 
 if __name__ == '__main__':
+    # Store the process id in a lock file.
+    pid = os.getpid()
+    fh = open(LOCK_FILE, 'w')
+    dh.write("%d\n" % pid)
+    fh.close()
+
     # Setup logging.
     logging.basicConfig(filename=settings.LOG_PLAYER_FILENAME,
                         level=logging.DEBUG,
@@ -225,4 +233,7 @@ if __name__ == '__main__':
         logging.critical("Unexpected failure %s." % e)
         sys.exit(1)
     logging.info('Shutting down jukebox player software.')
+
+    # Remove the lock file
+    os.remove(LOCK_FILE)
 

@@ -41,6 +41,13 @@ from jukebox.client.gui import GUI
 
 
 ###############################################################################
+## Constants
+###############################################################################
+
+LOCK_FILE=settings.LOCK_DIR+'buttons'
+
+
+###############################################################################
 ## Functions
 ###############################################################################
 
@@ -89,6 +96,7 @@ def main():
     stage.show()
     clutter.main()
     logging.info("Stopping Jukebox.")
+
     return 0
 
 
@@ -97,6 +105,15 @@ def main():
 ###############################################################################
 
 if __name__ == '__main__':
-    sys.exit(main())
+    # Store the process id in a lock file.
+    pid = os.getpid()
+    fh = open(LOCK_FILE, 'w')
+    dh.write("%d\n" % pid)
+    fh.close()
 
+    returncode = main()
 
+    # Remove the lock file
+    os.remove(LOCK_FILE)
+
+    sys.exit(returncode)
