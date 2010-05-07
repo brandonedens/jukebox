@@ -18,10 +18,10 @@ if [ -f $BUTTONS_RUN_FILENAME ]; then
     PID=`cat $BUTTONS_RUN_FILENAME`;
     ps --pid $PID > /dev/null
     if [ $? != 0 ]; then
-        echo "Jukebox buttons software has crashed."
+        echo "Jukebox software for buttons interface has crashed."
     fi
 else
-    echo "Jukebox buttons software is not running."
+    echo "Jukebox software for buttons interface is not running."
 fi
 
 # Check on jukebox gui.
@@ -29,10 +29,10 @@ if [ -f $JUKEBOX_RUN_FILENAME ]; then
     PID=`cat $JUKEBOX_RUN_FILENAME`;
     ps --pid $PID > /dev/null
     if [ $? != 0 ]; then
-        echo "Jukebox gui software has crashed."
+        echo "Jukebox GUI has crashed."
     fi
 else
-    echo "Jukebox gui software is not running."
+    echo "Jukebox GUI is not running."
 fi
 
 # Check on player software.
@@ -40,10 +40,10 @@ if [ -f $PLAYER_RUN_FILENAME ]; then
     PID=`cat $PLAYER_RUN_FILENAME`;
     ps --pid $PID > /dev/null
     if [ $? != 0 ]; then
-        echo "Jukebox player software has crashed."
+        echo "Jukebox audio player has crashed."
     fi
 else
-    echo "Jukebox player software is not running."
+    echo "Jukebox audio player is not running."
 fi
 
 # Check on random software.
@@ -51,10 +51,10 @@ if [ -f $RANDOM_RUN_FILENAME ]; then
     PID=`cat $RANDOM_RUN_FILENAME`;
     ps --pid $PID > /dev/null
     if [ $? != 0 ]; then
-        echo "Jukebox random software has crashed."
+        echo "Jukebox randomized play software has crashed."
     fi
 else
-    echo "Jukebox random software is not running."
+    echo "Jukebox randomized play software is not running."
 fi
 
 
