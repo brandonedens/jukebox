@@ -1,11 +1,18 @@
-jukebox (0.2) karmic; urgency=low
+jukebox (0.3) unstable; urgency=low
+
+  * Version bump. Jukebox is live and has been for a few weeks.
+
+ -- Brandon Edens <brandon@as220.org>  Fri, 07 May 2010 09:54:00 -0400
+
+jukebox (0.2) unstable; urgency=low
 
   * Project update. Build system is mostly in place.
 
- -- Brandon Edens <brandon@as220.org>  Mon, 5 Apr 2010 19:55:28 -0400
+ -- Brandon Edens <brandon@as220.org>  Mon, 05 Apr 2010 19:55:28 -0400
 
-jukebox (0.1) karmic; urgency=low
+jukebox (0.1) unstable; urgency=low
 
   * Initial Release.
 
  -- Brandon Edens <brandon@as220.org>  Tue, 16 Mar 2010 09:41:47 -0400
+
