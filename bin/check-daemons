@@ -1,0 +1,60 @@
+#!/bin/bash
+# Brandon Edens
+# AS220
+# 2010-05-07
+# Copyright (C) 2010 Brandon Edens <brandon@as220.org>
+#
+# Description:
+#
+# Monitor jukebox software and report outages suitable for usage with cron.
+
+BUTTONS_RUN_FILENAME=$HOME/run/buttons
+JUKEBOX_RUN_FILENAME=$HOME/run/jukebox
+PLAYER_RUN_FILENAME=$HOME/run/player
+RANDOM_RUN_FILENAME=$HOME/run/random
+
+# Check on buttons software.
+if [ -f $BUTTONS_RUN_FILENAME ]; then
+    PID=`cat $BUTTONS_RUN_FILENAME`;
+    ps --pid $PID > /dev/null
+    if [ $? != 0 ]; then
+        echo "Jukebox buttons software has crashed."
+    fi
+else
+    echo "Jukebox buttons software is not running."
+fi
+
+# Check on jukebox gui.
+if [ -f $JUKEBOX_RUN_FILENAME ]; then
+    PID=`cat $JUKEBOX_RUN_FILENAME`;
+    ps --pid $PID > /dev/null
+    if [ $? != 0 ]; then
+        echo "Jukebox gui software has crashed."
+    fi
+else
+    echo "Jukebox gui software is not running."
+fi
+
+# Check on player software.
+if [ -f $PLAYER_RUN_FILENAME ]; then
+    PID=`cat $PLAYER_RUN_FILENAME`;
+    ps --pid $PID > /dev/null
+    if [ $? != 0 ]; then
+        echo "Jukebox player software has crashed."
+    fi
+else
+    echo "Jukebox player software is not running."
+fi
+
+# Check on random software.
+if [ -f $RANDOM_RUN_FILENAME ]; then
+    PID=`cat $RANDOM_RUN_FILENAME`;
+    ps --pid $PID > /dev/null
+    if [ $? != 0 ]; then
+        echo "Jukebox random software has crashed."
+    fi
+else
+    echo "Jukebox random software is not running."
+fi
+
+
