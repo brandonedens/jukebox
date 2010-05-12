@@ -53,6 +53,7 @@ install: build
 	install -m 755 $(CURDIR)/bin/diag-serial $(PACKAGE_DIR)/usr/bin/jukebox-diag-serial
 	install -m 755 $(CURDIR)/bin/arduino-pulse-dtr $(PACKAGE_DIR)/usr/bin/jukebox-arduino-pulse-dtr
 	install -m 755 $(CURDIR)/bin/check-daemons $(PACKAGE_DIR)/usr/bin/jukebox-check-daemons
+	install -m 755 $(CURDIR)/bin/synchronize $(PACKAGE_DIR)/usr/bin/jukebox-synchronize
 
     # Fix permissions
 	chmod 755 $(PACKAGE_DIR)/usr/lib/$(shell pyversions -d)/dist-packages/$(PACKAGE_NAME)/manage.py
