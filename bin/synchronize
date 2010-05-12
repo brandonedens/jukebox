@@ -19,7 +19,7 @@
 
 DATE=`date +%F`--`date +%T`
 TMP_DIR_CLIENT=/tmp/jukebox
-TMP_DIR_SERVER=/home/jukebox/tmp/
+TMP_DIR_SERVER=/home/jukebox/tmp
 
 # Database related filenames
 DB_FILENAME_MUSIC=${DATE}_music.json
