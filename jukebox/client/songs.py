@@ -33,7 +33,7 @@ from jukebox.music.models import Song
 
 from header import Header
 from screens import Screen, BlinkingText, ScrollingText
-from symbols import BuySymbol, LeftArrow, RightArrow
+from symbols import PlaySymbol, LeftArrow, RightArrow
 from transient_message import transient_message
 from credits import can_buy_song, credits_decrement
 from playlist import queue_song
@@ -115,7 +115,7 @@ class SongDetailScreen(Screen):
                    clutter.BIN_ALIGNMENT_START)
 
         self.left_arrow = LeftArrow()
-        self.buy = BuySymbol()
+        self.play = PlaySymbol()
 
         self.box = clutter.Box(clutter.BoxLayout())
         box_layout = self.box.get_layout_manager()
@@ -135,7 +135,7 @@ class SongDetailScreen(Screen):
         self.box.add(text)
         self.box.set_width(self.get_width() -
                            (self.left_arrow.get_width() +
-                            self.buy.get_width()))
+                            self.play.get_width()))
 
 
         layout.add(self.box,
@@ -146,7 +146,7 @@ class SongDetailScreen(Screen):
                    clutter.BIN_ALIGNMENT_START,
                    clutter.BIN_ALIGNMENT_CENTER)
 
-        layout.add(self.buy,
+        layout.add(self.play,
                    clutter.BIN_ALIGNMENT_END,
                    clutter.BIN_ALIGNMENT_CENTER)
 

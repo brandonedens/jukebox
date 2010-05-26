@@ -259,15 +259,15 @@ class RightArrow(Symbol):
         del cr
         self.add(self.arrow)
 
-class BuySymbol(Symbol):
+class PlaySymbol(Symbol):
 
     def __init__(self, width=DEFAULT_SYMBOL_SIZE):
-        super(BuySymbol, self).__init__(width=width, color='blue')
+        super(PlaySymbol, self).__init__(width=width, color='blue')
 
         self.box = clutter.Box(clutter.BinLayout(clutter.BIN_ALIGNMENT_CENTER,
                                                  clutter.BIN_ALIGNMENT_CENTER))
-        self.buy = clutter.Text('Router Ultra Bold 30', 'BUY')
-        self.buy.set_color(clutter.Color(255, 255, 255, 102))
-        self.box.add(self.buy)
+        self.play = clutter.Text('Router Ultra Bold 25', 'PLAY')
+        self.play.set_color(clutter.Color(255, 255, 255, 102))
+        self.box.add(self.play)
         self.add(self.box)
 
