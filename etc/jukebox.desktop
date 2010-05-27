@@ -4,3 +4,4 @@ Comment=This session will start Jukebox
 Exec=jukebox-standalone
 TryExec=jukebox-standalone
 Type=Application
+
