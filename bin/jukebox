@@ -74,8 +74,8 @@ def main():
 
     logging.info("Starting Jukebox.")
     signal.signal(signal.SIGINT, signal_handler)
-    # Sleep 3 seconds before starting.
-    time.sleep(3)
+    # Sleep 2 seconds before starting.
+    time.sleep(2)
     stage = clutter.Stage()
     stage.hide_cursor()
 
