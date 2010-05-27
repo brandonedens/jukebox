@@ -36,6 +36,7 @@ install: build
 
     # Install configuration file
 	install -m 644 $(CURDIR)/etc/jukebox.conf $(PACKAGE_DIR)/etc/jukebox/jukebox.conf
+	install -m 644 $(CURDIR)/etc/jukebox.desktop $(PACKAGE_DIR)/usr/share/xsessions/jukebox.desktop
 
     # Install backgrounds
 	install -m 644 $(CURDIR)/jukebox/client/images/jukebox_wallpapers.xml $(PACKAGE_DIR)/usr/share/gnome-background-properties/jukebox_wallpapers.xml

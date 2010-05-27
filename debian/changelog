@@ -1,3 +1,12 @@
+jukebox (0.3.2) unstable; urgency=low
+
+  * Added synchronize
+  * Changed BUY -> Play
+  * Began process of daemonizing software.
+  * Created Standalone xsession.
+
+ -- Brandon Edens <brandon@as220.org>  Thu, 27 May 2010 10:27:45 -0400
+
 jukebox (0.3.1) unstable; urgency=low
 
   * Add lockfile support.

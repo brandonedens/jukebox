@@ -51,6 +51,7 @@ class GUI(clutter.Box):
                               clutter.BIN_ALIGNMENT_CENTER)
             )
 
+        logging.info("Setting screen width = %s height = %s", settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT)
         self.set_size(settings.SCREEN_WIDTH,
                       settings.SCREEN_HEIGHT)
 
