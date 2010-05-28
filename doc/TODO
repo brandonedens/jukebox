@@ -1,63 +1,24 @@
+# -*-org-*-
 
-TODO List (2010-04-29)
-======================
-
-* switch jukebox website over to a jukebox user's directory on as220.org
-done
-
-* setup automatic synching with that jukebox user.
-
-* get a screensaver going (so screen doesn't blank)
-* add vinyl signage to the actual jukebox.
-* get artist details displaying (in screensaver and while scrolling around)
-* add notes to the review panel
-* add charts/graphs on play information (very useful for sanity check of
-  whether or not things are functioning correctly).
-* add capability to delete/edit photos in jukebox
-* add genre support
-* get hidden screens to automatically pause their animations (important
-  because its idling at something like 20% of processor usage)
-* get the jukebox to automatically sleep and wake so that it doesn't
-  stay on throughout the night
-* add admin functionality for bar/house/food
-* setup jukebox software to be standalone (not running inside gnome aka stop
-  noah and his father from screwing things up by jamming usb devices into the
-  front)
-
-
-Webserver Bugs
-==============
-
-(11:39:11 AM) Paolo: there's something wrong with the artists list.. goes to an empty page 2.
-
-(11:53:35 AM) Paolo: on the song page, the prev song / next song buttons hang below the edge of the rounded box.. it looks like the rounded box is sized to fit the button text but not the entire shiny round rect of the button.
-
-FIXED
-(11:42:26 AM) Paolo: go to search, just enter sdfsdfsdfsdfsdf and hit search.. a second search box appears.
-
-Check for digest:
-'e46b5c1865b53513bb10be9e3a2c2a54ee9e88f83e8802e85e728a2364ab649e'
-and automatically alert the user that there was problem uploading their file in the form.
-
-Add more details to the review listings.
-
-song review needs to automatically return to same page that was previously
-viewed.
-
-song review needs more details.
-
-need ability to send message to specific user
-
-breadcrumbs are broken in song information.
-
-
-Client BUGS
-===========
-
-Change BUY to PLAY.
-
-Only randomly play approved songs.
-FIXED
-
-Only randomly play between hours of 1:20am to 10:00am.
+* DONE setup automatic synching with the jukebox user.
+  Automatic synching complete but not finalized.
+* DONE get a screensaver going (so screen doesn't blank)
+* TODO add vinyl signage to the actual jukebox.
+* TODO get artist details displaying (in screensaver and while scrolling around)
+* TODO add notes to the review panel
+* TODO add charts/graphs on play information (very useful for sanity check of whether or not things are functioning correctly).
+* TODO add capability to delete/edit photos in jukebox
+* TODO add genre support
+* WAITING get hidden screens to automatically pause their animations (important because its idling at something like 20% of processor usage)
+* TODO get the jukebox to automatically sleep and wake so that it doesn't stay on throughout the night
+* TODO add admin functionality for bar/house/food
+* TODO setup jukebox software to be standalone (not running inside gnome aka stop noah and his father from screwing things up by jamming usb devices into the front)
+* TODO Only randomly play between hours of 1:20am to 10:00am.
+* TODO need ability to send message to specific user
+* TODO breadcrumbs are broken in song information.
+* TODO song review needs more details.
+* TODO song review needs to automatically return to same page that was previously viewed.
+* DONE switch jukebox website over to a jukebox user's directory on as220.org
+* DONE Change BUY to PLAY.
+* DONE Only randomly play approved songs.
 
