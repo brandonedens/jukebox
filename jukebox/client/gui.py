@@ -38,7 +38,7 @@ from transient_message import transient_message
 ## Classes
 ###############################################################################
 
-class GUI(clutter.Box):
+class GUI(object):
     """
     Main GUI for the jukebox.
     """
@@ -46,29 +46,40 @@ class GUI(clutter.Box):
     def __init__(self):
         """
         """
-        super(GUI, self).__init__(
-            clutter.BinLayout(clutter.BIN_ALIGNMENT_CENTER,
-                              clutter.BIN_ALIGNMENT_CENTER)
-            )
+        self.stage = clutter.Stage()
+        self.stage.hide_cursor()
+        self.stage.set_color(clutter.Color(0x00, 0x00, 0x00, 0xff))
+        if settings.FULLSCREEN:
+            logging.info('Setting GUI to fullscreen.')
+            self.stage.set_fullscreen(True)
+        self.stage.set_title("AS220 Jukebox")
+
+        self.stage.connect('destroy', clutter.main_quit)
+        self.stage.connect('key-press-event', self.on_press)
+        self.stage.connect('key-release-event', self.on_release)
+
+        self.layout = clutter.BinLayout(clutter.BIN_ALIGNMENT_CENTER,
+                                        clutter.BIN_ALIGNMENT_CENTER)
+        self.container = clutter.Box(self.layout)
 
         logging.info("Setting screen width = %s height = %s", settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT)
-        self.set_size(settings.SCREEN_WIDTH,
-                      settings.SCREEN_HEIGHT)
+        self.container.set_size(settings.SCREEN_WIDTH,
+                                settings.SCREEN_HEIGHT)
+        self.stage.add(self.container)
 
         # Setup screen container
         self.screen_container = ScreenContainer()
-        self.add(self.screen_container)
+        self.container.add(self.screen_container)
         front = FrontScreen()
         self.screen_container.add_screen(front)
         self.screen_container.active_screen = front
 
         self.transient_message = transient_message
         self.footer = footer
-        layout = self.get_layout_manager()
-        layout.add(self.footer,
-                   clutter.BIN_ALIGNMENT_CENTER,
-                   clutter.BIN_ALIGNMENT_END)
-        self.add(transient_message)
+        self.layout.add(self.footer,
+                        clutter.BIN_ALIGNMENT_CENTER,
+                        clutter.BIN_ALIGNMENT_END)
+        self.container.add(transient_message)
 
     def on_press(self, actor, event):
         """
@@ -85,6 +96,9 @@ class GUI(clutter.Box):
         elif event.keyval == clutter.keysyms.BackSpace:
             logging.info('Showing now playing information.')
             self.footer.display()
+        elif event.keyval == clutter.keysyms.f:
+            logging.info('Toggling fullscreen.')
+            self.stage.set_fullscreen(not stage.get_fullscreen())
         self.screen_container.on_press(actor, event)
 
     def on_release(self, actor, event):
@@ -110,4 +124,11 @@ class GUI(clutter.Box):
         """
         self.transient_message.message(text)
         self.transient_message.raise_top()
+
+    def run(self):
+        """
+        Run the GUI.
+        """
+        self.stage.show()
+        clutter.main()
 

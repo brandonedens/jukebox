@@ -76,25 +76,16 @@ def main():
     signal.signal(signal.SIGINT, signal_handler)
     # Sleep 2 seconds before starting.
     time.sleep(2)
-    stage = clutter.Stage()
-    stage.hide_cursor()
-
-    if settings.FULLSCREEN:
-        logging.info('Setting GUI to fullscreen.')
-        stage.set_fullscreen(True)
-    stage.set_color(clutter.Color(0x00, 0x00, 0x00, 0xff))
 
     # Create the GUI
     gui = GUI()
 
-    # Connect listeners
-    stage.connect('destroy', clutter.main_quit)
-    stage.connect('key-press-event', gui.on_press)
-    stage.connect('key-release-event', gui.on_release)
-    stage.add(gui)
+    # Connect timers
     gobject.timeout_add_seconds(1, gui.on_second)
-    stage.show()
-    clutter.main()
+
+    # Run the GUI
+    gui.run()
+
     logging.info("Stopping Jukebox.")
 
     return 0
