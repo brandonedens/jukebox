@@ -152,6 +152,24 @@ class Artist(models.Model):
             self.startswith = lower_name[0]
         super(Artist, self).save()
 
+    def total_paid_plays(self):
+        """
+        Return the total number of paid plays across all songs.
+        """
+        total = 0
+        for song in self.song_set.all():
+            total += song.total_paid_plays()
+        return total
+
+    def total_random_plays(self):
+        """
+        Return the total number of random plays across all songs.
+        """
+        total = 0
+        for song in self.song_set.all():
+            total += song.total_random_plays()
+        return total
+
 class Album(models.Model):
     artist = models.ForeignKey(Artist)
     title = models.CharField(max_length=255)
@@ -322,6 +340,18 @@ class Song(models.Model):
 
         # Call parent save()
         super(Song, self).save()
+
+    def total_paid_plays(self):
+        """
+        Return the total number of paid plays.
+        """
+        return self.paidplay_set.count()
+
+    def total_random_plays(self):
+        """
+        Return the total number of random plays.
+        """
+        return self.randomplay_set.count()
 
     def get_previous(self):
         """
