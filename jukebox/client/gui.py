@@ -47,24 +47,33 @@ class GUI(object):
         """
         """
         self.stage = clutter.Stage()
-        self.stage.hide_cursor()
-        self.stage.set_color(clutter.Color(0x00, 0x00, 0x00, 0xff))
+
         if settings.FULLSCREEN:
             logging.info('Setting GUI to fullscreen.')
+            self.stage.hide_cursor()
             self.stage.set_fullscreen(True)
+            self.stage.set_size(settings.SCREEN_WIDTH,
+                                settings.SCREEN_HEIGHT)
+
+        else:
+            logging.info('Setting GUI to windowed mode.')
+            self.stage.show_cursor()
+            self.stage.set_fullscreen(False)
+            self.stage.set_user_resizable(True)
+            self.stage.set_size(settings.SCREEN_WIDTH * 0.5,
+                                settings.SCREEN_HEIGHT * 0.5)
+
+        self.stage.set_color(clutter.Color(0x00, 0x00, 0x00, 0xff))
         self.stage.set_title("AS220 Jukebox")
 
         self.stage.connect('destroy', clutter.main_quit)
+        self.stage.connect('allocation-changed', self.on_allocation_changed)
         self.stage.connect('key-press-event', self.on_press)
         self.stage.connect('key-release-event', self.on_release)
 
         self.layout = clutter.BinLayout(clutter.BIN_ALIGNMENT_CENTER,
                                         clutter.BIN_ALIGNMENT_CENTER)
         self.container = clutter.Box(self.layout)
-
-        logging.info("Setting screen width = %s height = %s", settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT)
-        self.container.set_size(settings.SCREEN_WIDTH,
-                                settings.SCREEN_HEIGHT)
         self.stage.add(self.container)
 
         # Setup screen container
@@ -80,6 +89,13 @@ class GUI(object):
                         clutter.BIN_ALIGNMENT_CENTER,
                         clutter.BIN_ALIGNMENT_END)
         self.container.add(transient_message)
+
+    def on_allocation_changed(self, stage, allocation, flags):
+        """
+        Callback for when the screen size allocation changes.
+        """
+        width, height = allocation.size
+        self.container.set_size(width, height)
 
     def on_press(self, actor, event):
         """
