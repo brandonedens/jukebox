@@ -38,6 +38,13 @@
        inkscape:vp_z="2160 : 540 : 1"
        inkscape:persp3d-origin="1080 : 360 : 1"
        id="perspective19911" />
+    <inkscape:perspective
+       id="perspective4123"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      inkscape:document-units="in"
@@ -46,10 +53,10 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.30444875"
-     inkscape:cx="1348.214"
-     inkscape:cy="657.55741"
-     inkscape:current-layer="layerxy"
+     inkscape:zoom="0.8611111"
+     inkscape:cx="2082.876"
+     inkscape:cy="646.56955"
+     inkscape:current-layer="layer4"
      id="namedview2387"
      showgrid="true"
      units="in"
@@ -736,6 +743,25 @@
        sodipodi:ry="33.75"
        d="m 225,528.75 a 33.75,33.75 0 1 1 -67.5,0 33.75,33.75 0 1 1 67.5,0 z"
        transform="translate(1878.75,11.25)" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="key_hole_washer">
+    <rect
+       style="display:inline;fill:none;stroke:#ff0000;stroke-width:0.09000000000000000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3297-7"
+       width="79.973526"
+       height="39.599541"
+       x="2030.1631"
+       y="522.90027" />
+    <rect
+       style="fill:none;stroke:#ff0000;stroke-width:0.09;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       id="rect3297"
+       width="79.973526"
+       height="39.599541"
+       x="49.752659"
+       y="522.90027" />
   </g>
   <g
      inkscape:groupmode="layer"
