@@ -23,9 +23,14 @@
 ## Imports
 ###############################################################################
 
+import datetime
+
 from django.conf import settings
 from django import http
 from django.template import Context, loader
+from django.views.generic.simple import direct_to_template
+
+from jukebox.client.models import PaidPlay
 
 
 ###############################################################################
@@ -41,6 +46,55 @@ from django.template import Context, loader
 ###############################################################################
 ## Functions
 ###############################################################################
+
+def generate_top_playlist(timedelta):
+    """
+    """
+    now = datetime.datetime.now()
+    plays = PaidPlay.objects.filter(played_on__gte=(now - timedelta))
+
+    songs = {}
+    for play in plays:
+        if songs.has_key(play.song):
+            songs[play.song] += 1
+        else:
+            songs[play.song] = 1
+    songs_list = []
+    for song in songs:
+        songs_list.append((song, songs[song]))
+
+    songs_list.sort(key=lambda x: x[1])
+    songs_list.reverse()
+
+    results = []
+    for song in songs_list:
+        results.append(song[0])
+
+    return results
+
+
+def index(request):
+    """
+    Initial index page.
+    """
+    day_previous = datetime.timedelta(hours=24)
+    songs_most_played_today = generate_top_playlist(day_previous)
+    week_previous = datetime.timedelta(days=7)
+    songs_most_played_week = generate_top_playlist(week_previous)
+    month_previous = datetime.timedelta(days=30)
+    songs_most_played_month = generate_top_playlist(month_previous)
+
+    now = datetime.datetime.now()
+    paid_previous_plays = PaidPlay.objects.filter(played_on__gte=(now - week_previous))
+
+    return direct_to_template(
+        request, 'index.html',
+        extra_context={'songs_most_played_today': songs_most_played_today,
+                       'songs_most_played_week': songs_most_played_week[:10],
+                       'songs_most_played_month': songs_most_played_month[:10],
+                       'paid_previous_plays': paid_previous_plays,
+                       },
+        )
 
 def server_error(request, template_name='500.html'):
     """

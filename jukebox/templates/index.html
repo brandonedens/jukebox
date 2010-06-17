@@ -1,6 +1,9 @@
 {% extends "base.html" %}
+{% load seconds_to_duration %}
 
 {% block css %}
+{{ super.block }}
+<link href="{{ MEDIA_URL }}css/table.css" rel="stylesheet" type="text/css" />
 <link href="{{ MEDIA_URL }}css/base.css" rel="stylesheet" type="text/css" />
 <link href="{{ MEDIA_URL }}css/layout.css" rel="stylesheet" type="text/css" />
 {% endblock %}
@@ -81,6 +84,88 @@
   </li>
 </ul>
 </article>
+
+<article>
+  <h1>Statistics</h1>
+
+  <h2>Top plays from last 24 hours</h2>
+
+  <ol>
+    {% for song in songs_most_played_today %}
+    <li>
+      <a href="{{ song.artist.get_absolute_url }}">{{ song.artist }}</a> -
+      <a href="{{ song.get_absolute_url }}">{{ song }}</a>
+    </li>
+    {% endfor %}
+  </ol>
+
+  <h2>Top plays from past 7 days</h2>
+
+  <ol>
+    {% for song in songs_most_played_week %}
+    <li>
+      <a href="{{ song.artist.get_absolute_url }}">{{ song.artist }}</a> -
+      <a href="{{ song.get_absolute_url }}">{{ song }}</a>
+    </li>
+    {% endfor %}
+  </ol>
+
+  <h2>Top plays from last 30 days</h2>
+
+  <ol>
+    {% for song in songs_most_played_month %}
+    <li>
+      <a href="{{ song.artist.get_absolute_url }}">{{ song.artist }}</a> -
+      <a href="{{ song.get_absolute_url }}">{{ song }}</a>
+    </li>
+    {% endfor %}
+  </ol>
+</article>
+
+<article>
+  <h1>Previous Plays</h1>
+
+  <h2>Paid Playlist Past Week</h2>
+
+  <table class="sorted">
+    <thead>
+      <tr>
+      <th>
+        Time
+      </th>
+      <th>
+        Artist
+      </th>
+      <th>
+        Song
+      </th>
+      <th>
+        Duration
+      </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for play in paid_previous_plays %}
+      <tr>
+        <td>
+          {{ play.played_on|date }} {{ play.played_on|time }}
+        </td>
+        <td>
+          <a href="{{ play.song.artist.get_absolute_url }}">{{ play.song.artist }}</a>
+        </td>
+        <td>
+          <a href="{{ play.song.get_absolute_url }}">{{ play.song }}</a>
+        </td>
+        <td>
+          {{ play.song.duration|sec_to_dur }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</article>
+
+
 {% comment %}
 <div id="about" class="panel">
   <img class="cover" src="{{ MEDIA_URL }}images/about.png" alt="about" />

@@ -29,6 +29,8 @@ from django.conf import settings
 from django.contrib import admin
 from django.views.generic.simple import direct_to_template
 
+from jukebox.views import index
+
 
 ###############################################################################
 ## Statements
@@ -47,9 +49,9 @@ urlpatterns = patterns('',
     (r'^accounts/', include('registration.urls')),
 
     # Top level URLS.
-    url(r'^$', direct_to_template,
-        {'template': 'index.html',},
+    url(r'^$', index,
         name='index'),
+
     url(r'^about/$', direct_to_template,
         {'template': 'about.html',},
         name='about'),
