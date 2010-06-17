@@ -1,7 +1,53 @@
+.. -*- mode: rst; -*-
+
+
+
+
+Strategies for Automatically Starting Jukebox Software
+======================================================
+
+X11 Outside GDM on Ubuntu
+-------------------------
+
+Bypassing GDM startup under X11 first requires that you disable GDM upstart
+script. To do this move the /etc/init/gdm.conf script out of the way::
+
+  sudo mv /etc/init/gdm.conf /etc/init/gdm.conf.disabled
+
+Then you need to change who is allowed to execute startx by modifing the
+/etc/X11/Xwrapper.config file::
+
+  sudo vim /etc/X11/Xwrapper.config
+
+Change allowed_users=console to allowed_users=anybody.
+
+To start X11 from the initialization system add an entry /etc/rc.local::
+
+  su - jukebox startx
+
+Now you must add entries to the jukebox user's ~/.xinitrc::
+
+  #!/bin/bash
+  jukebox-player &
+  jukebox-random &
+  exec awesome
+
+As you'll notice here we've told the Awesome Window Manager to execute. Here we
+use the Awesome window manager because its light-weight and starts quickly. To
+ensure that jukebox and jukebox-buttons are started by Awesome we need to
+install the default configuration for Awesome then modify it to execute these
+two programs. To install the default configuration execute::
+
+  mkdir -p ~/.config/awesome
+  cp -rp /etc/xdg/awesome/rc.lua ~/.config/awesome/
+  echo 'awful.util.spawn_with_shell("jukebox")' >> ~/.config/awesome/rc.lua
+  echo 'awful.util.spawn_with_shell("jukebox-buttons")' >> ~/.config/awesome/rc.lua
+
+
+CREDITS
+=======
 
 The Router Font is curtsey of Jeremy Mickel.
 jeremy@mickeldesign.com
-
-
 
 
