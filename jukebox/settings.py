@@ -11,11 +11,13 @@ CONFIG_FILE_LOCATIONS = [os.getenv('HOME')+'/.jukebox.rc',
                          '/etc/jukebox/jukebox.conf',
                          ]
 config_file = None
-config = {}#yaml.load("data: False")
+config = {}
+# Find the configuration file.
 for filename in CONFIG_FILE_LOCATIONS:
     if os.path.isfile(filename):
         config_file = open(filename, 'r')
         break
+# Load the configuration file.
 if config_file:
     config = yaml.load(config_file)
 
