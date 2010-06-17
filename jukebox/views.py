@@ -89,9 +89,9 @@ def index(request):
 
     return direct_to_template(
         request, 'index.html',
-        extra_context={'songs_most_played_today': songs_most_played_today,
-                       'songs_most_played_week': songs_most_played_week[:10],
-                       'songs_most_played_month': songs_most_played_month[:10],
+        extra_context={'songs_most_played_today': songs_most_played_today[:20],
+                       'songs_most_played_week': songs_most_played_week[:20],
+                       'songs_most_played_month': songs_most_played_month[:20],
                        'paid_previous_plays': paid_previous_plays,
                        },
         )
