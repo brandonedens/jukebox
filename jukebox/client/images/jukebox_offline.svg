@@ -13,9 +13,9 @@
    height="1024"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47pre4 r22446"
+   inkscape:version="0.47 r22583"
    sodipodi:docname="jukebox_offline.svg"
-   inkscape:export-filename="/home/brandon/src/jukebox/client/images/jukebox_offline.png"
+   inkscape:export-filename="/home/brandon/src/jukebox/jukebox/client/images/jukebox_offline.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -57,7 +57,7 @@
      showgrid="false"
      units="in"
      inkscape:window-width="1366"
-     inkscape:window-height="695"
+     inkscape:window-height="716"
      inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1" />
