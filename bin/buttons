@@ -115,7 +115,15 @@ def main():
     except:
         usb_port = DEFAULT_SERIAL
 
-    ser = serial.Serial(usb_port, 115200, timeout=1)
+    ser = None
+    while ser == None:
+        try:
+            ser = serial.Serial(usb_port, 115200, timeout=1)
+        except:
+            logging.debug("Failure to open serial port.")
+            logging.debug("Sleeping for 5 seconds then trying again.")
+            time.sleep(5)
+    logging.info("Opened serial port.")
     ser.xonxoff = False
     ser.rtscts = False
 
