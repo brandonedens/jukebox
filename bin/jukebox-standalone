@@ -1,11 +1,12 @@
 #!/bin/sh
-while [ 1 ]; do
-    if which pulse-session; then
-        pulse-session jukebox
-    else
-        jukebox
-    fi
-    if [ $? -eq 0 ]; then
-        exit 0;
-    fi
-done
+# Start the player
+jukebox-player&
+# Start the randomizer
+jukebox-random&
+# Start buttons monitoring
+jukebox-buttons&
+
+sleep 3
+
+exec jukebox
+
