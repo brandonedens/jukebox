@@ -26,6 +26,7 @@
 from django.conf import settings
 from pango import ALIGN_CENTER
 import clutter
+import random
 import logging
 
 
@@ -41,6 +42,18 @@ FONT_OPACITY = 80
 ###############################################################################
 ## Classes
 ###############################################################################
+
+class BackgroundImages(clutter.Box):
+
+    def __init__(self, artist):
+        self.layout = clutter.FlowLayout(clutter.FLOW_HORIZONTAL)
+        super(BackgroundImages, self).__init__(self.layout)
+
+        photos = artist.photo_set.all()
+        if photos:
+            for photo in photos:
+                texture = clutter.Texture(settings.MEDIA_ROOT + "/" + photo.photo.name)
+                self.add(texture)
 
 class Screen(clutter.Box):
 
