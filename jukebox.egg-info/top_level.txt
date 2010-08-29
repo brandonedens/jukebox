@@ -1,1 +1,9 @@
-jukebox
+profile
+search
+browse
+utils
+django403
+client
+music
+registration
+review

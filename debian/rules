@@ -39,9 +39,9 @@ install: build
 	install -m 644 $(CURDIR)/etc/jukebox.desktop $(PACKAGE_DIR)/usr/share/xsessions/jukebox.desktop
 
     # Install backgrounds
-	install -m 644 $(CURDIR)/jukebox/client/images/jukebox_wallpapers.xml $(PACKAGE_DIR)/usr/share/gnome-background-properties/jukebox_wallpapers.xml
-	install -m 644 $(CURDIR)/jukebox/client/images/jukebox_offline.svg $(PACKAGE_DIR)/usr/share/backgrounds/jukebox_offline.svg
-	install -m 644 $(CURDIR)/jukebox/client/images/jukebox_offline.png $(PACKAGE_DIR)/usr/share/backgrounds/jukebox_offline.png
+	install -m 644 $(CURDIR)/client/images/jukebox_wallpapers.xml $(PACKAGE_DIR)/usr/share/gnome-background-properties/jukebox_wallpapers.xml
+	install -m 644 $(CURDIR)/client/images/jukebox_offline.svg $(PACKAGE_DIR)/usr/share/backgrounds/jukebox_offline.svg
+	install -m 644 $(CURDIR)/client/images/jukebox_offline.png $(PACKAGE_DIR)/usr/share/backgrounds/jukebox_offline.png
 
     # Install executables
 	install -m 755 $(CURDIR)/bin/jukebox $(PACKAGE_DIR)/usr/bin/jukebox

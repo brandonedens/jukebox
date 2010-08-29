@@ -2,13 +2,13 @@ Source: jukebox
 Section: unknown
 Priority: extra
 Maintainer: Brandon Edens <brandon@as220.org>
-Build-Depends: debhelper (>= 7), python-all (>= 2.5.4-1~), python-setuptools (>= 0.6c5-1~), python-django, python-yaml mutagen
+Build-Depends: debhelper (>= 7), python-all (>= 2.5.4-1~), python-setuptools (>= 0.6c5-1~), python-django, python-yaml, python-mutagen
 Standards-Version: 3.8.1
 Homepage: http://as220.org/git/gitweb/?p=jukebox.git;a=summary
 
 Package: jukebox
 Architecture: any
-Depends: ${python:Depends}, mysql-server, python-django, python-mysqldb, python-yaml, xdotool, mplayer, mutagen
+Depends: ${python:Depends}, mysql-server, python-django, python-mysqldb, python-yaml, xdotool, mplayer, python-mutagen
 Description: Jukebox software.
  Software for creating a jukebox.
 
