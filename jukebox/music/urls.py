@@ -25,7 +25,7 @@
 
 from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_detail
-from django.views.generic.list_detail import object_list\
+from django.views.generic.list_detail import object_list
 
 from jukebox import settings
 from jukebox.music.models import Artist, Genre, Photo, Song
