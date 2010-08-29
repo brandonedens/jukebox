@@ -62,7 +62,7 @@ SITE_ID = 1
 SITE_NAME = 'AS220 Jukebox'
 
 # Site URL
-SITE_URL = 'http://as220.org/jukebox_dev/'
+SITE_URL = 'http://as220.org/jukebox/'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -70,7 +70,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/brandon/src/jukebox/jukebox/static_media'
+MEDIA_ROOT = '/home/brandon/src/jukebox/static_media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -102,7 +102,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'jukebox.urls'
 
 TEMPLATE_DIRS = (
-    '/home/brandon/src/jukebox/jukebox/templates',
+    '/home/brandon/src/jukebox/templates',
 )
 
 INSTALLED_APPS = (
