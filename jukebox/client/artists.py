@@ -31,7 +31,7 @@ from jukebox.music.models import Artist
 
 from symbols import LeftArrow, RightArrow
 from header import Header
-from screens import Screen, BlinkingText, ScrollingText
+from screens import Screen, BackgroundImages, BlinkingText, ScrollingText
 from songs import SongDetailScreen
 
 
@@ -105,6 +105,15 @@ class ArtistDetailScreen(Screen):
             clutter.BIN_ALIGNMENT_CENTER))
         self.set_name('artist detail %s' % artist.name)
         layout = self.get_layout_manager()
+
+        photo = artist.random_photo()
+        self.background = BackgroundImages(artist)
+        #self.background = clutter.Texture(settings.MEDIA_ROOT + "/" + photo.photo.name)
+        self.background.set_opacity(30)
+        layout.add(self.background,
+                   clutter.BIN_ALIGNMENT_END,
+                   clutter.BIN_ALIGNMENT_END)
+        self.background.lower_bottom()
 
         self.header = Header('Artist Details')
         self.header.set_width(self.get_width())
