@@ -60,7 +60,7 @@ urlpatterns = patterns('jukebox.music.views',
     url(r'^song/startswith/(?P<letter>\w)/$', song_list_by_letter,
         name='song_list_by_letter',),
     url(r'^song/(?P<object_id>\d+)/$', object_detail,
-        {'queryset': Song.objects.filter(approved=True),
+        {'queryset': Song.objects.filter(),
          'template_object_name': 'song'},
         name='song_detail',),
 
