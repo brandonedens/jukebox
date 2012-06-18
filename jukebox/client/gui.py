@@ -46,7 +46,7 @@ class GUI(object):
     def __init__(self):
         """
         """
-        self.stage = clutter.Stage()
+        self.stage = clutter.stage_get_default()
 
         if settings.FULLSCREEN:
             logging.info('Setting GUI to fullscreen.')
